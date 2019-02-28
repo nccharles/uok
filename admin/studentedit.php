@@ -209,7 +209,7 @@ a.mobile{
     <li><a data-toggle="tab" href="#stdtreg">REGISTER STUDENT</a></li>
     <li><a data-toggle="tab" href="#rgstrd">VIEW REGISTERED STUDENTS</a></li>
     <li><a data-toggle="tab" href="#addanouc">ADD ANNOUCEMENT</a></li>
-    <li><a data-toggle="tab" href="#lectreg">ADD LECTURE</a></li>
+    <li><a data-toggle="tab" href="#lectreg">ADD LECTURER</a></li>
 
      <?php
           $sql = $con ->prepare("SELECT COUNT(claimid) as cl FROM claim where status='0'");
@@ -369,7 +369,7 @@ a.mobile{
 
     <div id="lectreg" class="tab-pane fade">
        <div id="box">
-          <div class="box-top">REGISTER LECTURE</div>
+          <div class="box-top">REGISTER LECTURER</div>
           <form method="POST" class="form-signin" action="getdata.php">
      <div class="form-group">
       <label for="title">FIRST NAME:</label>
