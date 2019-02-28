@@ -207,9 +207,9 @@ a.mobile{
      <div class="btn-group btn-group-justified" style="min-height: 100%;">
 
      <ul class="nav nav-tabs">
-    <li class="active"><a data-toggle="tab" href="#home">DASHBOARD</a></li>
+    <li class="active"><a data-toggle="tab" href="#rgstrd">VIEW REGISTERED STUDENTS</a></li>
     <li><a data-toggle="tab" href="#stdtreg">REGISTER STUDENT</a></li>
-    <li><a data-toggle="tab" href="#rgstrd">VIEW REGISTERED STUDENTS</a></li>
+    <li><a data-toggle="tab" href="#home">UNPUBLISHED MARKS</a></li>
     <li><a data-toggle="tab" href="#addanouc">ADD ANNOUCEMENT</a></li>
     <li><a data-toggle="tab" href="#lectreg">ADD LECTURER</a></li>
 
@@ -230,7 +230,7 @@ a.mobile{
 
   </ul>
   <div class="tab-content">
-    <div id="home" class="tab-pane fade in active">
+    <div id="home" class="tab-pane fade">
       <div class="row">
     <div class="col-sm-12">
         <?php
@@ -669,7 +669,7 @@ a.mobile{
   </div>
   </div>
 
- <div id="rgstrd" class="tab-pane fade">
+ <div id="rgstrd" class="tab-pane fade in active">
   <div class="panel panel-primary">
       <div class="panel-heading"><h5>All registered Students</h5></div>
       <div class="panel-body">
