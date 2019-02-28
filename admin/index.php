@@ -1384,7 +1384,7 @@ function validateForm() {
                 <select class="form-control" id="email" name="postitle">
             <option value="all">Select a Receiver</option>
             <option value="student">Students</option>
-            <option value="lecture">Lecture</option>
+            <option value="lecture">Lecturer</option>
           </select>
               </div>
               <div class="form-group">

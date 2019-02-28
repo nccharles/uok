@@ -192,338 +192,12 @@ a.mobile{
      <div class="btn-group btn-group-justified" style="min-height: 100%;">
 
      <ul class="nav nav-tabs">
-    <li class="active"><a data-toggle="tab" href="#home">DASHBOARD</a></li>
     <li><a data-toggle="tab" href="#stdtreg">REGISTER STUDENT</a></li>
     <li><a data-toggle="tab" href="#rgstrd">VIEW REGISTERED STUDENTS</a></li>
 
   </ul>
   <div class="tab-content">
-    <div id="home" class="tab-pane fade in active">
-      <div class="row">
-    <div class="col-sm-12">
-        <?php
-
-         if(isset($_POST['ssave'])){
-           $regnum=$_POST['regnum'];
-           $fname=$_POST['fname'];
-           $lname=$_POST['lname'];
-           $email=$_POST['email'];
-           $sessl=$_POST['sessl'];
-           $phone=$_POST['phone'];
-           $sgender=$_POST['sgender'];
-          $sql = $con ->prepare("SELECT COUNT(stlevid) FROM studentsesslevel WHERE sid=(SELECT sid from student WHERE regnum='$regnum')");
-           $sql -> execute();
-           $count = $sql->fetchColumn();
-           if($count == "0"){
-          $sql=$con->prepare("INSERT INTO student(regnum,fname,lname,gender,email,phone,password)values('$regnum','$fname','$lname','$sgender','$email','$phone','pass')");
-          $sql->execute();
-          $sql=$con->prepare("INSERT INTO studentsesslevel(sid,seslevid,Ystatus)values((SELECT sid from student WHERE regnum='$regnum'),'$sessl','1')");
-          $sql->execute();
-            ?>
-           <div class="alert alert-success">
-            <strong>Good!</strong>Student was registered in 1st year!.
-           </div>
-
-           <?php
-         }else{
-           $sql = $con ->prepare("SELECT MAX(stlevid) as deplevel FROM studentsesslevel WHERE sid=(SELECT sid from student WHERE regnum='$regnum') and Ystatus='1'");
-            $sql -> execute();
-            $rem=$sql->fetchAll();
-            foreach ($rem as $row);
-            $lid=$row['deplevel'];
-            if($lid == "1"){
-              $sql=$con->prepare("INSERT INTO studentsesslevel(sid,seslevid,Ystatus)values((SELECT sid from student WHERE regnum='$regnum'),'2','1')");
-              $sql->execute();
-              $sql=$con->prepare("UPDATE studentsesslevel SET Ystatus='0' where sid=(SELECT sid from student WHERE regnum='$regnum') and stlevid!='2'");
-              $sql->execute();
-              ?>
-              <div class="alert alert-success">
-               <strong>Good!</strong>Student was registered in 2nd year Day Program!.
-              </div>
-
-              <?php
-            }else if($lid == "2"){
-              $sql=$con->prepare("INSERT INTO studentsesslevel(sid,seslevid,Ystatus)values((SELECT sid from student WHERE regnum='$regnum'),'3','1')");
-              $sql->execute();
-              $sql=$con->prepare("UPDATE studentsesslevel SET Ystatus='0' where sid=(SELECT sid from student WHERE regnum='$regnum') and stlevid!='3'");
-              $sql->execute();
-              ?>
-              <div class="alert alert-success">
-               <strong>Good!</strong>Student was registered in 3rd year Day Program!.
-              </div>
-
-              <?php
-            }else if($lid == "4"){
-              $sql=$con->prepare("INSERT INTO studentsesslevel(sid,seslevid,Ystatus)values((SELECT sid from student WHERE regnum='$regnum'),'5','1')");
-              $sql->execute();
-              $sql=$con->prepare("UPDATE studentsesslevel SET Ystatus='0' where sid=(SELECT sid from student WHERE regnum='$regnum') and stlevid!='5'");
-              $sql->execute();
-              ?>
-              <div class="alert alert-success">
-               <strong>Good!</strong>Student was registered in 2nd year Evening Program!.
-              </div>
-
-              <?php
-            }else if($lid == "5"){
-              $sql=$con->prepare("INSERT INTO studentsesslevel(sid,seslevid,Ystatus)values((SELECT sid from student WHERE regnum='$regnum'),'6','1')");
-              $sql->execute();
-              $sql=$con->prepare("UPDATE studentsesslevel SET Ystatus='0' where sid=(SELECT sid from student WHERE regnum='$regnum') and stlevid!='6'");
-              $sql->execute();
-              ?>
-              <div class="alert alert-success">
-               <strong>Good!</strong>Student was registered in 3rd year Evening Program!.
-              </div>
-
-              <?php
-            }else if($lid == "7"){
-              $sql=$con->prepare("INSERT INTO studentsesslevel(sid,seslevid,Ystatus)values((SELECT sid from student WHERE regnum='$regnum'),'8','1')");
-              $sql->execute();
-              $sql=$con->prepare("UPDATE studentsesslevel SET Ystatus='0' where sid=(SELECT sid from student WHERE regnum='$regnum') and stlevid!='8'");
-              $sql->execute();
-              ?>
-              <div class="alert alert-success">
-               <strong>Good!</strong>Student was registered in 2nd Weekend Program!.
-              </div>
-
-              <?php
-            }else if($lid == "8"){
-              $sql=$con->prepare("INSERT INTO studentsesslevel(sid,seslevid,Ystatus)values((SELECT sid from student WHERE regnum='$regnum'),'9','1')");
-              $sql->execute();
-              $sql=$con->prepare("UPDATE studentsesslevel SET Ystatus='0' where sid=(SELECT sid from student WHERE regnum='$regnum') and stlevid!='9'");
-              $sql->execute();
-              ?>
-              <div class="alert alert-success">
-               <strong>Good!</strong>Student was registered in 3rd year Weekend Programm!.
-              </div>
-
-              <?php
-            }else{
-              ?>
-              <div class="alert alert-warning">
-               <strong>Student!</strong>Already registered in 3rd year!.
-              </div>
-
-              <?php
-            }
-        }
-      }
-      if(isset($_POST['npass'])){
-          $oldpass=$_POST['oldpass'];
-          $newpass=$_POST['newpass'];
-          $sql=$con->prepare("UPDATE registrar SET password='$newpass' where password='$oldpass' and fname='$uname'");
-          $sql->execute();
-          ?>
-           <div class="alert alert-success">
-            <strong>Password was Changed!</strong>
-           </div>
-
-           <?php
-           echo "<meta http-equiv='refresh' content='3;url=registrar.php'>";
-      }
-
-         if(isset($_POST['ssavec'])){
-          $id=$_POST['sid'];
-           $regnum=$_POST['regnum'];
-           $fname=$_POST['fname'];
-           $lname=$_POST['lname'];
-           $email=$_POST['email'];
-           $phone=$_POST['phone'];
-           $sgender=$_POST['sgender'];
-           $sql=$con->prepare("UPDATE student SET regnum='$regnum',fname='$fname',lname='$lname',gender='$sgender',email='$email',phone='$phone' where sid=$id");
-          try{
-          $sql->execute();
-         }catch(PDOException $e)
-         {
-           echo "error".$e->getMessage();
-         }
-        }
-         if(isset($_POST['asend'])){
-         $pos=$_POST['postitle'];
-         $tit=$_POST['tit'];
-         $ann=$_POST['Annoucement'];
-         if($pos=='student'){
-            $slev=$_POST['slevel'];
-            if($slev=="level 1"){
-              $sq=$con->prepare("INSERT INTO annoucement(title,body,pdate) values('$tit','$ann',now())");
-            $sq->execute();
-            $levid=1;
-            $sql = $con->prepare("SELECT s.sid,s.phone,s.fname,l.levid FROM student as s,level as l,sesslevel as sl, Session as ss,studentsesslevel as stl where s.sid=stl.sid and (stl.seslevid='1' or stl.seslevid='4' or stl.seslevid='7') and sl.sID=ss.sID and l.level='level 1' and stl.Ystatus='1' GROUP BY s.sid");
-             $sql->execute();
-            
-             ?>
-           <div class="alert alert-success">
-            <strong>Good!</strong>Announcement was sent to the 1st year Students!.
-           </div>
-
-           <?php
-           echo "<meta http-equiv='refresh' content='3;url=registrar.php'>";
-            }else if($slev=="level 2"){
-             $sq=$con->prepare("INSERT INTO annoucement(title,body,pdate) values('$tit','$ann',now())");
-            $sq->execute();
-            $levid=2;
-            $sql = $con->prepare("SELECT s.sid,s.phone,s.fname,l.levid FROM student as s,level as l,sesslevel as sl, Session as ss,studentsesslevel as stl where s.sid=stl.sid and (stl.seslevid='2' or stl.seslevid='5' or stl.seslevid='8') and sl.sID=ss.sID and l.level='level 2' and stl.Ystatus='1' GROUP BY s.sid");
-             $sql->execute();
-            ?>
-           <div class="alert alert-success">
-            <strong>Good!</strong>Announcement was sent to the 2nd year Students!.
-           </div>
-
-           <?php
-           echo "<meta http-equiv='refresh' content='3;url=registrar.php'>";
-            }else if($slev=="level 3"){
-             $sq=$con->prepare("INSERT INTO annoucement(title,body,pdate) values('$tit','$ann',now())");
-            $sq->execute();
-            $levid=3;
-            $sql = $con->prepare("SELECT s.sid,s.phone,s.fname,l.levid FROM student as s,level as l,sesslevel as sl, Session as ss,studentsesslevel as stl where s.sid=stl.sid and (stl.seslevid='3' or stl.seslevid='6' or stl.seslevid='9') and sl.sID=ss.sID and l.level='level 3' and stl.Ystatus='1' GROUP BY s.sid");
-             $sql->execute();
-             
-           ?>
-           <div class="alert alert-success">
-            <strong>Good!</strong>Announcement was sent to the 3rd year Student!.
-           </div>
-
-           <?php
-            echo "<meta http-equiv='refresh' content='3;url=registrar.php'>";
-            }
-            else if($slev=="all"){
-             $sq=$con->prepare("INSERT INTO annoucement(title,body,pdate) values('$tit','$ann',now())");
-            $sq->execute();
-            $levid=1;
-            $sql = $con->prepare("SELECT s.sid,s.phone,s.fname,l.levid FROM student as s,level as l,sesslevel as sl, Session as ss,studentsesslevel as stl where s.sid=stl.sid and sl.sID=ss.sID and stl.Ystatus='1' GROUP BY s.sid");
-             $sql->execute();
-            
-           ?>
-           <div class="alert alert-success">
-            <strong>Good!</strong>Announcement was sent to All Student!.
-           </div>
-
-           <?php
-            echo "<meta http-equiv='refresh' content='3;url=registrar.php'>";
-            }else{
-                 ?>
-           <div class="alert alert-warning">
-            <strong>Warning!</strong>Please Select a Students level!.
-           </div>
-
-           <?php
-            echo "<meta http-equiv='refresh' content='3;url=registrar.php'>";
-            }
-
-        }else if($pos=='lecture'){
-               $kid=2;
-              $slev=$_POST['slevel'];
-            if($slev=="level 1"){
-             $sq=$con->prepare("INSERT INTO annoucement(title,body,pdate) values('$tit','$ann',now())");
-            $sq->execute();
-            ?>
-           <div class="alert alert-success">
-            <strong>Good!</strong>Announcement was sent to the 1st year Lecture!.
-           </div>
-
-           <?php
-            $sql = $con->prepare("SELECT lec.phone,lec.fname,l.levid FROM lecture as lec,level as l where l.level='level 1' GROUP by l.levid");
-             $sql->execute();
-             
-            }else if($slev=="level 2"){
-             
-            $sq=$con->prepare("INSERT INTO annoucement(title,body,pdate) values('$tit','$ann',now())");
-           $sq->execute();
-           $sql = $con->prepare("SELECT lec.phone,lec.fname,l.levid FROM lecture as lec,level as l where l.level='level 2' GROUP by l.levid");
-           $sql->execute();
-           $levid=2;
-            ?>
-           <div class="alert alert-success">
-            <strong>Good!</strong>Announcement was sent to the 2nd year Lecture!.
-           </div>
-
-           <?php
-            }else if($slev=="level 3"){
-             
-             $sq=$con->prepare("INSERT INTO annoucement(title,body,pdate) values('$tit','$ann',now())");
-          $sq->execute();
-          $sql = $con->prepare("SELECT lec.phone,lec.fname,l.levid FROM lecture as lec,level as l where l.level='level 3' GROUP by l.levid");
-             $sql->execute();
-           ?>
-           <div class="alert alert-success">
-            <strong>Good!</strong>Announcement was sent to the 3rd year Lecture!.
-           </div>
-
-           <?php
-            }
-            else if($slev=="all"){
-             
-             $sq=$con->prepare("INSERT INTO annoucement(title,body,pdate) values('$tit','$ann',now())");
-          $sq->execute();
-          $sql = $con->prepare("SELECT lec.phone,lec.fname,l.levid FROM lecture as lec,level as l GROUP by l.levid");
-             $sql->execute();
-          $levid=0;
-           ?>
-           <div class="alert alert-success">
-            <strong>Good!</strong>Announcement was sent to All Lectures!.
-           </div>
-
-           <?php
-            }
-            }else{
-
-           ?>
-           <div class="alert alert-danger">
-            <strong>Please!</strong>Select a receiver!.
-           </div>
-
-           <?php
-           echo "<meta http-equiv='refresh' content='1;url=registrar.php'>";
-        }
-        $res = $sql-> fetchAll();
-             foreach ($res as $row) {
-                $telephone=$row['phone'];
-                $fname=$row['fname'];
-               $sq=$con->prepare("INSERT INTO studentannoucement(sid,annid,status) values((SELECT sid from student where phone='$telephone'),(SELECT max(annid) from annoucement),'0')");
-              $sq->execute();
-              $sql=$con->prepare("INSERT INTO lectureannouncement(lid,annid,status) values((SELECT lid from lecture where phone='$telephone'),(SELECT max(annid) from annoucement limit 1),'0')");
-              $sql->execute();
-              $data = array(
-              "sender"=>"0784603404",
-              "recipients"=>$telephone,
-              "message"=>"Dear ".$fname.", ".$ann,
-            );
-
-            $url = "https://www.intouchsms.co.rw/api/sendsms/.json";
-
-            $data = http_build_query ($data);
-
-            $username="CharlesGeek";
-            $password="gsschool12";
-
-            //open connection
-            $ch = curl_init();
-
-            //set the url, number of POST vars, POST data
-            curl_setopt($ch,CURLOPT_URL, $url);
-            curl_setopt($ch, CURLOPT_USERPWD, $username . ":" . $password);
-            curl_setopt($ch,CURLOPT_POST,true);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
-            curl_setopt($ch,CURLOPT_POSTFIELDS, $data);
-
-            //execute post
-            $result = curl_exec($ch);
-            $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-            //close connection
-            curl_close($ch);
-             }
-
-          }
-
-        ?>
-   <div class="well well-lg">
-  
-   </div>
-
-  </div>
-  </div>
-  </div>
-
+    
  <div id="rgstrd" class="tab-pane fade">
   <div class="panel panel-primary">
       <div class="panel-heading"><h5>All registered Students</h5></div>
@@ -1622,7 +1296,322 @@ a.mobile{
     </div>
   </div>
 
-    <div id="stdtreg" class="tab-pane fade">
+    <div id="stdtreg" class="tab-pane fade  in active">
+    <?php
+
+if(isset($_POST['ssave'])){
+  $regnum=$_POST['regnum'];
+  $fname=$_POST['fname'];
+  $lname=$_POST['lname'];
+  $email=$_POST['email'];
+  $sessl=$_POST['sessl'];
+  $phone=$_POST['phone'];
+  $sgender=$_POST['sgender'];
+ $sql = $con ->prepare("SELECT COUNT(stlevid) FROM studentsesslevel WHERE sid=(SELECT sid from student WHERE regnum='$regnum')");
+  $sql -> execute();
+  $count = $sql->fetchColumn();
+  if($count == "0"){
+ $sql=$con->prepare("INSERT INTO student(regnum,fname,lname,gender,email,phone,password)values('$regnum','$fname','$lname','$sgender','$email','$phone','pass')");
+ $sql->execute();
+ $sql=$con->prepare("INSERT INTO studentsesslevel(sid,seslevid,Ystatus)values((SELECT sid from student WHERE regnum='$regnum'),'$sessl','1')");
+ $sql->execute();
+   ?>
+  <div class="alert alert-success">
+   <strong>Good!</strong>Student was registered in 1st year!.
+  </div>
+
+  <?php
+}else{
+  $sql = $con ->prepare("SELECT MAX(stlevid) as deplevel FROM studentsesslevel WHERE sid=(SELECT sid from student WHERE regnum='$regnum') and Ystatus='1'");
+   $sql -> execute();
+   $rem=$sql->fetchAll();
+   foreach ($rem as $row);
+   $lid=$row['deplevel'];
+   if($lid == "1"){
+     $sql=$con->prepare("INSERT INTO studentsesslevel(sid,seslevid,Ystatus)values((SELECT sid from student WHERE regnum='$regnum'),'2','1')");
+     $sql->execute();
+     $sql=$con->prepare("UPDATE studentsesslevel SET Ystatus='0' where sid=(SELECT sid from student WHERE regnum='$regnum') and stlevid!='2'");
+     $sql->execute();
+     ?>
+     <div class="alert alert-success">
+      <strong>Good!</strong>Student was registered in 2nd year Day Program!.
+     </div>
+
+     <?php
+   }else if($lid == "2"){
+     $sql=$con->prepare("INSERT INTO studentsesslevel(sid,seslevid,Ystatus)values((SELECT sid from student WHERE regnum='$regnum'),'3','1')");
+     $sql->execute();
+     $sql=$con->prepare("UPDATE studentsesslevel SET Ystatus='0' where sid=(SELECT sid from student WHERE regnum='$regnum') and stlevid!='3'");
+     $sql->execute();
+     ?>
+     <div class="alert alert-success">
+      <strong>Good!</strong>Student was registered in 3rd year Day Program!.
+     </div>
+
+     <?php
+   }else if($lid == "4"){
+     $sql=$con->prepare("INSERT INTO studentsesslevel(sid,seslevid,Ystatus)values((SELECT sid from student WHERE regnum='$regnum'),'5','1')");
+     $sql->execute();
+     $sql=$con->prepare("UPDATE studentsesslevel SET Ystatus='0' where sid=(SELECT sid from student WHERE regnum='$regnum') and stlevid!='5'");
+     $sql->execute();
+     ?>
+     <div class="alert alert-success">
+      <strong>Good!</strong>Student was registered in 2nd year Evening Program!.
+     </div>
+
+     <?php
+   }else if($lid == "5"){
+     $sql=$con->prepare("INSERT INTO studentsesslevel(sid,seslevid,Ystatus)values((SELECT sid from student WHERE regnum='$regnum'),'6','1')");
+     $sql->execute();
+     $sql=$con->prepare("UPDATE studentsesslevel SET Ystatus='0' where sid=(SELECT sid from student WHERE regnum='$regnum') and stlevid!='6'");
+     $sql->execute();
+     ?>
+     <div class="alert alert-success">
+      <strong>Good!</strong>Student was registered in 3rd year Evening Program!.
+     </div>
+
+     <?php
+   }else if($lid == "7"){
+     $sql=$con->prepare("INSERT INTO studentsesslevel(sid,seslevid,Ystatus)values((SELECT sid from student WHERE regnum='$regnum'),'8','1')");
+     $sql->execute();
+     $sql=$con->prepare("UPDATE studentsesslevel SET Ystatus='0' where sid=(SELECT sid from student WHERE regnum='$regnum') and stlevid!='8'");
+     $sql->execute();
+     ?>
+     <div class="alert alert-success">
+      <strong>Good!</strong>Student was registered in 2nd Weekend Program!.
+     </div>
+
+     <?php
+   }else if($lid == "8"){
+     $sql=$con->prepare("INSERT INTO studentsesslevel(sid,seslevid,Ystatus)values((SELECT sid from student WHERE regnum='$regnum'),'9','1')");
+     $sql->execute();
+     $sql=$con->prepare("UPDATE studentsesslevel SET Ystatus='0' where sid=(SELECT sid from student WHERE regnum='$regnum') and stlevid!='9'");
+     $sql->execute();
+     ?>
+     <div class="alert alert-success">
+      <strong>Good!</strong>Student was registered in 3rd year Weekend Programm!.
+     </div>
+
+     <?php
+   }else{
+     ?>
+     <div class="alert alert-warning">
+      <strong>Student!</strong>Already registered in 3rd year!.
+     </div>
+
+     <?php
+   }
+}
+}
+if(isset($_POST['npass'])){
+ $oldpass=$_POST['oldpass'];
+ $newpass=$_POST['newpass'];
+ $sql=$con->prepare("UPDATE registrar SET password='$newpass' where password='$oldpass' and fname='$uname'");
+ $sql->execute();
+ ?>
+  <div class="alert alert-success">
+   <strong>Password was Changed!</strong>
+  </div>
+
+  <?php
+  echo "<meta http-equiv='refresh' content='3;url=registrar.php'>";
+}
+
+if(isset($_POST['ssavec'])){
+ $id=$_POST['sid'];
+  $regnum=$_POST['regnum'];
+  $fname=$_POST['fname'];
+  $lname=$_POST['lname'];
+  $email=$_POST['email'];
+  $phone=$_POST['phone'];
+  $sgender=$_POST['sgender'];
+  $sql=$con->prepare("UPDATE student SET regnum='$regnum',fname='$fname',lname='$lname',gender='$sgender',email='$email',phone='$phone' where sid=$id");
+ try{
+ $sql->execute();
+}catch(PDOException $e)
+{
+  echo "error".$e->getMessage();
+}
+}
+if(isset($_POST['asend'])){
+$pos=$_POST['postitle'];
+$tit=$_POST['tit'];
+$ann=$_POST['Annoucement'];
+if($pos=='student'){
+   $slev=$_POST['slevel'];
+   if($slev=="level 1"){
+     $sq=$con->prepare("INSERT INTO annoucement(title,body,pdate) values('$tit','$ann',now())");
+   $sq->execute();
+   $levid=1;
+   $sql = $con->prepare("SELECT s.sid,s.phone,s.fname,l.levid FROM student as s,level as l,sesslevel as sl, Session as ss,studentsesslevel as stl where s.sid=stl.sid and (stl.seslevid='1' or stl.seslevid='4' or stl.seslevid='7') and sl.sID=ss.sID and l.level='level 1' and stl.Ystatus='1' GROUP BY s.sid");
+    $sql->execute();
+   
+    ?>
+  <div class="alert alert-success">
+   <strong>Good!</strong>Announcement was sent to the 1st year Students!.
+  </div>
+
+  <?php
+  echo "<meta http-equiv='refresh' content='3;url=registrar.php'>";
+   }else if($slev=="level 2"){
+    $sq=$con->prepare("INSERT INTO annoucement(title,body,pdate) values('$tit','$ann',now())");
+   $sq->execute();
+   $levid=2;
+   $sql = $con->prepare("SELECT s.sid,s.phone,s.fname,l.levid FROM student as s,level as l,sesslevel as sl, Session as ss,studentsesslevel as stl where s.sid=stl.sid and (stl.seslevid='2' or stl.seslevid='5' or stl.seslevid='8') and sl.sID=ss.sID and l.level='level 2' and stl.Ystatus='1' GROUP BY s.sid");
+    $sql->execute();
+   ?>
+  <div class="alert alert-success">
+   <strong>Good!</strong>Announcement was sent to the 2nd year Students!.
+  </div>
+
+  <?php
+  echo "<meta http-equiv='refresh' content='3;url=registrar.php'>";
+   }else if($slev=="level 3"){
+    $sq=$con->prepare("INSERT INTO annoucement(title,body,pdate) values('$tit','$ann',now())");
+   $sq->execute();
+   $levid=3;
+   $sql = $con->prepare("SELECT s.sid,s.phone,s.fname,l.levid FROM student as s,level as l,sesslevel as sl, Session as ss,studentsesslevel as stl where s.sid=stl.sid and (stl.seslevid='3' or stl.seslevid='6' or stl.seslevid='9') and sl.sID=ss.sID and l.level='level 3' and stl.Ystatus='1' GROUP BY s.sid");
+    $sql->execute();
+    
+  ?>
+  <div class="alert alert-success">
+   <strong>Good!</strong>Announcement was sent to the 3rd year Student!.
+  </div>
+
+  <?php
+   echo "<meta http-equiv='refresh' content='3;url=registrar.php'>";
+   }
+   else if($slev=="all"){
+    $sq=$con->prepare("INSERT INTO annoucement(title,body,pdate) values('$tit','$ann',now())");
+   $sq->execute();
+   $levid=1;
+   $sql = $con->prepare("SELECT s.sid,s.phone,s.fname,l.levid FROM student as s,level as l,sesslevel as sl, Session as ss,studentsesslevel as stl where s.sid=stl.sid and sl.sID=ss.sID and stl.Ystatus='1' GROUP BY s.sid");
+    $sql->execute();
+   
+  ?>
+  <div class="alert alert-success">
+   <strong>Good!</strong>Announcement was sent to All Student!.
+  </div>
+
+  <?php
+   echo "<meta http-equiv='refresh' content='3;url=registrar.php'>";
+   }else{
+        ?>
+  <div class="alert alert-warning">
+   <strong>Warning!</strong>Please Select a Students level!.
+  </div>
+
+  <?php
+   echo "<meta http-equiv='refresh' content='3;url=registrar.php'>";
+   }
+
+}else if($pos=='lecture'){
+      $kid=2;
+     $slev=$_POST['slevel'];
+   if($slev=="level 1"){
+    $sq=$con->prepare("INSERT INTO annoucement(title,body,pdate) values('$tit','$ann',now())");
+   $sq->execute();
+   ?>
+  <div class="alert alert-success">
+   <strong>Good!</strong>Announcement was sent to the 1st year Lecture!.
+  </div>
+
+  <?php
+   $sql = $con->prepare("SELECT lec.phone,lec.fname,l.levid FROM lecture as lec,level as l where l.level='level 1' GROUP by l.levid");
+    $sql->execute();
+    
+   }else if($slev=="level 2"){
+    
+   $sq=$con->prepare("INSERT INTO annoucement(title,body,pdate) values('$tit','$ann',now())");
+  $sq->execute();
+  $sql = $con->prepare("SELECT lec.phone,lec.fname,l.levid FROM lecture as lec,level as l where l.level='level 2' GROUP by l.levid");
+  $sql->execute();
+  $levid=2;
+   ?>
+  <div class="alert alert-success">
+   <strong>Good!</strong>Announcement was sent to the 2nd year Lecture!.
+  </div>
+
+  <?php
+   }else if($slev=="level 3"){
+    
+    $sq=$con->prepare("INSERT INTO annoucement(title,body,pdate) values('$tit','$ann',now())");
+ $sq->execute();
+ $sql = $con->prepare("SELECT lec.phone,lec.fname,l.levid FROM lecture as lec,level as l where l.level='level 3' GROUP by l.levid");
+    $sql->execute();
+  ?>
+  <div class="alert alert-success">
+   <strong>Good!</strong>Announcement was sent to the 3rd year Lecture!.
+  </div>
+
+  <?php
+   }
+   else if($slev=="all"){
+    
+    $sq=$con->prepare("INSERT INTO annoucement(title,body,pdate) values('$tit','$ann',now())");
+ $sq->execute();
+ $sql = $con->prepare("SELECT lec.phone,lec.fname,l.levid FROM lecture as lec,level as l GROUP by l.levid");
+    $sql->execute();
+ $levid=0;
+  ?>
+  <div class="alert alert-success">
+   <strong>Good!</strong>Announcement was sent to All Lectures!.
+  </div>
+
+  <?php
+   }
+   }else{
+
+  ?>
+  <div class="alert alert-danger">
+   <strong>Please!</strong>Select a receiver!.
+  </div>
+
+  <?php
+  echo "<meta http-equiv='refresh' content='1;url=registrar.php'>";
+}
+$res = $sql-> fetchAll();
+    foreach ($res as $row) {
+       $telephone=$row['phone'];
+       $fname=$row['fname'];
+      $sq=$con->prepare("INSERT INTO studentannoucement(sid,annid,status) values((SELECT sid from student where phone='$telephone'),(SELECT max(annid) from annoucement),'0')");
+     $sq->execute();
+     $sql=$con->prepare("INSERT INTO lectureannouncement(lid,annid,status) values((SELECT lid from lecture where phone='$telephone'),(SELECT max(annid) from annoucement limit 1),'0')");
+     $sql->execute();
+     $data = array(
+     "sender"=>"0784603404",
+     "recipients"=>$telephone,
+     "message"=>"Dear ".$fname.", ".$ann,
+   );
+
+   $url = "https://www.intouchsms.co.rw/api/sendsms/.json";
+
+   $data = http_build_query ($data);
+
+   $username="CharlesGeek";
+   $password="gsschool12";
+
+   //open connection
+   $ch = curl_init();
+
+   //set the url, number of POST vars, POST data
+   curl_setopt($ch,CURLOPT_URL, $url);
+   curl_setopt($ch, CURLOPT_USERPWD, $username . ":" . $password);
+   curl_setopt($ch,CURLOPT_POST,true);
+   curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
+   curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+   curl_setopt($ch,CURLOPT_POSTFIELDS, $data);
+
+   //execute post
+   $result = curl_exec($ch);
+   $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+   //close connection
+   curl_close($ch);
+    }
+
+ }
+
+?>
 
           <div class="box-top">REGISTER STUDENT</div>
          <div class="form-group">

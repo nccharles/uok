@@ -341,7 +341,7 @@ a.mobile{
                 <label for="email">Annouce for:</label>
                 <select class="form-control" id="email" name="email">
             <option value="all">All</option>
-            <option value="lect">Lectures</option>
+            <option value="lect">Lecturers</option>
             <option value="stud">Students</option>
           </select>
               <label for="email">Level:</label>
