@@ -178,7 +178,21 @@ a.mobile{
         <li><a data-toggle="tab" href="#ann" aria-expanded="false"><span class="glyphicon glyphicon-bell"></span><i class="fa fa-bell-o"></i> <span class="badge" style="background-color: red;"><?php echo $row['an']; ?></span></a></li><?php }?>
         <li><a href="stdlgout.php"><span class="glyphicon glyphicon-off"></span></a></li>
     </ul>
-    <?php if(isset($_POST['claim'])){
+    <?php 
+    if(isset($_POST['npass'])){
+      $oldpass=$_POST['oldpass'];
+      $newpass=$_POST['newpass'];
+      $sql=$con->prepare("UPDATE student SET password='$newpass' where password='$oldpass' and regnum='$regnum'");
+      $sql->execute();
+      ?>
+       <div class="alert alert-success">
+        <strong>Password was Changed!</strong>
+       </div>
+       
+       <?php
+       echo "<meta http-equiv='refresh' content='3;url=studenthome.php'>";
+  }
+    if(isset($_POST['claim'])){
           $fname=$_POST['fname'];
           $lname=$_POST['lname'];
           $reg=$_POST['reg'];

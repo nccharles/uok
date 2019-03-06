@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.6
+-- version 4.7.9
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: Jul 12, 2018 at 04:05 PM
--- Server version: 5.5.54-38.7-log
--- PHP Version: 5.6.30
+-- Host: localhost
+-- Generation Time: Mar 06, 2019 at 02:42 PM
+-- Server version: 10.1.31-MariaDB
+-- PHP Version: 7.2.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -17,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `sabienar_uok`
+-- Database: `claim`
 --
 
 -- --------------------------------------------------------
@@ -45,9 +47,12 @@ INSERT INTO `annoucement` (`annid`, `title`, `body`, `pdate`) VALUES
 (6, 'Meeting', 'Munama sha ', '2018-05-27 10:17:58'),
 (7, 'Munama', 'Mutumiwe mu nama', '2018-05-27 10:21:27'),
 (8, 'Munama', 'Utumiwe munama', '2018-05-27 10:24:28'),
-(9, 'Student Meeting', 'We would like to do a meeting on Thursday at Uok main hall. thanks', '2018-06-19 09:57:14'),
-(10, 'Meeting', 'Tomorrow is a meeting', '2018-06-20 08:21:48'),
-(11, 'Mett', 'Meetings', '2018-07-09 07:57:45');
+(9, 'Meeting', 'Muraho', '2018-07-16 13:32:09'),
+(10, 'Meeting', 'dff,mfbv', '2018-07-16 13:32:40'),
+(11, 'Leaning meeting', 'kjsdbjksdsd', '2018-07-16 14:06:12'),
+(12, 'Meeting', 'fgdxcvvbkhcgv', '2018-07-16 17:36:43'),
+(13, 'Feedback', 'Hey , Twabonye ikibazo cyawe ihangane tugiye kukigaho tuzagusubiza vuba bidatinze.Urakoze kwihangana!', '2019-03-06 12:30:28'),
+(14, 'Check availability', 'Ok we need you to check if you are our students', '2019-03-06 14:57:37');
 
 -- --------------------------------------------------------
 
@@ -70,7 +75,7 @@ CREATE TABLE `claim` (
 --
 
 INSERT INTO `claim` (`claimid`, `sid`, `ccode`, `lid`, `level`, `reason`, `status`) VALUES
-(1, 2, 100, 1, 'level 1', 'Amanota macye', '1');
+(1, 2, 200, 1, 'level 1', 'Oh ni macye', '1');
 
 -- --------------------------------------------------------
 
@@ -83,13 +88,6 @@ CREATE TABLE `courselevel` (
   `cid` int(11) NOT NULL,
   `levid` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `courselevel`
---
-
-INSERT INTO `courselevel` (`clevid`, `cid`, `levid`) VALUES
-(1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -110,8 +108,10 @@ CREATE TABLE `courses` (
 --
 
 INSERT INTO `courses` (`cid`, `lid`, `ccode`, `cname`, `level`) VALUES
-(1, 1, 100, 'C++', 'level 1'),
-(2, 2, 112, 'Math', 'level 1');
+(1, 1, 200, 'Networking', 'level 1'),
+(2, 3, 500, 'Artificial Intelligence', 'level 2'),
+(3, 4, 820, 'Maths', 'level 1'),
+(4, 5, 878, 'English', 'level 2');
 
 -- --------------------------------------------------------
 
@@ -157,8 +157,11 @@ CREATE TABLE `lecture` (
 --
 
 INSERT INTO `lecture` (`lid`, `fname`, `lname`, `gender`, `email`, `phone`, `password`) VALUES
-(1, 'KATENDE', 'Nicolas', 'Male', 'nicolas@gmail.com', '0784625458', 'pass'),
-(2, 'MUKAMA', 'Elyse', 'Male', 'elyse@gmail.com', '0784578525', 'pass');
+(1, 'KATENDE', 'Nicolas', 'Male', 'nicolas@gmail.com', '0784625458', 'katende'),
+(2, 'MUKAMA', 'Elyse', 'Male', 'elyse@gmail.com', '0784578525', 'pass'),
+(3, 'KAYITABA', 'RWIRANGIRA', 'Male', 'kayitaba@gmail.com', '0784582562', 'pass'),
+(4, 'Musoni', 'Kamitali', 'Male', 'nccharles1@gmail.com', '0782568582', 'pass'),
+(5, 'Mutoni', 'alice', 'Female', 'alice@gmail.com', '0784528563', 'pass');
 
 -- --------------------------------------------------------
 
@@ -178,7 +181,9 @@ CREATE TABLE `lectureannouncement` (
 --
 
 INSERT INTO `lectureannouncement` (`lannid`, `lid`, `annid`, `status`) VALUES
-(1, 1, 7, '1');
+(1, 1, 12, '1'),
+(2, 1, 12, '1'),
+(3, 1, 12, '1');
 
 -- --------------------------------------------------------
 
@@ -198,8 +203,9 @@ CREATE TABLE `lecturesesslevel` (
 --
 
 INSERT INTO `lecturesesslevel` (`llevid`, `lid`, `slevid`, `ccode`) VALUES
-(1, 1, 1, '100'),
-(2, 2, 1, '112');
+(1, 3, 2, '500'),
+(2, 4, 1, '820'),
+(3, 5, 2, '878');
 
 -- --------------------------------------------------------
 
@@ -246,7 +252,32 @@ CREATE TABLE `marks` (
 --
 
 INSERT INTO `marks` (`mid`, `cid`, `sid`, `ass1`, `ass2`, `cat1`, `cat2`, `exam`, `level`, `status`, `date_added`) VALUES
-(1, 1, 2, 98, 92, 77, 34, 77, 'level 1', '1', '2018-05-14 09:54:32');
+(1, 1, 2, 10, 8, 15, 18, 31, 'level 1', '1', '2018-07-16 15:52:51'),
+(2, 1, 3, 4, 5, 8, 10, 14, 'level 1', '1', '2018-07-16 16:53:53'),
+(3, 1, 5, 8, 9, 10, 18, 35, 'level 1', '1', '2018-07-16 17:05:35');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `registrar`
+--
+
+CREATE TABLE `registrar` (
+  `rid` int(11) NOT NULL,
+  `fname` varchar(255) NOT NULL,
+  `lname` varchar(255) NOT NULL,
+  `gender` varchar(255) NOT NULL,
+  `phone` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `registrar`
+--
+
+INSERT INTO `registrar` (`rid`, `fname`, `lname`, `gender`, `phone`, `email`, `password`) VALUES
+(1, 'MULISA', 'Daniel', 'Male', '0782568525', 'danny@gmail.com', 'pass');
 
 -- --------------------------------------------------------
 
@@ -318,10 +349,12 @@ CREATE TABLE `student` (
 
 INSERT INTO `student` (`sid`, `regnum`, `fname`, `lname`, `gender`, `email`, `phone`, `password`) VALUES
 (1, 'W/BIT/15/05/2018', 'Charles', 'Ndayisaba', 'Male', 'nccharles1@gmail.com', '0784603404', 'pass'),
-(2, 'D/BIT/15/05/2018', 'Mugisha ', 'Steven', 'Male', 'steven@gmail.com', '0787582585', 'pass'),
+(2, 'D/BIT/15/05/2018', 'Mugisha ', 'Steven', 'Male', 'steven@gmail.com', '0787582585', 'pass1'),
 (3, 'E/BIT/15/05/2018', 'Mukamana', 'Emma', 'Female', 'emma@gmail.com', '0783935192', 'pass'),
 (4, 'W/BIT/18/05/2018', 'NIYIGENA', 'Callixte', 'Male', 'callixte@gmail.com', '0784603404', 'pass'),
-(5, 'E/BIT/17/05/2018', 'AKIMANA', 'Consolee', 'Female', 'akimana@gmail.com', '0787582585', 'pass');
+(5, 'E/BIT/17/05/2018', 'AKIMANA', 'Console', 'Female', 'akimana@gmail.com', '0787582585', 'pass'),
+(6, 'BIT/15/05/2010', 'BATAMURIZA', 'Jacky', 'Female', 'batamujacky@gmail.com', '0789194626', 'pass'),
+(7, 'W/2039/2/2018', 'Charles', 'Ndayisaba', 'Male', 'safalijean@gmail.com', '0784603402', 'pass');
 
 -- --------------------------------------------------------
 
@@ -341,27 +374,11 @@ CREATE TABLE `studentannoucement` (
 --
 
 INSERT INTO `studentannoucement` (`sannid`, `sid`, `annid`, `status`) VALUES
-(1, 2, 1, 1),
-(2, 2, 2, 1),
-(3, 2, 3, 1),
-(4, 1, 4, 0),
-(5, 1, 5, 0),
-(6, 2, 5, 1),
-(7, 3, 5, 1),
-(8, 1, 8, 0),
-(9, 2, 8, 1),
-(10, 3, 8, 1),
-(11, 4, 8, 0),
-(12, 5, 8, 0),
-(13, 1, 9, 0),
-(14, 2, 9, 1),
-(15, 3, 9, 0),
-(16, 4, 9, 0),
-(17, 5, 9, 0),
-(18, 2, 10, 1),
-(19, 3, 10, 0),
-(20, 4, 10, 0),
-(21, 5, 10, 0);
+(1, 2, 4, 1),
+(2, 2, 7, 1),
+(3, 3, 14, 1),
+(4, 6, 14, 0),
+(5, 7, 14, 0);
 
 -- --------------------------------------------------------
 
@@ -387,7 +404,9 @@ INSERT INTO `studentsesslevel` (`stlevid`, `sid`, `seslevid`, `Ystatus`) VALUES
 (10, 2, 1, '1'),
 (11, 3, 4, '1'),
 (12, 4, 7, '1'),
-(13, 5, 4, '1');
+(13, 5, 4, '1'),
+(14, 6, 4, '1'),
+(15, 7, 7, '1');
 
 --
 -- Indexes for dumped tables
@@ -404,8 +423,8 @@ ALTER TABLE `annoucement`
 --
 ALTER TABLE `claim`
   ADD PRIMARY KEY (`claimid`,`sid`,`ccode`,`lid`),
-  ADD KEY `lid` (`lid`),
-  ADD KEY `sid` (`sid`);
+  ADD KEY `sid` (`sid`),
+  ADD KEY `lid` (`lid`);
 
 --
 -- Indexes for table `courselevel`
@@ -439,8 +458,8 @@ ALTER TABLE `lecture`
 --
 ALTER TABLE `lectureannouncement`
   ADD PRIMARY KEY (`lannid`,`lid`,`annid`),
-  ADD KEY `lid` (`lid`),
-  ADD KEY `annid` (`annid`);
+  ADD KEY `annid` (`annid`),
+  ADD KEY `lid` (`lid`);
 
 --
 -- Indexes for table `lecturesesslevel`
@@ -465,6 +484,12 @@ ALTER TABLE `marks`
   ADD KEY `cid` (`cid`);
 
 --
+-- Indexes for table `registrar`
+--
+ALTER TABLE `registrar`
+  ADD PRIMARY KEY (`rid`);
+
+--
 -- Indexes for table `Session`
 --
 ALTER TABLE `Session`
@@ -475,8 +500,8 @@ ALTER TABLE `Session`
 --
 ALTER TABLE `sesslevel`
   ADD PRIMARY KEY (`seslevid`,`sID`,`levid`),
-  ADD KEY `sID` (`sID`),
-  ADD KEY `levid` (`levid`);
+  ADD KEY `levid` (`levid`),
+  ADD KEY `sID` (`sID`);
 
 --
 -- Indexes for table `student`
@@ -508,77 +533,159 @@ ALTER TABLE `studentsesslevel`
 -- AUTO_INCREMENT for table `annoucement`
 --
 ALTER TABLE `annoucement`
-  MODIFY `annid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `annid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
 --
 -- AUTO_INCREMENT for table `claim`
 --
 ALTER TABLE `claim`
   MODIFY `claimid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT for table `courselevel`
 --
 ALTER TABLE `courselevel`
-  MODIFY `clevid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `clevid` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `courses`
 --
 ALTER TABLE `courses`
-  MODIFY `cid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `cid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
 --
 -- AUTO_INCREMENT for table `department`
 --
 ALTER TABLE `department`
   MODIFY `hid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT for table `lecture`
 --
 ALTER TABLE `lecture`
-  MODIFY `lid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `lid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
 -- AUTO_INCREMENT for table `lectureannouncement`
 --
 ALTER TABLE `lectureannouncement`
-  MODIFY `lannid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `lannid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
 -- AUTO_INCREMENT for table `lecturesesslevel`
 --
 ALTER TABLE `lecturesesslevel`
-  MODIFY `llevid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `llevid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
 -- AUTO_INCREMENT for table `level`
 --
 ALTER TABLE `level`
   MODIFY `levid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
 -- AUTO_INCREMENT for table `marks`
 --
 ALTER TABLE `marks`
-  MODIFY `mid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `mid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `registrar`
+--
+ALTER TABLE `registrar`
+  MODIFY `rid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT for table `Session`
 --
 ALTER TABLE `Session`
   MODIFY `sID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
 -- AUTO_INCREMENT for table `sesslevel`
 --
 ALTER TABLE `sesslevel`
   MODIFY `seslevid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
 --
 -- AUTO_INCREMENT for table `student`
 --
 ALTER TABLE `student`
-  MODIFY `sid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `sid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
 --
 -- AUTO_INCREMENT for table `studentannoucement`
 --
 ALTER TABLE `studentannoucement`
-  MODIFY `sannid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `sannid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
 -- AUTO_INCREMENT for table `studentsesslevel`
 --
 ALTER TABLE `studentsesslevel`
-  MODIFY `stlevid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `stlevid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `claim`
+--
+ALTER TABLE `claim`
+  ADD CONSTRAINT `claim_ibfk_1` FOREIGN KEY (`sid`) REFERENCES `student` (`sid`),
+  ADD CONSTRAINT `claim_ibfk_2` FOREIGN KEY (`lid`) REFERENCES `lecture` (`lid`);
+
+--
+-- Constraints for table `courselevel`
+--
+ALTER TABLE `courselevel`
+  ADD CONSTRAINT `courselevel_ibfk_1` FOREIGN KEY (`cid`) REFERENCES `courses` (`cid`),
+  ADD CONSTRAINT `courselevel_ibfk_2` FOREIGN KEY (`levid`) REFERENCES `level` (`levid`);
+
+--
+-- Constraints for table `lectureannouncement`
+--
+ALTER TABLE `lectureannouncement`
+  ADD CONSTRAINT `lectureannouncement_ibfk_1` FOREIGN KEY (`annid`) REFERENCES `annoucement` (`annid`),
+  ADD CONSTRAINT `lectureannouncement_ibfk_2` FOREIGN KEY (`lid`) REFERENCES `lecture` (`lid`);
+
+--
+-- Constraints for table `lecturesesslevel`
+--
+ALTER TABLE `lecturesesslevel`
+  ADD CONSTRAINT `lecturesesslevel_ibfk_1` FOREIGN KEY (`lid`) REFERENCES `lecture` (`lid`),
+  ADD CONSTRAINT `lecturesesslevel_ibfk_2` FOREIGN KEY (`slevid`) REFERENCES `sesslevel` (`seslevid`);
+
+--
+-- Constraints for table `marks`
+--
+ALTER TABLE `marks`
+  ADD CONSTRAINT `marks_ibfk_1` FOREIGN KEY (`sid`) REFERENCES `student` (`sid`),
+  ADD CONSTRAINT `marks_ibfk_2` FOREIGN KEY (`cid`) REFERENCES `courses` (`cid`);
+
+--
+-- Constraints for table `sesslevel`
+--
+ALTER TABLE `sesslevel`
+  ADD CONSTRAINT `sesslevel_ibfk_1` FOREIGN KEY (`levid`) REFERENCES `level` (`levid`),
+  ADD CONSTRAINT `sesslevel_ibfk_2` FOREIGN KEY (`sID`) REFERENCES `Session` (`sID`);
+
+--
+-- Constraints for table `studentannoucement`
+--
+ALTER TABLE `studentannoucement`
+  ADD CONSTRAINT `studentannoucement_ibfk_1` FOREIGN KEY (`sid`) REFERENCES `student` (`sid`),
+  ADD CONSTRAINT `studentannoucement_ibfk_2` FOREIGN KEY (`annid`) REFERENCES `annoucement` (`annid`);
+
+--
+-- Constraints for table `studentsesslevel`
+--
+ALTER TABLE `studentsesslevel`
+  ADD CONSTRAINT `studentsesslevel_ibfk_1` FOREIGN KEY (`sid`) REFERENCES `student` (`sid`),
+  ADD CONSTRAINT `studentsesslevel_ibfk_2` FOREIGN KEY (`seslevid`) REFERENCES `sesslevel` (`seslevid`);
+COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
