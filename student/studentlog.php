@@ -31,8 +31,7 @@ a {
 div#header{
   width: 100%;
   height: 150px;
-  background: url('../images/convas1.jpg');
-  border-bottom: 12px solid #00386d;
+  background: linear-gradient(180deg,#833471,#2980b9, #95a5a6,#95a5a6,#833471);
   border-top: 0px solid #00509b;
   padding: 12px;
   position: fixed;
@@ -104,7 +103,7 @@ div#box {
 div#box .box-top {
   color: #fff;
   text-shadow: 0px 1px #000;
-  background-color: #000000;
+  background: linear-gradient(90deg,#833471,#2980b9,#2980b9, #f39c12,#833471,#833471);
   padding: 10px;
   padding-left: 15px;
   font-weight: 300;
@@ -144,6 +143,15 @@ a.mobile{
 }
 
 }
+@media only screen and (max-width: 450px){
+#home{
+  display: none;
+}}
+
+@media only screen and (max-height: 450px){
+#home{
+  display: none;
+}}
 #log{
   background-color: #fff;
   min-width: 30%;
@@ -196,6 +204,7 @@ a.mobile{
   <div class="checkbox">
   </div>
   <input type="submit" name="login" class="btn btn-primary btn-lg btn-block" value="LOGIN"/>
+  <div id='home'><a href="../"><span class="glyphicon glyphicon-log-out"></span><b>Back home</b></a></div> 
 </form>
  
   </div>

@@ -16,7 +16,7 @@ $tel=$row['phone'];
 ?>
 <html>
 <head>
-	<title>Dashboard</title>
+	<title>STUDENT|DASHBOARD</title>
 	<meta name="viewport" content="width=device-width,initial-scale: 1.0, user-scalabe=0" />
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -25,7 +25,7 @@ $tel=$row['phone'];
 	<script type="text/javascript" src="js/general.js"></script>
 	<style type="text/css">
 		@import url('https://fonts.googleapis.com/css?family=Open+Sans:700,800');
-*{
+    *{
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
@@ -34,10 +34,14 @@ $tel=$row['phone'];
 
 body{
 	font-family: 'Time new roman';
-  background-color: #95a5a6;
+  background-color: #dfe6e9;
 }
 a {
 	text-decoration: none;
+}
+.modal-content{
+  background: linear-gradient(180deg,#833471,#2980b9,#2980b9,#833471);
+  color: #fff;
 }
 div#header{
   width: 100%;
@@ -62,13 +66,14 @@ div#header{
 div#container{
 	width: 100%;
 	margin: 0 auto;
+	
 }
 
 .content{
 	width: auto;
-	background-color: #95a5a6;
+	background-color: #dfe6e9;
 	padding: 1px;
-  overflow: scroll;
+  overflow: hidden;
 }
 
 .content p {
@@ -83,7 +88,7 @@ div#box {
 div#box .box-top {
 	color: #fff;
 	text-shadow: 0px 1px #000;
-	background-color: #2980b9;
+	background: linear-gradient(90deg,#833471,#2980b9,#2980b9, #f39c12,#833471,#833471);
 	padding: 5px;
 	padding-left: 15px;
 	font-weight: 300;
@@ -128,17 +133,6 @@ a.mobile{
   font-size: 20px;
   color: #6b158e;
 }
-@media (min-width: 1280px) and (max-width: 1440px) {
-.content{
-  width: 60%;
-  margin-left: 250px;
-  height: 100%;
-  background-color: #95a5a6;
-  padding: 15px;
-  padding-bottom: 120px;
-  overflow: scroll;
-}
-}
 	</style>
 
 </head>
@@ -149,12 +143,13 @@ a.mobile{
 <div id="container">
 	<div class="content">
 	<div id="box">
-		<div class="box-top">STUDENT DASHBOARD</div>
+		<div class="box-top"><?php echo $lname.' '.$fname; ?></div>
 		 <div class="box-panel">
 		 <div class="btn-group btn-group-justified" style="height: 50%;">
    
      <ul class="nav nav-tabs">
-        <li><a data-toggle="tab" class="active" href="#vmarks" aria-expanded="false">VIEW MARKS</a></li>
+        <li><a data-toggle="tab" class="active" href="#vmarks" aria-expanded="false">MARKS</a></li>
+        <li><a data-toggle="tab" class="active" href="#chpass" aria-expanded="false"><span class="glyphicon glyphicon-cog"></span></a></li>
           <?php
           $sql = $con ->prepare("SELECT COUNT(annid) as an FROM studentannoucement where sid=(SELECT sid from student WHERE regnum='$regnum') and status='0'");
               $sql -> execute();
@@ -162,13 +157,13 @@ a.mobile{
              foreach ($count as $row);
               $num=$row['an'];
              if($num == "0"){?>
-          <li><a data-toggle="tab" href="#ann" aria-expanded="false">ANNOUNCEMENT<i class="fa fa-bell-o"></i></a></li>
+          <li><a data-toggle="tab" href="#ann" aria-expanded="false"><span class="glyphicon glyphicon-bell"></span><i class="fa fa-bell-o"></i></a></li>
             <?php }else{
              
         
          ?>
 
-        <li><a data-toggle="tab" href="#ann" aria-expanded="false">ANNOUNCEMENT<i class="fa fa-bell-o"></i> <span class="badge" style="background-color: red;"><?php echo $row['an']; ?></span></a></li><?php }?>
+        <li><a data-toggle="tab" href="#ann" aria-expanded="false"><span class="glyphicon glyphicon-bell"></span><i class="fa fa-bell-o"></i> <span class="badge" style="background-color: red;"><?php echo $row['an']; ?></span></a></li><?php }?>
         <li><a href="stdlgout.php"><span class="glyphicon glyphicon-off"></span></a></li>
     </ul>
   <div class="tab-content">
@@ -189,7 +184,7 @@ a.mobile{
          ?>
                <button type="button" class="btn btn-primary btn-sm btn-block" data-toggle="collapse" data-target="#mark1">View Marks</button>
 
-  <div id="mark1" class="collapse">
+  <div id="mark1" class="collapse in active">
        <h5>THIS IS YOUR MARKS</h5>
  <table class="table table-striped">
    <thead>
@@ -388,7 +383,39 @@ a.mobile{
  
     </div>
   </div>
-
+  <!-- Modal -->
+  <div class="tab-pane fade" id="chpass" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Change Password</h4>
+        </div>
+        <div class="modal-body">
+          <form method="POST">
+      <div class="form-group">
+      <label for="pwd">Old Password:</label>
+      <input type="password" name="oldpass" class="form-control" id="usr" required>
+      </div>
+    <div class="form-group">
+      <label for="pwd">New Password:</label>
+      <input type="password" name="newpass" class="form-control" id="pwd" required>
+    </div>
+    <div class="form-group">
+      <label for="pwd">Confirm Password:</label>
+      <input type="password" class="form-control" id="pwd" required>
+    </div>
+    
+        </div>
+        <div class="modal-footer">
+          <input type="submit" name="npass" class="btn btn-info" value="Change">
+        </div>
+      </div>
+       </form>
+    </div>
+  </div>
     <div id="claim" class="tab-pane fade">
       
           <div class="box-top">FILL REQUIRED TO CLAIM</div>
