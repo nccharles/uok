@@ -234,10 +234,8 @@ a.mobile{
    <thead>
       <tr>
         <th>CRSE</th>
-        <th>ASS1</th>
-        <th>ASS2</th>
-        <th>CAT1</th>
-        <th>CAT2</th>
+        <th>ASS<br/>(1-2)</th>
+        <th>CAT<br/>(1-2)</th>
         <th>FE</th>
         <th>TOT</th>
       </tr>
@@ -256,10 +254,8 @@ a.mobile{
      ?>
       <tr>
         <td><?php echo $cname; ?></td>
-        <td><?php echo $ass1; ?></td>
-        <td><?php echo $ass2; ?></td>
-        <td><?php echo $cat1; ?></td>
-        <td><?php echo $cat2; ?></td>
+        <td><?php echo $ass1.'-'.$ass2; ?></td>
+        <td><?php echo $cat1.'-'.$cat2; ?></td>
         <td><?php echo $exam; ?></td>
         <td><?php echo round($tot,1); ?></td>
       </tr>
@@ -303,10 +299,8 @@ a.mobile{
     <thead>
       <tr>
         <th>CRSE</th>
-        <th>ASS1</th>
-        <th>ASS2</th>
-        <th>CAT1</th>
-        <th>CAT2</th>
+        <th>ASS<br/>(1-2)</th>
+        <th>CAT<br/>(1-2)</th>
         <th>FE</th>
         <th>TOT</th>
       </tr>
@@ -325,10 +319,8 @@ a.mobile{
      ?>
       <tr>
         <td><?php echo $cname; ?></td>
-        <td><?php echo $ass1; ?></td>
-        <td><?php echo $ass2; ?></td>
-        <td><?php echo $cat1; ?></td>
-        <td><?php echo $cat2; ?></td>
+        <td><?php echo $ass1.'-'.$ass2; ?></td>
+        <td><?php echo $cat1.'-'.$cat2; ?></td>
         <td><?php echo $exam; ?></td>
         <td><?php echo round($tot,1); ?></td>
       </tr>
@@ -371,10 +363,8 @@ a.mobile{
     <thead>
       <tr>
         <th>CRSE</th>
-        <th>ASS1</th>
-        <th>ASS2</th>
-        <th>CAT1</th>
-        <th>CAT2</th>
+        <th>ASS<br/>(1-2)</th>
+        <th>CAT<br/>(1-2)</th>
         <th>FE</th>
         <th>TOT</th>
       </tr>
@@ -393,10 +383,8 @@ a.mobile{
      ?>
       <tr>
         <td><?php echo $cname; ?></td>
-        <td><?php echo $ass1; ?></td>
-        <td><?php echo $ass2; ?></td>
-        <td><?php echo $cat1; ?></td>
-        <td><?php echo $cat2; ?></td>
+        <td><?php echo $ass1.'-'.$ass2; ?></td>
+        <td><?php echo $cat1.'-'.$cat2; ?></td>
         <td><?php echo $exam; ?></td>
         <td><?php echo $tot; ?></td>
       </tr>

@@ -193,13 +193,12 @@ a.mobile{
      <div class="btn-group btn-group-justified" style="min-height: 100%;">
 
      <ul class="nav nav-tabs">
+     <li class='active'><a data-toggle="tab" href="#rgstrd">VIEW REGISTERED STUDENTS</a></li>
     <li><a data-toggle="tab" href="#stdtreg">REGISTER STUDENT</a></li>
-    <li><a data-toggle="tab" href="#rgstrd">VIEW REGISTERED STUDENTS</a></li>
-
   </ul>
   <div class="tab-content">
     
- <div id="rgstrd" class="tab-pane fade">
+ <div id="rgstrd" class="tab-pane fade in active">
   <div class="panel panel-primary">
       <div class="panel-heading"><h5>All registered Students</h5></div>
       <div class="panel-body">
@@ -246,7 +245,6 @@ a.mobile{
                 <th>E-MAIL</th>
                <th>PHONE</th>
                 <th>EDIT</th>
-               <!-- <th>REMOVE</th> -->
              </tr>
            </thead>
            <tbody>
@@ -320,6 +318,10 @@ a.mobile{
      <div class="form-group">
       <label for="title">Email:</label>
       <input type="text" class="form-control" id="email" placeholder="Type your Email" name="email" value="<?php echo $email; ?>">
+    </div>
+    <div class="form-group">
+      <label for="title">Password:</label>
+      <input type="password" class="form-control" id="email" placeholder="set password for <?php echo $fname;?>" name="password">
     </div>
     <div class="form-group">
       <label for="title">Telephone:</label>
@@ -437,6 +439,10 @@ a.mobile{
      <div class="form-group">
       <label for="title">Email:</label>
       <input type="text" class="form-control" id="email" placeholder="Type your Email" name="email" value="<?php echo $email; ?>">
+    </div>
+    <div class="form-group">
+      <label for="title">Password:</label>
+      <input type="password" class="form-control" id="email" placeholder="set password for <?php echo $fname;?>" name="password">
     </div>
     <div class="form-group">
       <label for="title">Telephone:</label>
@@ -629,6 +635,10 @@ a.mobile{
       <input type="text" class="form-control" id="email" placeholder="Type your Email" name="email" value="<?php echo $email; ?>">
     </div>
     <div class="form-group">
+      <label for="title">Password:</label>
+      <input type="password" class="form-control" id="email" placeholder="set password for <?php echo $fname;?>" name="password">
+    </div>
+    <div class="form-group">
       <label for="title">Telephone:</label>
       <input type="text" class="form-control" id="email" placeholder="Ex: 078*******" name="phone" value="<?php echo $tel; ?>">
     </div>
@@ -746,6 +756,10 @@ a.mobile{
       <input type="text" class="form-control" id="email" placeholder="Type your Email" name="email" value="<?php echo $email; ?>">
     </div>
     <div class="form-group">
+      <label for="title">Password:</label>
+      <input type="password" class="form-control" id="email" placeholder="set password for <?php echo $fname;?>" name="password">
+    </div>
+    <div class="form-group">
       <label for="title">Telephone:</label>
       <input type="text" class="form-control" id="email" placeholder="Ex: 078*******" name="phone" value="<?php echo $tel; ?>">
     </div>
@@ -861,6 +875,10 @@ a.mobile{
      <div class="form-group">
       <label for="title">Email:</label>
       <input type="text" class="form-control" id="email" placeholder="Type your Email" name="email" value="<?php echo $email; ?>">
+    </div>
+    <div class="form-group">
+      <label for="title">Password:</label>
+      <input type="password" class="form-control" id="email" placeholder="set password for <?php echo $fname;?>" name="password">
     </div>
     <div class="form-group">
       <label for="title">Telephone:</label>
@@ -999,6 +1017,10 @@ a.mobile{
       <input type="text" class="form-control" id="email" placeholder="Type your Email" name="email" value="<?php echo $email; ?>">
     </div>
     <div class="form-group">
+      <label for="title">Password:</label>
+      <input type="password" class="form-control" id="email" placeholder="set password for <?php echo $fname;?>" name="password">
+    </div>
+    <div class="form-group">
       <label for="title">Telephone:</label>
       <input type="text" class="form-control" id="email" placeholder="Ex: 078*******" name="phone" value="<?php echo $tel; ?>">
     </div>
@@ -1114,6 +1136,10 @@ a.mobile{
      <div class="form-group">
       <label for="title">Email:</label>
       <input type="text" class="form-control" id="email" placeholder="Type your Email" name="email" value="<?php echo $email; ?>">
+    </div>
+    <div class="form-group">
+      <label for="title">Password:</label>
+      <input type="password" class="form-control" id="email" placeholder="set password for <?php echo $fname;?>" name="password">
     </div>
     <div class="form-group">
       <label for="title">Telephone:</label>
@@ -1232,6 +1258,10 @@ a.mobile{
      <div class="form-group">
       <label for="title">Email:</label>
       <input type="text" class="form-control" id="email" placeholder="Type your Email" name="email" value="<?php echo $email; ?>">
+    </div>
+    <div class="form-group">
+      <label for="title">Password:</label>
+      <input type="password" class="form-control" id="email" placeholder="set password for <?php echo $fname;?>" name="password">
     </div>
     <div class="form-group">
       <label for="title">Telephone:</label>
@@ -1424,9 +1454,10 @@ if(isset($_POST['ssavec'])){
   $fname=$_POST['fname'];
   $lname=$_POST['lname'];
   $email=$_POST['email'];
+  $password=$_POST['password'];
   $phone=$_POST['phone'];
   $sgender=$_POST['sgender'];
-  $sql=$con->prepare("UPDATE student SET regnum='$regnum',fname='$fname',lname='$lname',gender='$sgender',email='$email',phone='$phone' where sid=$id");
+  $sql=$con->prepare("UPDATE student SET regnum='$regnum',fname='$fname',lname='$lname',gender='$sgender',email='$email',password='$password',phone='$phone' where sid=$id");
  try{
  $sql->execute();
 }catch(PDOException $e)
@@ -1580,7 +1611,7 @@ $res = $sql-> fetchAll();
      $sql=$con->prepare("INSERT INTO lectureannouncement(lid,annid,status) values((SELECT lid from lecture where phone='$telephone'),(SELECT max(annid) from annoucement limit 1),'0')");
      $sql->execute();
      $data = array(
-     "sender"=>"0784603404",
+     "sender"=>"UOKUPDATE",
      "recipients"=>$telephone,
      "message"=>"Dear ".$fname.", ".$ann,
    );
