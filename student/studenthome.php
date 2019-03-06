@@ -8,6 +8,7 @@ $sql -> execute();
 $event = $sql ->fetchAll();
 foreach ($event as $row);
 $fname=$row['fname'];
+$sid=$row['sid'];
 $lname=$row['lname'];
 $gender=$row['gender'];
 $email=$row['email'];
@@ -90,7 +91,7 @@ div#box {
 div#box .box-top {
 	color: #fff;
 	text-shadow: 0px 1px #000;
-	background: linear-gradient(90deg,#833471,#2980b9,#2980b9, #f39c12,#833471,#833471);
+	background: linear-gradient(15deg,#833471,#2980b9,#2980b9, #f39c12,#833471,#833471);
 	padding: 5px;
 	padding-left: 15px;
 	font-weight: 300;
@@ -126,7 +127,7 @@ background-color: #4a4a4a;
   border-bottom: 12px solid #2980b9;
 }
 }
-@media only screen and (min-width: 320px){
+@media only screen and (min-width: 450px){
 a.mobile{
 	display: none;
 }
@@ -142,6 +143,7 @@ a.mobile{
 #panel{
   font-size: 20px;
   color: #6b158e;
+}
 }
 	</style>
 
@@ -176,6 +178,24 @@ a.mobile{
         <li><a data-toggle="tab" href="#ann" aria-expanded="false"><span class="glyphicon glyphicon-bell"></span><i class="fa fa-bell-o"></i> <span class="badge" style="background-color: red;"><?php echo $row['an']; ?></span></a></li><?php }?>
         <li><a href="stdlgout.php"><span class="glyphicon glyphicon-off"></span></a></li>
     </ul>
+    <?php if(isset($_POST['claim'])){
+          $fname=$_POST['fname'];
+          $lname=$_POST['lname'];
+          $reg=$_POST['reg'];
+          $course=$_POST['course'];
+          $reason=$_POST['reason'];
+         
+          //storind the data in your database
+		  $sql=$con->prepare("INSERT INTO claim(sid,ccode,lid,level,reason,status) values('$sid','$course',(SELECT lid from courses where ccode='$course'),(SELECT level from courses where ccode='$course'),'$reason','0')");
+		  $sql->execute();
+		  ?>
+		   <div class="alert alert-success">
+		   <strong>Thanks, Your Claim was Accepted!</strong> 
+		   </div>
+            <?php
+           echo "<meta http-equiv='refresh' content='3;url=studenthome.php'>";
+            }
+            ?>
   <div class="tab-content">
 
   <div id="vmarks" class="tab-pane fade in active">
@@ -427,9 +447,9 @@ a.mobile{
     </div>
   </div>
     <div id="claim" class="tab-pane fade">
-      
+   
           <div class="box-top">FILL REQUIRED TO CLAIM</div>
-          <form method="POST" class="form-signin" action="getdata.php"  enctype="multipart/form-data">
+          <form method="POST" class="form-signin"  enctype="multipart/form-data">
           <div class="form-group">
       <label for="title">REG NUMBER:</label>
       <input type="text" class="form-control" id="email" name="reg" value="<?php echo $regnum; ?>" placeholder="Ex: 078*******" name="email">

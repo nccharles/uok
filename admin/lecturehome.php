@@ -119,7 +119,7 @@ div#box {
 div#box .box-top {
   color: #fff;
   text-shadow: 0px 1px #000;
-  background-color: #2980b9;
+  background: linear-gradient(15deg,#833471,#2980b9,#2980b9, #f39c12,#833471,#833471);
   padding: 5px;
   padding-left: 15px;
   font-weight: 300;
@@ -140,7 +140,7 @@ padding: 7px;
 a.mobile:active {
 background-color: #4a4a4a;
 }
-@media only screen and (max-width: 320px){
+@media only screen and (max-width: 450px){
 .sidebar{
   width: 100%;
   display: none;
@@ -149,7 +149,7 @@ background-color: #4a4a4a;
   margin-left: 0px;
 }
 }
-@media only screen and (min-width: 320px){
+@media only screen and (min-width: 450px){
 a.mobile{
   display: none;
 }
@@ -159,6 +159,16 @@ a.mobile{
 }
 .tab-pane{
   padding: 6px;
+}
+#corse{
+  text-decoration: none;
+  font-size: 50px;
+}
+
+#panel{
+  font-size: 20px;
+  color: #6b158e;
+}
 }
 
   </style>

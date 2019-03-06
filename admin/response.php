@@ -10,7 +10,7 @@
              $regnum=$row['regnum'];
             
               $data = array(    
-              "sender"=>"0784603404",
+              "sender"=>"UOKUPDATE",
               "recipients"=>$telephone,
               "message"=>"Hey ".$fname.", Twabonye ikibazo cyawe ihangane tugiye kukigaho tuzagusubiza vuba bidatinze.Urakoze kwihangana!",    
             );

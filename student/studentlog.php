@@ -7,7 +7,7 @@ echo "<meta http-equiv='refresh' content='1;url=studenthome.php'>";
 ?>
 <html>
 <head>
-  <title>Student Login</title>
+  <title>STUDENT | LOGIN</title>
   <meta name="viewport" content="width=device-width,initial-scale: 1.0, user-scalabe=0" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -105,7 +105,7 @@ div#box {
 div#box .box-top {
   color: #fff;
   text-shadow: 0px 1px #000;
-  background: linear-gradient(90deg,#833471,#2980b9,#2980b9, #f39c12,#833471,#833471);
+  background: linear-gradient(15deg,#833471,#2980b9,#2980b9, #f39c12,#833471,#833471);
   padding: 10px;
   padding-left: 15px;
   font-weight: 300;
@@ -167,8 +167,6 @@ div#box {
   border-radius: 12px;
   padding: 5px;
 }
-
-
   </style>
 
 </head>
