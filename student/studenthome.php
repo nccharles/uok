@@ -81,6 +81,8 @@ div#container{
 	font-size: 0.73em;
 }
 div#box {
+  width: 60%;
+  margin: 0 auto;
 	margin-top: 0px;
   border-bottom: 12px solid #2980b9;
 }

@@ -96,6 +96,8 @@ ul#nav li a.selected{
   font-size: 0.73em;
 }
 div#box {
+  width: 30%;
+  margin: 0 auto;
   margin-top: 160px;
   height: 60px;
 }
@@ -146,6 +148,11 @@ a.mobile{
 @media only screen and (max-width: 450px){
 #home{
   display: none;
+}
+div#box {
+  width: 100%;
+  margin-top: 160px;
+  height: 60px;
 }}
 
 @media only screen and (max-height: 450px){
