@@ -118,6 +118,14 @@ background-color: #4a4a4a;
 	margin-left: 0px;
 }
 }
+@media only screen and (max-width: 450px){
+  div#box {
+  width: 100%;
+  margin: 0 auto;
+	margin-top: 0px;
+  border-bottom: 12px solid #2980b9;
+}
+}
 @media only screen and (min-width: 320px){
 a.mobile{
 	display: none;
