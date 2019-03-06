@@ -3,7 +3,7 @@
    if(isset($_SESSION['uname'])){
 include('db/dbase.php');
 $uname=$_SESSION['uname'];
-$sql = $con -> prepare("SELECT * FROM hod where fname='$uname' limit 1");
+$sql = $con -> prepare("SELECT * FROM department where fname='$uname' limit 1");
 $sql -> execute();
 $event = $sql ->fetchAll();
 foreach ($event as $row);
@@ -68,13 +68,13 @@ div#container{
   float: left;
 }
 .content{
-  width: auto;
-  margin-left: 250px;
+  width: 60%;
+  margin: 0 auto;
   height: 100%;
   background-color: #95a5a6;
   padding: 15px;
   padding-bottom: 120px;
-  overflow: scroll;
+  overflow: hidden;
 }
 
 ul#nav li{
@@ -172,66 +172,16 @@ a.mobile{
 </head>
 <body >
 
-<div id="header">
-  <div class="logo"><a href="#"><img src="../images/header1.png" class="img-responsive" alt="Logo"></a></div>
- </div>
- <a class="mobile" href="#">MENU</a>
 <div id="container">
-  <div class="sidebar">
-  <ul id="nav">
-    <li><a  data-toggle="tab" href="#home" class="selected"><?php echo $row['lname']; ?><span> <?php echo $row['fname']; ?></span></a></li>
-        <li><a data-toggle="tab" href="#addanouc">Send Anoucements</a></li>
-            <?php
-        include("db/dbase.php");
-          $sql = $con ->prepare("SELECT distinct(c.ccode),COUNT(c.cname) as m,m.status FROM courses as c,marks as m WHERE m.status='0' and c.ccode=m.ccode");
-              $sql -> execute();
-             $count = $sql->fetchAll();
-             foreach ($count as $row);
-              $num=$row['m'];
-             if($num == "0"){?>
-          <li><a data-toggle="tab" href="#home" aria-expanded="false">Approve<i class="fa fa-bell-o"></i> <span class="badge" style="background-color: green;"><?php echo $row['m']; ?></span></a></li>
-            <?php }else{
-             
-        
-         ?>
-
-        <li><a data-toggle="tab" href="#home"  aria-expanded="false">Approve<i class="fa fa-bell-o"></i> <span class="badge" style="background-color: red;"><?php echo $row['m']; ?></span></a></li><?php }?>
-        <li><a href="../logout.php">Logout</a></li>
-  </ul>
-  </div>
   <div class="content">
   <div id="box">
-    <div class="box-top">ADMIN DASHBOARD</div>
+    <div class="box-top">EDIT STUDENT</div>
      <div class="box-panel">
      <div class="btn-group btn-group-justified" style="min-height: 80%;">
    
-     <ul class="nav nav-tabs">
-    <li class="active"><a data-toggle="tab" href="#home">DASHBOARD</a></li>
-    <li><a data-toggle="tab" href="#stdtreg">REGISTER STUDENT</a></li>
-    <li><a data-toggle="tab" href="#rgstrd">VIEW REGISTERED STUDENTS</a></li>
-    <li><a data-toggle="tab" href="#addanouc">ADD ANNOUCEMENT</a></li>
-    <li><a data-toggle="tab" href="#lectreg">ADD LECTURER</a></li>
-
-     <?php
-          $sql = $con ->prepare("SELECT COUNT(claimid) as cl FROM claim where status='0'");
-              $sql -> execute();
-             $count = $sql->fetchAll();
-             foreach ($count as $row);
-              $num=$row['cl'];
-             if($num == "0"){?>
-          <li><a data-toggle="tab" href="#claim" aria-expanded="false">CLAIM<i class="fa fa-bell-o"></i> <span class="badge" style="background-color: green;"><?php echo $row['cl']; ?></span></a></li>
-            <?php }else{
-             
-        
-         ?>
-
-        <li><a data-toggle="tab" href="#claim" aria-expanded="false">CLAIM<i class="fa fa-bell-o"></i> <span class="badge" style="background-color: red;"><?php echo $row['cl']; ?></span></a></li><?php }?>
-
-  </ul>
   <div class="tab-content">
     <div id="home" class="tab-pane fade in active">
 
-        <div class="box-top">EDIT STUDENT</div>
            <?php
          include("db/dbase.php");
           $id=$_GET['eid'];
@@ -282,124 +232,7 @@ a.mobile{
    
     </div>
         </div>
-    <div id="stdtreg" class="tab-pane fade">
-     
-          <div class="box-top">REGISTER STUDENT</div>
-         <div class="form-group">
-         <form method="POST" class="form-signin" action="getdata.php">
-      <label for="title">REG NUM:</label>
-      <input type="text" class="form-control" id="email" placeholder="ex: GS/2015/0527" name="regnum">
-    </div>
-     <div class="form-group">
-      <label for="title">FIRST NAME:</label>
-      <input type="text" class="form-control" id="email" placeholder="Enter your first name" name="fname">
-    </div>
-    <div class="form-group">
-      <label for="title">LAST NAME:</label>
-      <input type="text" class="form-control" id="email" placeholder="Enter your last name" name="lname">
-    </div>
-    <div class="form-group">
-      <label for="title">GENDER:</label> 
-      <select class="form-control" id="email" name="sgender">
-      <option value="Male">Male</option>
-      <option value="Female">Female</option>
-  </select></div>
-    <div class="form-group">
-      <label for="title">CLASS:</label> 
-      <select class="form-control" id="email" name="slevel">
-      <option value="leva">level 1</option>
-      <option value="levb">level 2</option>
-      <option value="levc">level 3</option>
-  </select>
-    </div>
-     <div class="form-group">
-      <label for="title">Email:</label>
-      <input type="text" class="form-control" id="email" placeholder="Type your Email" name="email">
-    </div>
-    <div class="form-group">
-      <label for="title">Telephone:</label>
-      <input type="text" class="form-control" id="email" placeholder="Ex: +250781234567" name="phone">
-    </div>
-   <input type="submit" name="ssave" class="btn btn-primary" value="SAVE" />
-   </form>
-   
-    </div>
-<!-- 
-    <div id="message" class="tab-pane fade">
-      
-     <div class="alert alert-success">
-       <strong>Success!</strong> Indicates a successful or positive action.
-    </div>
-
-    </div> -->
-    <div id="addanouc" class="tab-pane fade">
-      <div class="box-top">ADD ANOUCEMENT</div>
-
-        <div class="modal-body">
-         <div class="box-panel">
-        <form method="POST" class="form-signin" action="getdata.php">
-              <div class="form-group">
-                <label for="email">Annouce for:</label>
-                <select class="form-control" id="email" name="email">
-            <option value="all">All</option>
-            <option value="lect">Lecturers</option>
-            <option value="stud">Students</option>
-          </select>
-              <label for="email">Level:</label>
-                <select class="form-control" id="email" name="email">
-            <option value="all">All</option>
-            <option value="leva">level 1</option>
-            <option value="levb">level 2</option>
-            <option value="levc">level 3</option>
-          </select>
-              </div>
-              <div class="form-group">
-                <label for="title">Title:</label>
-                <input type="text" class="form-control" id="email" placeholder="anoucement Title" name="aemail">
-              </div>
-              <div class="form-group">
-                <label for="pwd">Annoucement</label>
-                <textarea class="form-control" id="pwd" name="Annoucement"></textarea>
-              </div>
-              <button type="submit" class="btn btn-primary" name="asend"><span class="glyphicon glyphicon-send"></span> SEND ANNOUCEMENT</button>
-      </form>
-  </div>
-  </div>
-      
-    </div>
-
-    <div id="lectreg" class="tab-pane fade">
-       <div id="box">
-          <div class="box-top">REGISTER LECTURER</div>
-          <form method="POST" class="form-signin" action="getdata.php">
-     <div class="form-group">
-      <label for="title">FIRST NAME:</label>
-      <input type="text" class="form-control" id="email" placeholder="Enter your first name" name="email">
-    </div>
-    <div class="form-group">
-      <label for="title">LAST NAME:</label>
-      <input type="text" class="form-control" id="email" placeholder="Enter your last name" name="email">
-    </div>
-    <div class="form-group">
-      <label for="title">CLASS:</label> 
-      <select class="form-control" id="email" name="email">
-      <option value="leva">level 1</option>
-      <option value="levb">level 2</option>
-      <option value="levc">level 3</option>
-  </select>
-    </div>
-    <div class="form-group">
-      <label for="title">Telephone:</label>
-      <input type="text" class="form-control" id="email" placeholder="Ex: +250781234567" name="email">
-    </div>
-    <input type="submit" class="btn btn-primary" class="glyphicon glyphicon-save" value="save" />
-      </form></div>
-    </div>
-
-  </div>
-  </div>
-		</div>
-	</div>
+    
 <?php }else{
   header('Location:../index.php');
 }?>

@@ -70,7 +70,6 @@
            $email=$_POST['email'];
            $phone=$_POST['phone'];
            $sgender=$_POST['sgender'];
-           $level=$_POST['slevel'];
            $sql=$con->prepare("UPDATE student SET regnum='$regnum',fname='$fname',lname='$lname',gender='$sgender',email='$email',phone='$phone' where sid=$id");
           try{
           $sql->execute();
@@ -99,7 +98,7 @@
             $fname=$row['fname'];
             
               $data = array(    
-              "sender"=>"0784603404",
+              "sender"=>"UOKUPDATE",
               "recipients"=>$telephone,
               "message"=>"Hey ".$fname.", ".$ann,    
             );
