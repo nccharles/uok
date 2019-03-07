@@ -40,8 +40,11 @@ body{
 a {
 	text-decoration: none;
 }
+#chpass{
+  background: linear-gradient(180deg,#833471,#833471,#2980b9,#2980b9, #f39c12,#833471,#833471); 
+}
 .modal-content{
-  background: linear-gradient(180deg,#833471,#2980b9,#2980b9,#833471);
+  background: rgba(40,10,0,0.3);
   color: #fff;
 }
 div#header{

@@ -63,12 +63,18 @@ div#container{
   width: 100%;
   margin: 0 auto;
 }
+#chpass{
+  background: linear-gradient(180deg,#833471,#833471,#2980b9,#2980b9, #f39c12,#833471,#833471); 
+}
+.modal-content{
+  background: rgba(40,10,0,0.3);
+  color: #fff;
+}
 .sidebar{
   width: 250px;
   margin-top: 14px;
-  background-color: #094947;
+  background: linear-gradient(180deg,#833471,#833471,#2980b9,#2980b9, #f39c12,#833471,#833471);
   float: left;
-  overflow: auto;
 }
 .content{
   width: auto;
