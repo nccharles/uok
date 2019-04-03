@@ -128,6 +128,13 @@ background-color: #4a4a4a;
   margin: 0 auto;
 	margin-top: 0px;
   border-bottom: 12px solid #2980b9;
+  
+}
+.table-striped{
+  font-size: 10px;
+}
+#claim{
+  font-size: 12px
 }
 }
 @media only screen and (min-width: 450px){
@@ -224,7 +231,7 @@ a.mobile{
   <div class="tab-content">
     <div id="y1" class="tab-pane fade in active">
         <?php
-   $sql = $con->prepare("SELECT s.regnum,s.fname,s.lname,m.level,c.cname,c.ccode,m.ass1,m.ass2,m.cat1,m.cat2,m.exam,SUM(m.ass1+m.ass2+m.cat1+m.cat2+m.exam)/5 as tot from student as s,courses as c,marks as m where s.sid=m.sid and c.cid=m.cid and m.status='1' and m.level='level 1' and s.regnum='$regnum'");
+   $sql = $con->prepare("SELECT s.regnum,s.fname,s.lname,m.level,c.cname,c.ccode,m.ass1,m.ass2,m.cat1,m.cat2,m.exam,SUM(m.ass1+m.ass2+m.cat1+m.cat2+m.exam) as tot from student as s,courses as c,marks as m where s.sid=m.sid and c.cid=m.cid and m.status='1' and m.level='level 1' and s.regnum='$regnum'");
           $sql->execute();
           $rem=$sql->fetchAll();
           foreach ($rem as $row);
@@ -236,15 +243,19 @@ a.mobile{
  <table class="table table-striped">
    <thead>
       <tr>
-        <th>CRSE</th>
-        <th>ASS<br/>(1-2)</th>
-        <th>CAT<br/>(1-2)</th>
+        <th>CRSE:G</th>
+        <th>ASS1</th>
+        <th>ASS2</th>
+        <th>CAT1</th>
+        <th>CAT2</th>
         <th>FE</th>
         <th>TOT</th>
       </tr>
     </thead>
     <tbody>
     <?php
+    $AvTot=0;
+    $av=0;
  foreach ($rem as $row) {
             $cname=$row['cname'];
             $ass1=$row['ass1'];
@@ -253,12 +264,29 @@ a.mobile{
             $cat2=$row['cat2'];
             $exam=$row['exam'];
             $tot=$row['tot'];
+            $av=$av+1;
+            $AvTot=$AvTot+$tot;
+            if($tot>=90){
+              $grade='A';
+            }elseif($tot>=80){
+              $grade='B';
+            }elseif($tot>=70){
+              $grade='C';
+            }elseif($tot>=60){
+              $grade='D';
+            }elseif($tot>=50){
+              $grade='E';
+            }else{
+              $grade='F';
+            }
  
      ?>
       <tr>
-        <td><?php echo $cname; ?></td>
-        <td><?php echo $ass1.'-'.$ass2; ?></td>
-        <td><?php echo $cat1.'-'.$cat2; ?></td>
+        <td><?php echo $cname; ?>: <?php echo $grade; ?></td>
+        <td><?php echo $ass1; ?></td>
+        <td><?php echo $ass2; ?></td>
+        <td><?php echo $cat1; ?></td>
+        <td><?php echo $cat2; ?></td>
         <td><?php echo $exam; ?></td>
         <td><?php echo round($tot,1); ?></td>
       </tr>
@@ -266,18 +294,11 @@ a.mobile{
     </tbody>
   </table>
     <div class="panel panel-danger">
-      <div class="panel-heading">AVERAGE</div>
+      <div class="panel-heading">AVERAGE: <?php echo $grade; ?></div>
       <div class="panel-body">
       <div class="progress">
-           <?php
-   $sql = $con->prepare("SELECT s.regnum,s.fname,s.lname,m.level,c.cname,c.ccode,m.ass1,m.ass2,m.cat1,m.cat2,m.exam,SUM(m.ass1+m.ass2+m.cat1+m.cat2+m.exam)/5 as tot from student as s,courses as c,marks as m where s.sid=m.sid and c.cid=m.cid and m.status='1' and m.level='level 1' and s.regnum='$regnum'");
-          $sql->execute();
-          $rem=$sql->fetchAll();
-          foreach ($rem as $row);
-          $tot=$row['tot'];
-         ?>
-    <div class="progress-bar" role="progressbar" aria-valuenow="<?php echo round($tot,1); ?>" aria-valuemin="0" aria-valuemax="100" style="width:<?php echo round($tot,1); ?>%">
-     <?php echo round($tot,1); ?>%
+    <div class="progress-bar" role="progressbar" aria-valuenow="<?php echo round($AvTot/$av,1); ?>" aria-valuemin="0" aria-valuemax="100" style="width:<?php echo round($AvTot/$av,1); ?>%">
+     <?php echo round($AvTot/$av,1); ?>%
     </div>
   </div>
   </div>
@@ -288,7 +309,7 @@ a.mobile{
     </div>
     <div id="y2" class="tab-pane fade">
         <?php
-   $sql = $con->prepare("SELECT s.regnum,s.fname,s.lname,m.level,c.cname,c.ccode,m.ass1,m.ass2,m.cat1,m.cat2,m.exam,SUM(m.ass1+m.ass2+m.cat1+m.cat2+m.exam)/5 as tot from student as s,courses as c,marks as m where s.sid=m.sid and c.cid=m.cid and m.status='1' and m.level='level 2' and s.regnum='$regnum'");
+   $sql = $con->prepare("SELECT s.regnum,s.fname,s.lname,m.level,c.cname,c.ccode,m.ass1,m.ass2,m.cat1,m.cat2,m.exam,SUM(m.ass1+m.ass2+m.cat1+m.cat2+m.exam) as tot from student as s,courses as c,marks as m where s.sid=m.sid and c.cid=m.cid and m.status='1' and m.level='level 2' and s.regnum='$regnum'");
           $sql->execute();
           $rem=$sql->fetchAll();
           foreach ($rem as $row);
@@ -299,17 +320,21 @@ a.mobile{
        <h5>THIS IS YOUR MARKS</h5>
  
            <table class="table table-striped">
-    <thead>
+           <thead>
       <tr>
-        <th>CRSE</th>
-        <th>ASS<br/>(1-2)</th>
-        <th>CAT<br/>(1-2)</th>
+        <th>CRSE:G</th>
+        <th>ASS1</th>
+        <th>ASS2</th>
+        <th>CAT1</th>
+        <th>CAT2</th>
         <th>FE</th>
         <th>TOT</th>
       </tr>
     </thead>
     <tbody>
     <?php
+    $AvTot=0;
+    $av=0;
  foreach ($rem as $row) {
             $cname=$row['cname'];
             $ass1=$row['ass1'];
@@ -318,12 +343,29 @@ a.mobile{
             $cat2=$row['cat2'];
             $exam=$row['exam'];
             $tot=$row['tot'];
+            $av=$av+1;
+            $AvTot=$AvTot+$tot;
+            if($tot>=90){
+              $grade='A';
+            }elseif($tot>=80){
+              $grade='B';
+            }elseif($tot>=70){
+              $grade='C';
+            }elseif($tot>=60){
+              $grade='D';
+            }elseif($tot>=50){
+              $grade='E';
+            }else{
+              $grade='F';
+            }
  
      ?>
       <tr>
-        <td><?php echo $cname; ?></td>
-        <td><?php echo $ass1.'-'.$ass2; ?></td>
-        <td><?php echo $cat1.'-'.$cat2; ?></td>
+        <td><?php echo $cname; ?>: <?php echo $grade; ?></td>
+        <td><?php echo $ass1; ?></td>
+        <td><?php echo $ass2; ?></td>
+        <td><?php echo $cat1; ?></td>
+        <td><?php echo $cat2; ?></td>
         <td><?php echo $exam; ?></td>
         <td><?php echo round($tot,1); ?></td>
       </tr>
@@ -331,18 +373,11 @@ a.mobile{
     </tbody>
   </table>
     <div class="panel panel-danger">
-      <div class="panel-heading">AVERAGE</div>
+      <div class="panel-heading">AVERAGE: <?php echo $grade; ?></div>
       <div class="panel-body">
       <div class="progress">
-           <?php
-   $sql = $con->prepare("SELECT s.regnum,s.fname,s.lname,m.level,c.cname,c.ccode,m.ass1,m.ass2,m.cat1,m.cat2,m.exam,SUM(m.ass1+m.ass2+m.cat1+m.cat2+m.exam)/5 as tot from student as s,courses as c,marks as m where s.sid=m.sid and c.cid=m.cid and m.status='1' and m.level='level 2' and s.regnum='$regnum'");
-          $sql->execute();
-          $rem=$sql->fetchAll();
-          foreach ($rem as $row);
-          $tot=$row['tot'];
-         ?>
-    <div class="progress-bar" role="progressbar" aria-valuenow="<?php echo round($tot,1); ?>" aria-valuemin="0" aria-valuemax="100" style="width:<?php echo round($tot,1); ?>%">
-     <?php echo round($tot,1); ?>%
+    <div class="progress-bar" role="progressbar" aria-valuenow="<?php echo round($AvTot/$av,1); ?>" aria-valuemin="0" aria-valuemax="100" style="width:<?php echo round($AvTot/$av,1); ?>%">
+     <?php echo round($AvTot/$av,1); ?>%
     </div>
   </div>
   </div>
@@ -353,7 +388,7 @@ a.mobile{
     </div>
     <div id="y3" class="tab-pane fade">
         <?php
-   $sql = $con->prepare("SELECT s.regnum,s.fname,s.lname,m.level,c.cname,c.ccode,m.exam from student as s,courses as c,marks as m where s.sid=m.sid and c.cid=m.cid and m.status='1' and m.level='level 3' and s.regnum='$regnum'");
+   $sql = $con->prepare("SELECT s.regnum,s.fname,s.lname,m.level,c.cname,c.ccode,m.ass1,m.ass2,m.cat1,m.cat2,m.exam,SUM(m.ass1+m.ass2+m.cat1+m.cat2+m.exam) as tot from student as s,courses as c,marks as m where s.sid=m.sid and c.cid=m.cid and m.status='1' and m.level='level 3' and s.regnum='$regnum'");
           $sql->execute();
           $rem=$sql->fetchAll();
           foreach ($rem as $row);
@@ -363,17 +398,21 @@ a.mobile{
   <div id="mark3" class="collapse">
        <h5>THIS IS YOUR MARKS</h5>
  <table class="table table-striped">
-    <thead>
+ <thead>
       <tr>
-        <th>CRSE</th>
-        <th>ASS<br/>(1-2)</th>
-        <th>CAT<br/>(1-2)</th>
+        <th>CRSE:G</th>
+        <th>ASS1</th>
+        <th>ASS2</th>
+        <th>CAT1</th>
+        <th>CAT2</th>
         <th>FE</th>
         <th>TOT</th>
       </tr>
     </thead>
     <tbody>
     <?php
+    $AvTot=0;
+    $av=0;
  foreach ($rem as $row) {
             $cname=$row['cname'];
             $ass1=$row['ass1'];
@@ -382,36 +421,46 @@ a.mobile{
             $cat2=$row['cat2'];
             $exam=$row['exam'];
             $tot=$row['tot'];
+            $av=$av+1;
+            $AvTot=$AvTot+$tot;
+            if($tot>=90){
+              $grade='A';
+            }elseif($tot>=80){
+              $grade='B';
+            }elseif($tot>=70){
+              $grade='C';
+            }elseif($tot>=60){
+              $grade='D';
+            }elseif($tot>=50){
+              $grade='E';
+            }else{
+              $grade='F';
+            }
  
      ?>
       <tr>
-        <td><?php echo $cname; ?></td>
-        <td><?php echo $ass1.'-'.$ass2; ?></td>
-        <td><?php echo $cat1.'-'.$cat2; ?></td>
+        <td><?php echo $cname; ?>: <?php echo $grade; ?></td>
+        <td><?php echo $ass1; ?></td>
+        <td><?php echo $ass2; ?></td>
+        <td><?php echo $cat1; ?></td>
+        <td><?php echo $cat2; ?></td>
         <td><?php echo $exam; ?></td>
-        <td><?php echo $tot; ?></td>
+        <td><?php echo round($tot,1); ?></td>
       </tr>
       <?php } ?>
     </tbody>
   </table>
     <div class="panel panel-danger">
-      <div class="panel-heading">AVERAGE</div>
+      <div class="panel-heading">AVERAGE: <?php echo $grade; ?></div>
       <div class="panel-body">
       <div class="progress">
-           <?php
-   $sql = $con->prepare("SELECT s.regnum,s.fname,s.lname,m.level,c.cname,c.ccode,m.ass1,m.ass2,m.cat1,m.cat2,m.exam,SUM(m.ass1+m.ass2+m.cat1+m.cat2+m.exam)/5 as tot from student as s,courses as c,marks as m where s.sid=m.sid and c.cid=m.cid and m.status='1' and m.level='level 3' and s.regnum='$regnum'");
-          $sql->execute();
-          $rem=$sql->fetchAll();
-          foreach ($rem as $row);
-          $tot=$row['tot'];
-         ?>
-    <div class="progress-bar" role="progressbar" aria-valuenow="<?php echo round($tot,1); ?>" aria-valuemin="0" aria-valuemax="100" style="width:<?php echo round($tot,1); ?>%">
-     <?php echo round($tot,1); ?>%
+    <div class="progress-bar" role="progressbar" aria-valuenow="<?php echo round($AvTot/$av,1); ?>" aria-valuemin="0" aria-valuemax="100" style="width:<?php echo round($AvTot/$av,1); ?>%">
+     <?php echo round($AvTot/$av,1); ?>%
     </div>
   </div>
   </div>
-    </div>
-    <button type="button" class="btn btn-warning btn-sm btn-block" ><a data-toggle="tab" href="#claim">CLAIM</a></button>
+    </div> 
+  <button type="button" class="btn btn-warning btn-sm btn-block" ><a data-toggle="tab" href="#claim">CLAIM</a></button>
   </div>
 
     </div>
