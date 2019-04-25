@@ -250,7 +250,7 @@ a.mobile{
            $sessl=$_POST['sessl'];
            $phone=$_POST['phone'];
            $sgender=$_POST['sgender'];
-          $sql = $con ->prepare("SELECT COUNT(stlevid) FROM studentsesslevel WHERE sid=(SELECT sid from student WHERE regnum='$regnum')");
+          $sql = $con ->prepare("SELECT COUNT(seslevid) FROM studentsesslevel WHERE sid=(SELECT sid from student WHERE regnum='$regnum')");
            $sql -> execute();
            $count = $sql->fetchColumn();
            if($count == "0"){
@@ -265,7 +265,7 @@ a.mobile{
 
            <?php
          }else{
-           $sql = $con ->prepare("SELECT MAX(stlevid) as deplevel FROM studentsesslevel WHERE sid=(SELECT sid from student WHERE regnum='$regnum') and Ystatus='1'");
+           $sql = $con ->prepare("SELECT MAX(seslevid) as deplevel FROM studentsesslevel WHERE sid=(SELECT sid from student WHERE regnum='$regnum') and Ystatus='1'");
             $sql -> execute();
             $rem=$sql->fetchAll();
             foreach ($rem as $row);
@@ -273,7 +273,7 @@ a.mobile{
             if($lid == "1"){
               $sql=$con->prepare("INSERT INTO studentsesslevel(sid,seslevid,Ystatus)values((SELECT sid from student WHERE regnum='$regnum'),'2','1')");
               $sql->execute();
-              $sql=$con->prepare("UPDATE studentsesslevel SET Ystatus='0' where sid=(SELECT sid from student WHERE regnum='$regnum') and stlevid!='2'");
+              $sql=$con->prepare("UPDATE studentsesslevel SET Ystatus='0' where sid=(SELECT sid from student WHERE regnum='$regnum') and seslevid!='2'");
               $sql->execute();
               ?>
               <div class="alert alert-success">
@@ -284,7 +284,7 @@ a.mobile{
             }else if($lid == "2"){
               $sql=$con->prepare("INSERT INTO studentsesslevel(sid,seslevid,Ystatus)values((SELECT sid from student WHERE regnum='$regnum'),'3','1')");
               $sql->execute();
-              $sql=$con->prepare("UPDATE studentsesslevel SET Ystatus='0' where sid=(SELECT sid from student WHERE regnum='$regnum') and stlevid!='3'");
+              $sql=$con->prepare("UPDATE studentsesslevel SET Ystatus='0' where sid=(SELECT sid from student WHERE regnum='$regnum') and seslevid!='3'");
               $sql->execute();
               ?>
               <div class="alert alert-success">
@@ -295,7 +295,7 @@ a.mobile{
             }else if($lid == "4"){
               $sql=$con->prepare("INSERT INTO studentsesslevel(sid,seslevid,Ystatus)values((SELECT sid from student WHERE regnum='$regnum'),'5','1')");
               $sql->execute();
-              $sql=$con->prepare("UPDATE studentsesslevel SET Ystatus='0' where sid=(SELECT sid from student WHERE regnum='$regnum') and stlevid!='5'");
+              $sql=$con->prepare("UPDATE studentsesslevel SET Ystatus='0' where sid=(SELECT sid from student WHERE regnum='$regnum') and seslevid!='5'");
               $sql->execute();
               ?>
               <div class="alert alert-success">
@@ -306,7 +306,7 @@ a.mobile{
             }else if($lid == "5"){
               $sql=$con->prepare("INSERT INTO studentsesslevel(sid,seslevid,Ystatus)values((SELECT sid from student WHERE regnum='$regnum'),'6','1')");
               $sql->execute();
-              $sql=$con->prepare("UPDATE studentsesslevel SET Ystatus='0' where sid=(SELECT sid from student WHERE regnum='$regnum') and stlevid!='6'");
+              $sql=$con->prepare("UPDATE studentsesslevel SET Ystatus='0' where sid=(SELECT sid from student WHERE regnum='$regnum') and seslevid!='6'");
               $sql->execute();
               ?>
               <div class="alert alert-success">
@@ -317,7 +317,7 @@ a.mobile{
             }else if($lid == "7"){
               $sql=$con->prepare("INSERT INTO studentsesslevel(sid,seslevid,Ystatus)values((SELECT sid from student WHERE regnum='$regnum'),'8','1')");
               $sql->execute();
-              $sql=$con->prepare("UPDATE studentsesslevel SET Ystatus='0' where sid=(SELECT sid from student WHERE regnum='$regnum') and stlevid!='8'");
+              $sql=$con->prepare("UPDATE studentsesslevel SET Ystatus='0' where sid=(SELECT sid from student WHERE regnum='$regnum') and seslevid!='8'");
               $sql->execute();
               ?>
               <div class="alert alert-success">
@@ -328,7 +328,7 @@ a.mobile{
             }else if($lid == "8"){
               $sql=$con->prepare("INSERT INTO studentsesslevel(sid,seslevid,Ystatus)values((SELECT sid from student WHERE regnum='$regnum'),'9','1')");
               $sql->execute();
-              $sql=$con->prepare("UPDATE studentsesslevel SET Ystatus='0' where sid=(SELECT sid from student WHERE regnum='$regnum') and stlevid!='9'");
+              $sql=$con->prepare("UPDATE studentsesslevel SET Ystatus='0' where sid=(SELECT sid from student WHERE regnum='$regnum') and seslevid!='9'");
               $sql->execute();
               ?>
               <div class="alert alert-success">
@@ -761,7 +761,7 @@ a.mobile{
            <div id="i2" class="tab-pane fade">
              <div class="row">
           <?php
-          $sql = $con->prepare("SELECT s.sid,s.regnum,s.fname,s.lname,s.gender,s.email,s.phone FROM student as s,level as l,studentsesslevel as sl where s.sid=sl.sid and sl.stlevid=2 and sl.Ystatus='1' Group by sl.sid");
+          $sql = $con->prepare("SELECT s.sid,s.regnum,s.fname,s.lname,s.gender,s.email,s.phone FROM student as s,level as l,studentsesslevel as sl where s.sid=sl.sid and sl.seslevid=2 and sl.Ystatus='1' Group by sl.sid");
                  $sql->execute();
                  $rem=$sql->fetchAll();
 
@@ -815,7 +815,7 @@ a.mobile{
            <div id="i3" class="tab-pane fade">
              <div class="row">
            <?php
-          $sql = $con->prepare("SELECT s.sid,s.regnum,s.fname,s.lname,s.gender,s.email,s.phone FROM student as s,level as l,studentsesslevel as sl where s.sid=sl.sid and sl.stlevid=3 and sl.Ystatus='1' Group by sl.sid");
+          $sql = $con->prepare("SELECT s.sid,s.regnum,s.fname,s.lname,s.gender,s.email,s.phone FROM student as s,level as l,studentsesslevel as sl where s.sid=sl.sid and sl.seslevid=3 and sl.Ystatus='1' Group by sl.sid");
                  $sql->execute();
                  $rem=$sql->fetchAll();
 
@@ -942,7 +942,7 @@ a.mobile{
         <div id="m2" class="tab-pane fade">
           <div class="row">
        <?php
-       $sql = $con->prepare("SELECT s.sid,s.regnum,s.fname,s.lname,s.gender,s.email,s.phone FROM student as s,level as l,studentsesslevel as sl where s.sid=sl.sid and sl.stlevid=5 and sl.Ystatus='1' Group by sl.sid");
+       $sql = $con->prepare("SELECT s.sid,s.regnum,s.fname,s.lname,s.gender,s.email,s.phone FROM student as s,level as l,studentsesslevel as sl where s.sid=sl.sid and sl.seslevid=5 and sl.Ystatus='1' Group by sl.sid");
               $sql->execute();
               $rem=$sql->fetchAll();
 
@@ -996,7 +996,7 @@ a.mobile{
         <div id="m3" class="tab-pane fade">
           <div class="row">
         <?php
-       $sql = $con->prepare("SELECT s.sid,s.regnum,s.fname,s.lname,s.gender,s.email,s.phone FROM student as s,level as l,studentsesslevel as sl where s.sid=sl.sid and sl.stlevid=6 and sl.Ystatus='1' Group by sl.sid");
+       $sql = $con->prepare("SELECT s.sid,s.regnum,s.fname,s.lname,s.gender,s.email,s.phone FROM student as s,level as l,studentsesslevel as sl where s.sid=sl.sid and sl.seslevid=6 and sl.Ystatus='1' Group by sl.sid");
               $sql->execute();
               $rem=$sql->fetchAll();
 
