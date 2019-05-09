@@ -231,7 +231,7 @@ a.mobile{
   <div class="tab-content">
     <div id="y1" class="tab-pane fade in active">
         <?php
-   $sql = $con->prepare("SELECT s.regnum,s.fname,s.lname,m.level,c.cname,c.ccode,m.ass1,m.ass2,m.cat1,m.cat2,m.exam,SUM(m.ass1+m.ass2+m.cat1+m.cat2+m.exam) as tot from student as s,courses as c,marks as m where s.sid=m.sid and c.cid=m.cid and m.status='1' and m.level='level 1' and s.regnum='$regnum'");
+   $sql = $con->prepare("SELECT s.regnum,s.fname,s.lname,m.level,c.cname,c.ccode,m.ass1,m.ass2,m.cat1,m.cat2,m.exam,SUM(m.ass1+m.ass2+m.cat1+m.cat2+m.exam) as tot from student as s,courses as c,marks as m where s.sid=m.sid and c.cid=m.cid and m.status='1' and m.level='level 1' and s.regnum='$regnum' GROUP BY c.cid");
           $sql->execute();
           $rem=$sql->fetchAll();
           foreach ($rem as $row);
@@ -309,7 +309,7 @@ a.mobile{
     </div>
     <div id="y2" class="tab-pane fade">
         <?php
-   $sql = $con->prepare("SELECT s.regnum,s.fname,s.lname,m.level,c.cname,c.ccode,m.ass1,m.ass2,m.cat1,m.cat2,m.exam,SUM(m.ass1+m.ass2+m.cat1+m.cat2+m.exam) as tot from student as s,courses as c,marks as m where s.sid=m.sid and c.cid=m.cid and m.status='1' and m.level='level 2' and s.regnum='$regnum'");
+   $sql = $con->prepare("SELECT s.regnum,s.fname,s.lname,m.level,c.cname,c.ccode,m.ass1,m.ass2,m.cat1,m.cat2,m.exam,SUM(m.ass1+m.ass2+m.cat1+m.cat2+m.exam) as tot from student as s,courses as c,marks as m where s.sid=m.sid and c.cid=m.cid and m.status='1' and m.level='level 2' and s.regnum='$regnum' GROUP BY c.cid");
           $sql->execute();
           $rem=$sql->fetchAll();
           foreach ($rem as $row);
@@ -388,7 +388,7 @@ a.mobile{
     </div>
     <div id="y3" class="tab-pane fade">
         <?php
-   $sql = $con->prepare("SELECT s.regnum,s.fname,s.lname,m.level,c.cname,c.ccode,m.ass1,m.ass2,m.cat1,m.cat2,m.exam,SUM(m.ass1+m.ass2+m.cat1+m.cat2+m.exam) as tot from student as s,courses as c,marks as m where s.sid=m.sid and c.cid=m.cid and m.status='1' and m.level='level 3' and s.regnum='$regnum'");
+   $sql = $con->prepare("SELECT s.regnum,s.fname,s.lname,m.level,c.cname,c.ccode,m.ass1,m.ass2,m.cat1,m.cat2,m.exam,SUM(m.ass1+m.ass2+m.cat1+m.cat2+m.exam) as tot from student as s,courses as c,marks as m where s.sid=m.sid and c.cid=m.cid and m.status='1' and m.level='level 3' and s.regnum='$regnum' GROUP BY c.cid");
           $sql->execute();
           $rem=$sql->fetchAll();
           foreach ($rem as $row);
@@ -517,7 +517,7 @@ a.mobile{
       <input type="text" class="form-control" id="email" name="lname" value="<?php echo $lname; ?>" placeholder="Enter your last name" name="email">
     </div>
     <?php
-        $sql = $con->prepare("SELECT c.ccode,c.cname from courses as c,student as s,studentsesslevel as stl,sesslevel as sl,level l,marks as m where l.level=c.level and stl.seslevid=sl.seslevid and stl.Ystatus='1' and s.sid=stl.sid and c.cid=m.cid and m.status='1' and s.regnum='$regnum' group by c.ccode");
+        $sql = $con->prepare("SELECT c.ccode,c.cname from courses as c,student as s,studentsesslevel as stl,sesslevel as sl,level l,marks as m where l.level=c.level and stl.seslevid=sl.seslevid and stl.Ystatus='1' and s.sid=stl.sid and c.cid=m.cid and m.status='1' and s.regnum='$regnum' GROUP BY c.cid");
           $sql->execute();
           $rem=$sql->fetchAll();
          ?>
