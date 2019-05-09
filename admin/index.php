@@ -722,6 +722,7 @@ a.mobile{
                <th>GENDER</th>
                 <th>E-MAIL</th>
                <th>PHONE</th>
+               <th>MARKS</th>
                 <th>EDIT</th>
                <th>REMOVE</th>
              </tr>
@@ -744,9 +745,66 @@ a.mobile{
                <td><?php echo $gender; ?></td>
                <td><?php echo $email; ?></td>
                <td><?php echo $tel; ?></td>
+               <td> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#m<?php echo $sid;?>"><span class="glyphicon glyphicon-info-sign"></span></button></td>
                <td> <button type="button" class="btn btn-warning" data-toggle="modal" name="sedit" data-target="#myModal"><a href='studentedit.php?eid=<?php echo $sid;?>'><span class="glyphicon glyphicon-edit"></span></a></button></td>
                <td><button type="button" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete This Student?');"><a href='deletestudent.php?eid=<?php echo $sid;?>'><span class="glyphicon glyphicon-trash"></span></a></button></td>
              </tr>
+             <div class="modal fade" id="m<?php echo $sid;?>" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title"><?php echo $fname; ?>'s marks</h4>
+        </div>
+        <div class="modal-body">
+        
+  <div id="mark1" class="collapse in active">
+ <div class="table">
+ <?php
+   $sql = $con->prepare("SELECT s.regnum,s.fname,s.lname,m.level,c.cname,c.ccode,m.ass1,m.ass2,m.cat1,m.cat2,m.exam,SUM(m.ass1+m.ass2+m.cat1+m.cat2+m.exam) as tot from student as s,courses as c,marks as m where s.sid=m.sid and c.cid=m.cid and m.status='1' and m.level='level 1' and s.regnum='$regnum'");
+          $sql->execute();
+          $rem=$sql->fetchAll();
+          foreach ($rem as $row){
+            $tot=$row['tot'];
+            if($tot){
+            if($tot>=90){
+              $grade='A';
+            }elseif($tot>=80){
+              $grade='B';
+            }elseif($tot>=70){
+              $grade='C';
+            }elseif($tot>=60){
+              $grade='D';
+            }elseif($tot>=50){
+              $grade='E';
+            }else{
+              $grade='F';
+            }
+            
+         ?>
+ <div>
+        <div class="alert alert-info">
+  <strong><?php echo $row['cname']; ?> GRADE: <?php echo $grade; ?></strong>
+</div>
+        <label>A1:<?php echo $row['ass1']; ?></label>
+        <label>A2: <?php echo $row['ass2']; ?></label>
+        <label>CAT1: <?php echo $row['cat1']; ?></label>
+        <label>CAT2: <?php echo $row['cat2']; ?></label>
+        <label>EXAM: <?php echo $row['exam']; ?></label>
+        <label><b>TOT: <?php echo $row['tot']; ?></b></label>
+      </div>
+          <?php } } ?>
+          </div>
+  </div>
+    <div class="panel panel-danger">
+              </div>
+        </div>
+        <div class="modal-footer">
+          
+        </div>
+      </div>
              <?php } ?>
              <tr>
              <td colspan="8"><button type="button" class="btn btn-primary" data-toggle="tab" href="#stdtreg">ADD NEW STUDENT</span></button></td>
@@ -776,6 +834,7 @@ a.mobile{
                <th>GENDER</th>
                 <th>E-MAIL</th>
                <th>PHONE</th>
+                <th>MARKS</th>
                 <th>EDIT</th>
                <th>REMOVE</th>
              </tr>
@@ -798,9 +857,66 @@ a.mobile{
                <td><?php echo $gender; ?></td>
                <td><?php echo $email; ?></td>
                <td><?php echo $tel; ?></td>
+               <td> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#m<?php echo $sid;?>"><span class="glyphicon glyphicon-info-sign"></span></button></td>
                <td> <button type="button" class="btn btn-warning" data-toggle="modal" name="sedit" data-target="#myModal"><a href='studentedit.php?eid=<?php echo $sid;?>'><span class="glyphicon glyphicon-edit"></span></a></button></td>
                <td><button type="button" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete This Student?');"><a href='deletestudent.php?eid=<?php echo $sid;?>'><span class="glyphicon glyphicon-trash"></span></a></button></td>
              </tr>
+             <div class="modal fade" id="m<?php echo $sid;?>" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title"><?php echo $fname; ?>'s marks</h4>
+        </div>
+        <div class="modal-body">
+        
+  <div id="mark2" class="collapse in active">
+ <div class="table">
+ <?php
+   $sql = $con->prepare("SELECT s.regnum,s.fname,s.lname,m.level,c.cname,c.ccode,m.ass1,m.ass2,m.cat1,m.cat2,m.exam,SUM(m.ass1+m.ass2+m.cat1+m.cat2+m.exam) as tot from student as s,courses as c,marks as m where s.sid=m.sid and c.cid=m.cid and m.status='1' and m.level='level 2' and s.regnum='$regnum'");
+          $sql->execute();
+          $rem=$sql->fetchAll();
+          foreach ($rem as $row){
+            $tot=$row['tot'];
+            if($tot){
+            if($tot>=90){
+              $grade='A';
+            }elseif($tot>=80){
+              $grade='B';
+            }elseif($tot>=70){
+              $grade='C';
+            }elseif($tot>=60){
+              $grade='D';
+            }elseif($tot>=50){
+              $grade='E';
+            }else{
+              $grade='F';
+            }
+            
+         ?>
+ <div>
+        <div class="alert alert-info">
+  <strong><?php echo $row['cname']; ?> GRADE: <?php echo $grade; ?></strong>
+</div>
+        <label>A1:<?php echo $row['ass1']; ?></label>
+        <label>A2: <?php echo $row['ass2']; ?></label>
+        <label>CAT1: <?php echo $row['cat1']; ?></label>
+        <label>CAT2: <?php echo $row['cat2']; ?></label>
+        <label>EXAM: <?php echo $row['exam']; ?></label>
+        <label><b>TOT: <?php echo $row['tot']; ?></b></label>
+      </div>
+          <?php } } ?>
+          </div>
+  </div>
+    <div class="panel panel-danger">
+              </div>
+        </div>
+        <div class="modal-footer">
+          
+        </div>
+      </div>
              <?php } ?>
              <tr>
              <td colspan="8"><button type="button" class="btn btn-primary" data-toggle="tab" href="#stdtreg">ADD NEW STUDENT</span></button></td>
@@ -830,6 +946,7 @@ a.mobile{
                <th>GENDER</th>
                 <th>E-MAIL</th>
                <th>PHONE</th>
+               <th>MARKS</th>
                 <th>EDIT</th>
                <th>REMOVE</th>
              </tr>
@@ -852,9 +969,66 @@ a.mobile{
                <td><?php echo $gender; ?></td>
                <td><?php echo $email; ?></td>
                <td><?php echo $tel; ?></td>
+               <td> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#m<?php echo $sid;?>"><span class="glyphicon glyphicon-info-sign"></span></button></td>
                <td> <button type="button" class="btn btn-warning" data-toggle="modal" name="sedit" data-target="#myModal"><a href='studentedit.php?eid=<?php echo $sid;?>'><span class="glyphicon glyphicon-edit"></span></a></button></td>
                <td><button type="button" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete This Student?');"><a href='deletestudent.php?eid=<?php echo $sid;?>'><span class="glyphicon glyphicon-trash"></span></a></button></td>
              </tr>
+             <div class="modal fade" id="m<?php echo $sid;?>" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title"><?php echo $fname; ?>'s marks</h4>
+        </div>
+        <div class="modal-body">
+        
+  <div id="mark3" class="collapse in active">
+ <div class="table">
+ <?php
+   $sql = $con->prepare("SELECT s.regnum,s.fname,s.lname,m.level,c.cname,c.ccode,m.ass1,m.ass2,m.cat1,m.cat2,m.exam,SUM(m.ass1+m.ass2+m.cat1+m.cat2+m.exam) as tot from student as s,courses as c,marks as m where s.sid=m.sid and c.cid=m.cid and m.status='1' and m.level='level 3' and s.regnum='$regnum'");
+          $sql->execute();
+          $rem=$sql->fetchAll();
+          foreach ($rem as $row){
+            $tot=$row['tot'];
+            if($tot){
+            if($tot>=90){
+              $grade='A';
+            }elseif($tot>=80){
+              $grade='B';
+            }elseif($tot>=70){
+              $grade='C';
+            }elseif($tot>=60){
+              $grade='D';
+            }elseif($tot>=50){
+              $grade='E';
+            }else{
+              $grade='F';
+            }
+            
+         ?>
+ <div>
+        <div class="alert alert-info">
+  <strong><?php echo $row['cname']; ?> GRADE: <?php echo $grade; ?></strong>
+</div>
+        <label>A1:<?php echo $row['ass1']; ?></label>
+        <label>A2: <?php echo $row['ass2']; ?></label>
+        <label>CAT1: <?php echo $row['cat1']; ?></label>
+        <label>CAT2: <?php echo $row['cat2']; ?></label>
+        <label>EXAM: <?php echo $row['exam']; ?></label>
+        <label><b>TOT: <?php echo $row['tot']; ?></b></label>
+      </div>
+          <?php } } ?>
+          </div>
+  </div>
+    <div class="panel panel-danger">
+              </div>
+        </div>
+        <div class="modal-footer">
+          
+        </div>
+      </div>
              <?php } ?>
              <tr>
              <td colspan="8"><button type="button" class="btn btn-primary" data-toggle="tab" href="#stdtreg">ADD NEW STUDENT</span></button></td>
@@ -903,6 +1077,7 @@ a.mobile{
             <th>GENDER</th>
              <th>E-MAIL</th>
             <th>PHONE</th>
+            <th>MARKS</th>
              <th>EDIT</th>
             <th>REMOVE</th>
           </tr>
@@ -925,10 +1100,67 @@ a.mobile{
             <td><?php echo $gender; ?></td>
             <td><?php echo $email; ?></td>
             <td><?php echo $tel; ?></td>
-            <td> <button type="button" class="btn btn-warning" data-toggle="modal" name="sedit" data-target="#myModal"><a href='studentedit.php?eid=<?php echo $sid;?>'><span class="glyphicon glyphicon-edit"></span></a></button></td>
-            <td><button type="button" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete This Student?');"><a href='deletestudent.php?eid=<?php echo $sid;?>'><span class="glyphicon glyphicon-trash"></span></a></button></td>
-          </tr>
-          <?php } ?>
+            <td> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#m<?php echo $sid;?>"><span class="glyphicon glyphicon-info-sign"></span></button></td>
+               <td> <button type="button" class="btn btn-warning" data-toggle="modal" name="sedit" data-target="#myModal"><a href='studentedit.php?eid=<?php echo $sid;?>'><span class="glyphicon glyphicon-edit"></span></a></button></td>
+               <td><button type="button" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete This Student?');"><a href='deletestudent.php?eid=<?php echo $sid;?>'><span class="glyphicon glyphicon-trash"></span></a></button></td>
+             </tr>
+             <div class="modal fade" id="m<?php echo $sid;?>" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title"><?php echo $fname; ?>'s marks</h4>
+        </div>
+        <div class="modal-body">
+        
+  <div id="mark1" class="collapse in active">
+ <div class="table">
+ <?php
+   $sql = $con->prepare("SELECT s.regnum,s.fname,s.lname,m.level,c.cname,c.ccode,m.ass1,m.ass2,m.cat1,m.cat2,m.exam,SUM(m.ass1+m.ass2+m.cat1+m.cat2+m.exam) as tot from student as s,courses as c,marks as m where s.sid=m.sid and c.cid=m.cid and m.status='1' and m.level='level 1' and s.regnum='$regnum'");
+          $sql->execute();
+          $rem=$sql->fetchAll();
+          foreach ($rem as $row){
+            $tot=$row['tot'];
+            if($tot){
+            if($tot>=90){
+              $grade='A';
+            }elseif($tot>=80){
+              $grade='B';
+            }elseif($tot>=70){
+              $grade='C';
+            }elseif($tot>=60){
+              $grade='D';
+            }elseif($tot>=50){
+              $grade='E';
+            }else{
+              $grade='F';
+            }
+            
+         ?>
+ <div>
+        <div class="alert alert-info">
+  <strong><?php echo $row['cname']; ?> GRADE: <?php echo $grade; ?></strong>
+</div>
+        <label>A1:<?php echo $row['ass1']; ?></label>
+        <label>A2: <?php echo $row['ass2']; ?></label>
+        <label>CAT1: <?php echo $row['cat1']; ?></label>
+        <label>CAT2: <?php echo $row['cat2']; ?></label>
+        <label>EXAM: <?php echo $row['exam']; ?></label>
+        <label><b>TOT: <?php echo $row['tot']; ?></b></label>
+      </div>
+          <?php } } ?>
+          </div>
+  </div>
+    <div class="panel panel-danger">
+              </div>
+        </div>
+        <div class="modal-footer">
+          
+        </div>
+      </div>
+             <?php } ?>
           <tr>
           <td colspan="8"><button type="button" class="btn btn-primary" data-toggle="tab" href="#stdtreg">ADD NEW STUDENT</span></button></td>
           </tr>
@@ -957,6 +1189,7 @@ a.mobile{
             <th>GENDER</th>
              <th>E-MAIL</th>
             <th>PHONE</th>
+            <th>MARKS</th>
              <th>EDIT</th>
             <th>REMOVE</th>
           </tr>
@@ -979,10 +1212,67 @@ a.mobile{
             <td><?php echo $gender; ?></td>
             <td><?php echo $email; ?></td>
             <td><?php echo $tel; ?></td>
-            <td> <button type="button" class="btn btn-warning" data-toggle="modal" name="sedit" data-target="#myModal"><a href='studentedit.php?eid=<?php echo $sid;?>'><span class="glyphicon glyphicon-edit"></span></a></button></td>
-            <td><button type="button" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete This Student?');"><a href='deletestudent.php?eid=<?php echo $sid;?>'><span class="glyphicon glyphicon-trash"></span></a></button></td>
-          </tr>
-          <?php } ?>
+            <td> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#m<?php echo $sid;?>"><span class="glyphicon glyphicon-info-sign"></span></button></td>
+               <td> <button type="button" class="btn btn-warning" data-toggle="modal" name="sedit" data-target="#myModal"><a href='studentedit.php?eid=<?php echo $sid;?>'><span class="glyphicon glyphicon-edit"></span></a></button></td>
+               <td><button type="button" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete This Student?');"><a href='deletestudent.php?eid=<?php echo $sid;?>'><span class="glyphicon glyphicon-trash"></span></a></button></td>
+             </tr>
+             <div class="modal fade" id="m<?php echo $sid;?>" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title"><?php echo $fname; ?>'s marks</h4>
+        </div>
+        <div class="modal-body">
+        
+  <div id="mark1" class="collapse in active">
+ <div class="table">
+ <?php
+   $sql = $con->prepare("SELECT s.regnum,s.fname,s.lname,m.level,c.cname,c.ccode,m.ass1,m.ass2,m.cat1,m.cat2,m.exam,SUM(m.ass1+m.ass2+m.cat1+m.cat2+m.exam) as tot from student as s,courses as c,marks as m where s.sid=m.sid and c.cid=m.cid and m.status='1' and m.level='level 2' and s.regnum='$regnum'");
+          $sql->execute();
+          $rem=$sql->fetchAll();
+          foreach ($rem as $row){
+            $tot=$row['tot'];
+            if($tot){
+            if($tot>=90){
+              $grade='A';
+            }elseif($tot>=80){
+              $grade='B';
+            }elseif($tot>=70){
+              $grade='C';
+            }elseif($tot>=60){
+              $grade='D';
+            }elseif($tot>=50){
+              $grade='E';
+            }else{
+              $grade='F';
+            }
+            
+         ?>
+ <div>
+        <div class="alert alert-info">
+  <strong><?php echo $row['cname']; ?> GRADE: <?php echo $grade; ?></strong>
+</div>
+        <label>A1:<?php echo $row['ass1']; ?></label>
+        <label>A2: <?php echo $row['ass2']; ?></label>
+        <label>CAT1: <?php echo $row['cat1']; ?></label>
+        <label>CAT2: <?php echo $row['cat2']; ?></label>
+        <label>EXAM: <?php echo $row['exam']; ?></label>
+        <label><b>TOT: <?php echo $row['tot']; ?></b></label>
+      </div>
+          <?php } } ?>
+          </div>
+  </div>
+    <div class="panel panel-danger">
+              </div>
+        </div>
+        <div class="modal-footer">
+          
+        </div>
+      </div>
+             <?php } ?>
           <tr>
           <td colspan="8"><button type="button" class="btn btn-primary" data-toggle="tab" href="#stdtreg">ADD NEW STUDENT</span></button></td>
           </tr>
@@ -1011,6 +1301,7 @@ a.mobile{
             <th>GENDER</th>
              <th>E-MAIL</th>
             <th>PHONE</th>
+            <th>MARKS</th>
              <th>EDIT</th>
             <th>REMOVE</th>
           </tr>
@@ -1033,10 +1324,67 @@ a.mobile{
             <td><?php echo $gender; ?></td>
             <td><?php echo $email; ?></td>
             <td><?php echo $tel; ?></td>
-            <td> <button type="button" class="btn btn-warning" data-toggle="modal" name="sedit" data-target="#myModal"><a href='studentedit.php?eid=<?php echo $sid;?>'><span class="glyphicon glyphicon-edit"></span></a></button></td>
-            <td><button type="button" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete This Student?');"><a href='deletestudent.php?eid=<?php echo $sid;?>'><span class="glyphicon glyphicon-trash"></span></a></button></td>
-          </tr>
-          <?php } ?>
+            <td> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#m<?php echo $sid;?>"><span class="glyphicon glyphicon-info-sign"></span></button></td>
+               <td> <button type="button" class="btn btn-warning" data-toggle="modal" name="sedit" data-target="#myModal"><a href='studentedit.php?eid=<?php echo $sid;?>'><span class="glyphicon glyphicon-edit"></span></a></button></td>
+               <td><button type="button" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete This Student?');"><a href='deletestudent.php?eid=<?php echo $sid;?>'><span class="glyphicon glyphicon-trash"></span></a></button></td>
+             </tr>
+             <div class="modal fade" id="m<?php echo $sid;?>" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title"><?php echo $fname; ?>'s marks</h4>
+        </div>
+        <div class="modal-body">
+        
+  <div id="mark1" class="collapse in active">
+ <div class="table">
+ <?php
+   $sql = $con->prepare("SELECT s.regnum,s.fname,s.lname,m.level,c.cname,c.ccode,m.ass1,m.ass2,m.cat1,m.cat2,m.exam,SUM(m.ass1+m.ass2+m.cat1+m.cat2+m.exam) as tot from student as s,courses as c,marks as m where s.sid=m.sid and c.cid=m.cid and m.status='1' and m.level='level 3' and s.regnum='$regnum'");
+          $sql->execute();
+          $rem=$sql->fetchAll();
+          foreach ($rem as $row){
+            $tot=$row['tot'];
+            if($tot){
+            if($tot>=90){
+              $grade='A';
+            }elseif($tot>=80){
+              $grade='B';
+            }elseif($tot>=70){
+              $grade='C';
+            }elseif($tot>=60){
+              $grade='D';
+            }elseif($tot>=50){
+              $grade='E';
+            }else{
+              $grade='F';
+            }
+            
+         ?>
+ <div>
+        <div class="alert alert-info">
+  <strong><?php echo $row['cname']; ?> GRADE: <?php echo $grade; ?></strong>
+</div>
+        <label>A1:<?php echo $row['ass1']; ?></label>
+        <label>A2: <?php echo $row['ass2']; ?></label>
+        <label>CAT1: <?php echo $row['cat1']; ?></label>
+        <label>CAT2: <?php echo $row['cat2']; ?></label>
+        <label>EXAM: <?php echo $row['exam']; ?></label>
+        <label><b>TOT: <?php echo $row['tot']; ?></b></label>
+      </div>
+          <?php } } ?>
+          </div>
+  </div>
+    <div class="panel panel-danger">
+              </div>
+        </div>
+        <div class="modal-footer">
+          
+        </div>
+      </div>
+             <?php } ?>
           <tr>
           <td colspan="8"><button type="button" class="btn btn-primary" data-toggle="tab" href="#stdtreg">ADD NEW STUDENT</span></button></td>
           </tr>
@@ -1084,6 +1432,7 @@ a.mobile{
             <th>GENDER</th>
              <th>E-MAIL</th>
             <th>PHONE</th>
+            <th>MARKS</th>
              <th>EDIT</th>
             <th>REMOVE</th>
           </tr>
@@ -1106,10 +1455,67 @@ a.mobile{
             <td><?php echo $gender; ?></td>
             <td><?php echo $email; ?></td>
             <td><?php echo $tel; ?></td>
-            <td> <button type="button" class="btn btn-warning" data-toggle="modal" name="sedit" data-target="#myModal"><a href='studentedit.php?eid=<?php echo $sid;?>'><span class="glyphicon glyphicon-edit"></span></a></button></td>
-            <td><button type="button" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete This Student?');"><a href='deletestudent.php?eid=<?php echo $sid;?>'><span class="glyphicon glyphicon-trash"></span></a></button></td>
-          </tr>
-          <?php } ?>
+            <td> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#m<?php echo $sid;?>"><span class="glyphicon glyphicon-info-sign"></span></button></td>
+               <td> <button type="button" class="btn btn-warning" data-toggle="modal" name="sedit" data-target="#myModal"><a href='studentedit.php?eid=<?php echo $sid;?>'><span class="glyphicon glyphicon-edit"></span></a></button></td>
+               <td><button type="button" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete This Student?');"><a href='deletestudent.php?eid=<?php echo $sid;?>'><span class="glyphicon glyphicon-trash"></span></a></button></td>
+             </tr>
+             <div class="modal fade" id="m<?php echo $sid;?>" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title"><?php echo $fname; ?>'s marks</h4>
+        </div>
+        <div class="modal-body">
+        
+  <div id="mark1" class="collapse in active">
+ <div class="table">
+ <?php
+   $sql = $con->prepare("SELECT s.regnum,s.fname,s.lname,m.level,c.cname,c.ccode,m.ass1,m.ass2,m.cat1,m.cat2,m.exam,SUM(m.ass1+m.ass2+m.cat1+m.cat2+m.exam) as tot from student as s,courses as c,marks as m where s.sid=m.sid and c.cid=m.cid and m.status='1' and m.level='level 1' and s.regnum='$regnum'");
+          $sql->execute();
+          $rem=$sql->fetchAll();
+          foreach ($rem as $row){
+            $tot=$row['tot'];
+            if($tot){
+            if($tot>=90){
+              $grade='A';
+            }elseif($tot>=80){
+              $grade='B';
+            }elseif($tot>=70){
+              $grade='C';
+            }elseif($tot>=60){
+              $grade='D';
+            }elseif($tot>=50){
+              $grade='E';
+            }else{
+              $grade='F';
+            }
+            
+         ?>
+ <div>
+        <div class="alert alert-info">
+  <strong><?php echo $row['cname']; ?> GRADE: <?php echo $grade; ?></strong>
+</div>
+        <label>A1:<?php echo $row['ass1']; ?></label>
+        <label>A2: <?php echo $row['ass2']; ?></label>
+        <label>CAT1: <?php echo $row['cat1']; ?></label>
+        <label>CAT2: <?php echo $row['cat2']; ?></label>
+        <label>EXAM: <?php echo $row['exam']; ?></label>
+        <label><b>TOT: <?php echo $row['tot']; ?></b></label>
+      </div>
+          <?php } } ?>
+          </div>
+  </div>
+    <div class="panel panel-danger">
+              </div>
+        </div>
+        <div class="modal-footer">
+          
+        </div>
+      </div>
+             <?php } ?>
           <tr>
           <td colspan="8"><button type="button" class="btn btn-primary" data-toggle="tab" href="#stdtreg">ADD NEW STUDENT</span></button></td>
           </tr>
@@ -1138,6 +1544,7 @@ a.mobile{
             <th>GENDER</th>
              <th>E-MAIL</th>
             <th>PHONE</th>
+            <th>MARKS</th>
              <th>EDIT</th>
             <th>REMOVE</th>
           </tr>
@@ -1160,10 +1567,67 @@ a.mobile{
             <td><?php echo $gender; ?></td>
             <td><?php echo $email; ?></td>
             <td><?php echo $tel; ?></td>
-            <td> <button type="button" class="btn btn-warning" data-toggle="modal" name="sedit" data-target="#myModal"><a href='studentedit.php?eid=<?php echo $sid;?>'><span class="glyphicon glyphicon-edit"></span></a></button></td>
-            <td><button type="button" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete This Student?');"><a href='deletestudent.php?eid=<?php echo $sid;?>'><span class="glyphicon glyphicon-trash"></span></a></button></td>
-          </tr>
-          <?php } ?>
+            <td> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#m<?php echo $sid;?>"><span class="glyphicon glyphicon-info-sign"></span></button></td>
+               <td> <button type="button" class="btn btn-warning" data-toggle="modal" name="sedit" data-target="#myModal"><a href='studentedit.php?eid=<?php echo $sid;?>'><span class="glyphicon glyphicon-edit"></span></a></button></td>
+               <td><button type="button" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete This Student?');"><a href='deletestudent.php?eid=<?php echo $sid;?>'><span class="glyphicon glyphicon-trash"></span></a></button></td>
+             </tr>
+             <div class="modal fade" id="m<?php echo $sid;?>" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title"><?php echo $fname; ?>'s marks</h4>
+        </div>
+        <div class="modal-body">
+        
+  <div id="mark1" class="collapse in active">
+ <div class="table">
+ <?php
+   $sql = $con->prepare("SELECT s.regnum,s.fname,s.lname,m.level,c.cname,c.ccode,m.ass1,m.ass2,m.cat1,m.cat2,m.exam,SUM(m.ass1+m.ass2+m.cat1+m.cat2+m.exam) as tot from student as s,courses as c,marks as m where s.sid=m.sid and c.cid=m.cid and m.status='1' and m.level='level 2' and s.regnum='$regnum'");
+          $sql->execute();
+          $rem=$sql->fetchAll();
+          foreach ($rem as $row){
+            $tot=$row['tot'];
+            if($tot){
+            if($tot>=90){
+              $grade='A';
+            }elseif($tot>=80){
+              $grade='B';
+            }elseif($tot>=70){
+              $grade='C';
+            }elseif($tot>=60){
+              $grade='D';
+            }elseif($tot>=50){
+              $grade='E';
+            }else{
+              $grade='F';
+            }
+            
+         ?>
+ <div>
+        <div class="alert alert-info">
+  <strong><?php echo $row['cname']; ?> GRADE: <?php echo $grade; ?></strong>
+</div>
+        <label>A1:<?php echo $row['ass1']; ?></label>
+        <label>A2: <?php echo $row['ass2']; ?></label>
+        <label>CAT1: <?php echo $row['cat1']; ?></label>
+        <label>CAT2: <?php echo $row['cat2']; ?></label>
+        <label>EXAM: <?php echo $row['exam']; ?></label>
+        <label><b>TOT: <?php echo $row['tot']; ?></b></label>
+      </div>
+          <?php } } ?>
+          </div>
+  </div>
+    <div class="panel panel-danger">
+              </div>
+        </div>
+        <div class="modal-footer">
+          
+        </div>
+      </div>
+             <?php } ?>
           <tr>
           <td colspan="8"><button type="button" class="btn btn-primary" data-toggle="tab" href="#stdtreg">ADD NEW STUDENT</span></button></td>
           </tr>
@@ -1192,6 +1656,7 @@ a.mobile{
             <th>GENDER</th>
              <th>E-MAIL</th>
             <th>PHONE</th>
+            <th>MARKS</th>
              <th>EDIT</th>
             <th>REMOVE</th>
           </tr>
@@ -1214,10 +1679,67 @@ a.mobile{
             <td><?php echo $gender; ?></td>
             <td><?php echo $email; ?></td>
             <td><?php echo $tel; ?></td>
-            <td> <button type="button" class="btn btn-warning" data-toggle="modal" name="sedit" data-target="#myModal"><a href='studentedit.php?eid=<?php echo $sid;?>'><span class="glyphicon glyphicon-edit"></span></a></button></td>
-            <td><button type="button" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete This Student?');"><a href='deletestudent.php?eid=<?php echo $sid;?>'><span class="glyphicon glyphicon-trash"></span></a></button></td>
-          </tr>
-          <?php } ?>
+            <td> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#m<?php echo $sid;?>"><span class="glyphicon glyphicon-info-sign"></span></button></td>
+               <td> <button type="button" class="btn btn-warning" data-toggle="modal" name="sedit" data-target="#myModal"><a href='studentedit.php?eid=<?php echo $sid;?>'><span class="glyphicon glyphicon-edit"></span></a></button></td>
+               <td><button type="button" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete This Student?');"><a href='deletestudent.php?eid=<?php echo $sid;?>'><span class="glyphicon glyphicon-trash"></span></a></button></td>
+             </tr>
+             <div class="modal fade" id="m<?php echo $sid;?>" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title"><?php echo $fname; ?>'s marks</h4>
+        </div>
+        <div class="modal-body">
+        
+  <div id="mark1" class="collapse in active">
+ <div class="table">
+ <?php
+   $sql = $con->prepare("SELECT s.regnum,s.fname,s.lname,m.level,c.cname,c.ccode,m.ass1,m.ass2,m.cat1,m.cat2,m.exam,SUM(m.ass1+m.ass2+m.cat1+m.cat2+m.exam) as tot from student as s,courses as c,marks as m where s.sid=m.sid and c.cid=m.cid and m.status='1' and m.level='level 3' and s.regnum='$regnum'");
+          $sql->execute();
+          $rem=$sql->fetchAll();
+          foreach ($rem as $row){
+            $tot=$row['tot'];
+            if($tot){
+            if($tot>=90){
+              $grade='A';
+            }elseif($tot>=80){
+              $grade='B';
+            }elseif($tot>=70){
+              $grade='C';
+            }elseif($tot>=60){
+              $grade='D';
+            }elseif($tot>=50){
+              $grade='E';
+            }else{
+              $grade='F';
+            }
+            
+         ?>
+ <div>
+        <div class="alert alert-info">
+  <strong><?php echo $row['cname']; ?> GRADE: <?php echo $grade; ?></strong>
+</div>
+        <label>A1:<?php echo $row['ass1']; ?></label>
+        <label>A2: <?php echo $row['ass2']; ?></label>
+        <label>CAT1: <?php echo $row['cat1']; ?></label>
+        <label>CAT2: <?php echo $row['cat2']; ?></label>
+        <label>EXAM: <?php echo $row['exam']; ?></label>
+        <label><b>TOT: <?php echo $row['tot']; ?></b></label>
+      </div>
+          <?php } } ?>
+          </div>
+  </div>
+    <div class="panel panel-danger">
+              </div>
+        </div>
+        <div class="modal-footer">
+          
+        </div>
+      </div>
+             <?php } ?>
           <tr>
           <td colspan="8"><button type="button" class="btn btn-primary" data-toggle="tab" href="#stdtreg">ADD NEW STUDENT</span></button></td>
           </tr>
