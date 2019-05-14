@@ -1,5 +1,6 @@
 <?php
    session_start();
+   error_reporting(0);
    if(isset($_SESSION['uname'])){
 include('db/dbase.php');
 $Lname=$_SESSION['uname'];
@@ -355,15 +356,15 @@ a.mobile{
     </div>
     <div id="ann" class="tab-pane fade">
         <?php
-            $sql=$con->prepare("SELECT a.annid,a.title,a.body,a.pdate from annoucement as a,lectureannouncement as la where a.annid=la.annid and la.lid='$lecid' ORDER BY a.annid DESC");
+            $sql=$con->prepare("SELECT la.lannid,a.annid,a.title,a.body,a.pdate from annoucement as a,lectureannouncement as la where a.annid=la.annid and la.lid='$lecid' ORDER BY a.annid DESC");
             $sql->execute();
             $rem=$sql->fetchAll();
           foreach ($rem as $row) {
               $anid=$row['annid'];
-            ?><div class="alert alert-info"  data-toggle="collapse" data-target="#d<?php echo $row['annid']; ?>">
+            ?><div class="alert alert-info"  data-toggle="collapse" data-target="#d<?php echo $row['lannid']; ?>">
   <strong><?php echo $row['title']; ?>.</strong><span style="float: right;color: #e50606;">posted <?php echo $row['pdate']; ?></span>
 </div>
-  <div id="d<?php echo $row['annid']; ?>" class="collapse">
+  <div id="d<?php echo $row['lannid']; ?>" class="collapse">
     Hey <?php echo $fname.", ".$row['body']; ?>
   </div>
 

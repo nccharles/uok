@@ -216,8 +216,8 @@ a.mobile{
      <ul class="nav nav-tabs">
     <li class="active"><a data-toggle="tab" href="#rgstrd">VIEW REGISTERED STUDENTS</a></li>
     <li><a data-toggle="tab" href="#stdtreg">REGISTER STUDENT</a></li>
-    <li><a data-toggle="tab" href="#home">UNPUBLISHED MARKS</a></li>
-    <li><a data-toggle="tab" href="#addanouc">ADD ANNOUCEMENT</a></li>
+    <li><a data-toggle="tab" href="#addanouc">ADD ANNOUNCEMENT</a></li>
+    <li><a data-toggle="tab" href="#rgstlec">LECTURERS</a></li>
     <li><a data-toggle="tab" href="#lectreg">ADD LECTURER</a></li>
 
      <?php
@@ -1940,7 +1940,66 @@ function validateForm() {
   </div>
     </div>
 
+    
+           <div id="rgstlec" class="tab-pane fade">
+           <div class="box-top">REGISTERED LECTURERS</div>
+                <div class="row">
+         <?php
+          $sql = $con->prepare("SELECT * FROM lecture as l,courses as c WHERE l.lid=c.lid GROUP by c.cid");
+                 $sql->execute();
+                 $rem=$sql->fetchAll();
 
+                ?>
+           <div class="col-sm-12">
+         <table class="table table-striped">
+           <thead>
+             <tr>
+               <th>ID</th>
+               <th>FIRSTNAME</th>
+               <th>LASTNAME</th>
+               <th>GENDER</th>
+                <th>E-MAIL</th>
+               <th>PHONE</th>
+               <th>COURSE</th>
+               <th>LEVEL</th>
+             </tr>
+           </thead>
+           <tbody>
+           <?php
+           $id=0;
+         foreach ($rem as $row) {
+                  $id=$id+1;
+                   $fname=$row['fname'];
+                  $lname=$row['lname'];
+                   $gender=$row['gender'];
+                   $email=$row['email'];
+                   $tel=$row['phone'];
+                   $cname=$row['cname'];
+                   $lev=$row['level'];
+            ?>
+             <tr>
+               <td><?php echo $id; ?></td>
+               <td><?php echo $fname; ?></td>
+               <td><?php echo $lname; ?></td>
+               <td><?php echo $gender; ?></td>
+               <td><?php echo $email; ?></td>
+               <td><?php echo $tel; ?></td>
+               <td><?php echo $cname; ?></td>
+               <td><?php echo $lev; ?></td>
+              </tr>
+            
+  </div>
+        </div>
+       
+      </div>
+             <?php } ?>
+           </tbody>
+         </table>
+           </div>
+
+         </div>
+
+         </div>
     <div id="lectreg" class="tab-pane fade">
 
           <div class="box-top">REGISTER LECTURER</div>

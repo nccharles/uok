@@ -1,5 +1,6 @@
 <?php
    session_start();
+   error_reporting(0);
    if(isset($_SESSION['regnum'])){
 include('../admin/db/dbase.php');
 $regnum=$_SESSION['regnum'];
@@ -266,15 +267,16 @@ a.mobile{
             $tot=$row['tot'];
             $av=$av+1;
             $AvTot=$AvTot+$tot;
+            $grade='';
             if($tot>=90){
               $grade='A';
-            }elseif($tot>=80){
+            }else if($tot>=80){
               $grade='B';
-            }elseif($tot>=70){
+            }else if($tot>=70){
               $grade='C';
-            }elseif($tot>=60){
+            }else if($tot>=60){
               $grade='D';
-            }elseif($tot>=50){
+            }else if($tot>=50){
               $grade='E';
             }else{
               $grade='F';
@@ -345,15 +347,16 @@ a.mobile{
             $tot=$row['tot'];
             $av=$av+1;
             $AvTot=$AvTot+$tot;
+            $grade='';
             if($tot>=90){
               $grade='A';
-            }elseif($tot>=80){
+            }else if($tot>=80){
               $grade='B';
-            }elseif($tot>=70){
+            }else if($tot>=70){
               $grade='C';
-            }elseif($tot>=60){
+            }else if($tot>=60){
               $grade='D';
-            }elseif($tot>=50){
+            }else if($tot>=50){
               $grade='E';
             }else{
               $grade='F';
@@ -423,15 +426,16 @@ a.mobile{
             $tot=$row['tot'];
             $av=$av+1;
             $AvTot=$AvTot+$tot;
+            $grade='';
             if($tot>=90){
               $grade='A';
-            }elseif($tot>=80){
+            }else if($tot>=80){
               $grade='B';
-            }elseif($tot>=70){
+            }else if($tot>=70){
               $grade='C';
-            }elseif($tot>=60){
+            }else if($tot>=60){
               $grade='D';
-            }elseif($tot>=50){
+            }else if($tot>=50){
               $grade='E';
             }else{
               $grade='F';
