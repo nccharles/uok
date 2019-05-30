@@ -287,7 +287,7 @@ a.mobile{
         </div>
         <div class="modal-body">
            <?php
-         include("db/dbase.php");
+         
           $sql = $con->prepare("SELECT * FROM student where sid=$sid");
           $sql->execute();
           $rem=$sql->fetchAll();
@@ -408,7 +408,7 @@ a.mobile{
         </div>
         <div class="modal-body">
            <?php
-         include("db/dbase.php");
+         
           $sql = $con->prepare("SELECT * FROM student where sid=$sid");
           $sql->execute();
           $rem=$sql->fetchAll();
@@ -602,7 +602,7 @@ a.mobile{
         </div>
         <div class="modal-body">
            <?php
-         include("db/dbase.php");
+         
           $sql = $con->prepare("SELECT * FROM student where sid=$sid");
           $sql->execute();
           $rem=$sql->fetchAll();
@@ -723,7 +723,7 @@ a.mobile{
         </div>
         <div class="modal-body">
            <?php
-         include("db/dbase.php");
+         
           $sql = $con->prepare("SELECT * FROM student where sid=$sid");
           $sql->execute();
           $rem=$sql->fetchAll();
@@ -844,7 +844,7 @@ a.mobile{
         </div>
         <div class="modal-body">
            <?php
-         include("db/dbase.php");
+         
           $sql = $con->prepare("SELECT * FROM student where sid=$sid");
           $sql->execute();
           $rem=$sql->fetchAll();
@@ -984,7 +984,7 @@ a.mobile{
         </div>
         <div class="modal-body">
            <?php
-         include("db/dbase.php");
+         
           $sql = $con->prepare("SELECT * FROM student where sid=$sid");
           $sql->execute();
           $rem=$sql->fetchAll();
@@ -1105,7 +1105,7 @@ a.mobile{
         </div>
         <div class="modal-body">
            <?php
-         include("db/dbase.php");
+         
           $sql = $con->prepare("SELECT * FROM student where sid=$sid");
           $sql->execute();
           $rem=$sql->fetchAll();
@@ -1227,7 +1227,7 @@ a.mobile{
         </div>
         <div class="modal-body">
            <?php
-         include("db/dbase.php");
+         
           $sql = $con->prepare("SELECT * FROM student where sid=$sid");
           $sql->execute();
           $rem=$sql->fetchAll();

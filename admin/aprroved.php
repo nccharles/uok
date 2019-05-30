@@ -11,12 +11,26 @@
           foreach ($rem as $row){
             $telephone=$row['phone'];
             $fname=$row['fname'];
-            $marks=$row['TOT']/5;
+            $marks=$row['TOT'];
             $cname=$row['cname'];
+            $tot=$row['TOT'];
+            if($tot>=90){
+              $grade='A';
+            }elseif($tot>=80){
+              $grade='B';
+            }elseif($tot>=70){
+              $grade='C';
+            }elseif($tot>=60){
+              $grade='D';
+            }elseif($tot>=50){
+              $grade='E';
+            }else{
+              $grade='F';
+            }
               $data = array(    
-              "sender"=>"0784603404",
+              "sender"=>"UOKUPDATE",
               "recipients"=>$telephone,
-              "message"=>"Hey ".$fname.", This is Your Marks::\n".$cname.": ".$marks."\n",    
+              "message"=>"Dear ".$fname.", This is Your Marks::\n".$cname.": ".$marks."\n Grade::".$grade."\n",    
             );
           
             $url = "https://www.intouchsms.co.rw/api/sendsms/.json";
@@ -55,12 +69,26 @@
           foreach ($rem as $row){
             $telephone=$row['phone'];
             $fname=$row['fname'];
-            $marks=$row['marks'];
+            $marks=$row['TOT'];
             $cname=$row['cname'];
+            $tot=$row['TOT'];
+            if($tot>=90){
+              $grade='A';
+            }elseif($tot>=80){
+              $grade='B';
+            }elseif($tot>=70){
+              $grade='C';
+            }elseif($tot>=60){
+              $grade='D';
+            }elseif($tot>=50){
+              $grade='E';
+            }else{
+              $grade='F';
+            }
               $data = array(    
-              "sender"=>"0784603404",
+              "sender"=>"UOKUPDATE",
               "recipients"=>$telephone,
-              "message"=>"Hey ".$fname.", This is Your Marks::\n".$cname.": ".$marks."\n",    
+              "message"=>"Dear ".$fname.", This is Your Marks::\n".$cname.": ".$marks."\n Grade::".$grade."\n",    
             );
           
             $url = "https://www.intouchsms.co.rw/api/sendsms/.json";
@@ -99,12 +127,26 @@
           foreach ($rem as $row){
             $telephone=$row['phone'];
             $fname=$row['fname'];
-            $marks=$row['marks'];
+            $marks=$row['TOT'];
             $cname=$row['cname'];
+            $tot=$row['TOT'];
+            if($tot>=90){
+              $grade='A';
+            }elseif($tot>=80){
+              $grade='B';
+            }elseif($tot>=70){
+              $grade='C';
+            }elseif($tot>=60){
+              $grade='D';
+            }elseif($tot>=50){
+              $grade='E';
+            }else{
+              $grade='F';
+            }
               $data = array(    
-              "sender"=>"0784603404",
+              "sender"=>"UOKUPDATE",
               "recipients"=>$telephone,
-              "message"=>"Hey ".$fname.", This is Your Marks::\n".$cname.": ".$marks."\n",    
+              "message"=>"Dear ".$fname.", This is Your Marks::\n".$cname.": ".$marks."\n Grade::".$grade."\n",    
             );
           
             $url = "https://www.intouchsms.co.rw/api/sendsms/.json";

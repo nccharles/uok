@@ -50,7 +50,7 @@
 
                                 }
                                   elseif($pos=='hod'){
-                                          $sql = $con ->prepare("SELECT COUNT(hid) FROM department WHERE fname='$uname' and password='$password'");
+                                          $sql = $con ->prepare("SELECT COUNT(hid) FROM department WHERE fname='$uname' and password='$password' and type=2");
                                           $sql -> execute();
                                            $count = $sql->fetchColumn();
                                         if($count == "1"){
@@ -61,6 +61,18 @@
                                        }
 
                                 }
+                                elseif($pos=='admin'){
+                                  $sql = $con ->prepare("SELECT COUNT(hid) FROM department WHERE fname='$uname' and password='$password' and type=1");
+                                  $sql -> execute();
+                                   $count = $sql->fetchColumn();
+                                if($count == "1"){
+                                  $_SESSION['uname'] =$uname;
+                                   echo "<meta http-equiv='refresh' content='1;url=admin/index.php'>";
+                               }else{
+                              echo "<div style='color:darkred;border: 1px solid darkred;border-radius:12px;'><h4>! Invalid Username Or password</h4></div>";
+                               }
+
+                        }
                                   elseif($pos=='lecture'){
                                           $sql = $con ->prepare("SELECT COUNT(lid) FROM lecture WHERE fname='$uname' and password='$password'");
                                           $sql -> execute();
@@ -80,7 +92,8 @@
 
                                    ?>
          <select class="select"  name="position" style="width: 100%;margin-bottom: 10px;height: 44px;font-size: 16px;">
-            <option value="no">Select User</option>
+            <option value="no" disabled>Select User</option>
+            <option value="admin">ADMIN</option>
             <option value="hod">HOD</option>
             <option value="lecture">LECTURER</option>
             <option value="reg">REGISTRAR</option>

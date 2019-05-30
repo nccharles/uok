@@ -8,13 +8,14 @@ $sql -> execute();
 $event = $sql ->fetchAll();
 foreach ($event as $row);
 $fname=$row['fname'];
+$role=$row['type'];
 $lname=$row['lname'];
 $gender=$row['gender'];
 $email=$row['email'];
 ?>
 <html>
 <head>
-	<title>HOD MIS | DASHBOARD</title>
+  <title><?php echo $role==1?'ADMIN':'HOD' ?> | DASHBOARD</title>
 	<meta name="viewport" content="width=device-width,initial-scale: 1.0, user-scalabe=0" />
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

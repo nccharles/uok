@@ -17,7 +17,7 @@ $lecid=$row['lid'];
 ?>
 <html>
 <head>
-	<title>Dashboard</title>
+	<title> <?php echo $fname.' '. $lname?></title>
 	<meta name="viewport" content="width=device-width,initial-scale: 1.0, user-scalabe=0" />
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -202,7 +202,7 @@ a.mobile{
    
      <ul class="nav nav-tabs">
     <li class="active"><a data-toggle="tab" href="#home">DASHBOARD</a></li>
-    <li><a data-toggle="tab" href="#stdtmarks">STUDENT MARKS</a></li>
+    <li><a data-toggle="tab" href="#stdtmarks">STUDENT</a></li>
       <?php
           $sql = $con ->prepare("SELECT COUNT(annid) as an FROM lectureannouncement where lid='$lecid' and status='0'");
               $sql -> execute();
@@ -411,13 +411,12 @@ a.mobile{
   </div>
     <div id="stdtmarks" class="tab-pane">
           <?php
-    include("db/dbase.php");
    $sql = $con->prepare("SELECT c.cname,l.fname,l.lname from lecture as l,courses as c where l.lid=c.lid and c.lid='$lecid'");
           $sql->execute();
           $rem=$sql->fetchAll();
          foreach($rem as $row){
              $course=$row['cname'];
-          $sql = $con->prepare("SELECT s.sid,s.regnum,s.fname,s.lname,m.level,c.cname,m.marks FROM student as s,courses as c,marks as m where s.regnum=m.regnum and c.ccode=m.ccode and c.cname='$course'");
+          $sql = $con->prepare("SELECT s.sid,s.regnum,s.fname,s.lname,m.level,c.cname,SUM(m.ass1+m.ass2+m.cat1+m.cat2+m.exam) as marks FROM student as s,courses as c,marks as m where s.sid=m.sid and c.cid=m.cid and c.cname='$course'");
           $sql->execute();
           $rem=$sql->fetchAll();
          ?>

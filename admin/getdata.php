@@ -79,6 +79,54 @@
            echo "error".$e->getMessage();
          }
         }
+        if(isset($_POST['lsavec'])){
+          $id=$_POST['lid'];
+           $fname=$_POST['fname'];
+           $lname=$_POST['lname'];
+           $email=$_POST['email'];
+           $phone=$_POST['phone'];
+           $gender=$_POST['sgender'];
+           $sql=$con->prepare("UPDATE lecture SET fname='$fname',lname='$lname',gender='$gender',email='$email',phone='$phone' where lid=$id");
+          try{
+          $sql->execute();
+          echo "<meta http-equiv='refresh' content='1;url=index.php'>";
+         }catch(PDOException $e)
+         {
+           echo "error".$e->getMessage();
+         }
+        }
+        if(isset($_POST['rsavec'])){
+          $id=$_POST['rid'];
+           $fname=$_POST['fname'];
+           $lname=$_POST['lname'];
+           $email=$_POST['email'];
+           $phone=$_POST['phone'];
+           $gender=$_POST['sgender'];
+           $sql=$con->prepare("UPDATE registrar SET fname='$fname',lname='$lname',gender='$gender',email='$email',phone='$phone' where rid=$id");
+          try{
+          $sql->execute();
+          echo "<meta http-equiv='refresh' content='1;url=index.php'>";
+         }catch(PDOException $e)
+         {
+           echo "error".$e->getMessage();
+         }
+        }
+        if(isset($_POST['hsavec'])){
+          $id=$_POST['hid'];
+           $fname=$_POST['fname'];
+           $lname=$_POST['lname'];
+           $email=$_POST['email'];
+           $phone=$_POST['phone'];
+           $sgender=$_POST['sgender'];
+           $sql=$con->prepare("UPDATE department SET fname='$fname',lname='$lname',gender='$sgender',email='$email',phone='$phone' where hid=$id");
+          try{
+          $sql->execute();
+          echo "<meta http-equiv='refresh' content='1;url=index.php'>";
+         }catch(PDOException $e)
+         {
+           echo "error".$e->getMessage();
+         }
+        }
          if(isset($_POST['asend'])){
          $pos=$_POST['postitle'];
          $ann=$_POST['Annoucement'];

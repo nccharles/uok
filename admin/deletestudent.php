@@ -1,5 +1,6 @@
 <?php
         include("db/dbase.php");
+         if($_GET['eid']){
          $id=$_GET['eid'];
           $sql = $con->prepare("SELECT seslevid FROM studentsesslevel WHERE sid=$id and Ystatus=1");
           $sql->execute();
@@ -41,5 +42,24 @@
           $sql = $con->prepare("DELETE  FROM claim WHERE sid=$id and level='level 3'");
           $sql->execute();
           }
+        }
+        if($_GET['rid']){
+        $id=$_GET['rid'];
+        $sql = $con->prepare("DELETE  FROM registrar WHERE rid=$id");
+        $sql->execute();
+
+        }
+        if($_GET['hid']){
+        $id=$_GET['hid'];
+        $sql = $con->prepare("DELETE  FROM department WHERE hid=$id");
+        $sql->execute();
+
+        }
+        if($_GET['lid']){
+                $id=$_GET['lid'];
+                $sql = $con->prepare("DELETE  FROM lecture WHERE lid=$id");
+                $sql->execute();
+                
+                }
           header("Location:index.php");
  ?>

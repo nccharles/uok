@@ -8,13 +8,14 @@ $sql -> execute();
 $event = $sql ->fetchAll();
 foreach ($event as $row);
 $fname=$row['fname'];
+$role=$row['type'];
 $lname=$row['lname'];
 $gender=$row['gender'];
 $email=$row['email'];
 ?>
 <html>
 <head>
-  <title>HOD MIS | DASHBOARD</title>
+  <title><?php echo $role==1?'ADMIN':'HOD' ?> | DASHBOARD</title>
   <meta name="viewport" content="width=device-width,initial-scale: 1.0, user-scalabe=0" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -63,7 +64,7 @@ div#container{
   margin: 0 auto;
 }
 #chpass{
-  background: linear-gradient(180deg,#833471,#833471,#2980b9,#2980b9, #f39c12,#833471,#833471); 
+  background: #2980b9; 
 }
 .modal-content{
   background: rgba(40,10,0,0.3);
@@ -72,7 +73,7 @@ div#container{
 .sidebar{
   width: 250px;
   margin-top: 14px;
-  background: linear-gradient(180deg,#833471,#833471,#2980b9,#2980b9, #f39c12,#833471,#833471);
+  background: linear-gradient(180deg,#4f0b1c,#4f0b1c,#2980b9,#2980b9, #f39c12,#4f0b1c,#4f0b1c);
   float: left;
 }
 .content{
@@ -100,13 +101,13 @@ ul#nav li a{
   transition: 0.2s;
 }
 ul#nav a:hover{
-background-color: #030303;
+background-color: #2980b9;
 color: #fff;
 padding-left: 30px;
 text-decoration: none;
 }
 ul#nav li a.selected{
-  background-color: #030303;
+  background-color: #2980b9;
   color: #fff;
 }
 
@@ -122,7 +123,7 @@ div#box {
 div#box .box-top {
   color: #fff;
   text-shadow: 0px 1px #000;
-  background: linear-gradient(15deg,#833471,#2980b9,#2980b9, #f39c12,#833471,#833471);
+  background: linear-gradient(15deg,#4f0b1c,#2980b9,#2980b9, #f39c12,#4f0b1c,#4f0b1c);
   padding: 5px;
   padding-left: 15px;
   font-weight: 300;
@@ -174,7 +175,6 @@ a.mobile{
   color: #6b158e;
 }
 }
-
   </style>
 
 </head>
@@ -187,7 +187,9 @@ a.mobile{
   <div class="sidebar">
   <ul id="nav">
     <li><a  data-toggle="tab" href="#home" class="selected"><?php echo $row['lname']; ?><span> <?php echo $row['fname']; ?></span></a></li>
-        <li><a data-toggle="tab" href="#addanouc">Send Anoucements</a></li>
+   <?php echo $role==1?'<li><a data-toggle="tab" href="#hod">HOD</a></li>':'' ?>
+    <?php echo $role==1?'<li><a data-toggle="tab" href="#registrar">Registrar</a></li>':'' ?>
+       <li><a data-toggle="tab" href="#addanouc">Send Anoucements</a></li>
             <?php
         include("db/dbase.php");
           $sql = $con ->prepare("SELECT distinct(c.ccode),COUNT(c.cname) as m,m.status FROM courses as c,marks as m WHERE m.status='0' and c.cid=m.cid");
@@ -203,13 +205,28 @@ a.mobile{
          ?>
 
         <li><a data-toggle="tab" href="#home"  aria-expanded="false">Approve<i class="fa fa-bell-o"></i> <span class="badge" style="background-color: red;"><?php echo $row['m']; ?></span></a></li><?php }?>
+        <?php
+          $sql = $con ->prepare("SELECT COUNT(claimid) as cl FROM claim where status='0'");
+              $sql -> execute();
+             $count = $sql->fetchAll();
+             foreach ($count as $row);
+              $num=$row['cl'];
+             if($num == "0"){?>
+          <li><a data-toggle="tab" href="#claim" aria-expanded="false">Claim<i class="fa fa-bell-o"></i> <span class="badge" style="background-color: green;"><?php echo $row['cl']; ?></span></a></li>
+            <?php }else{
+
+
+         ?>
+
+        <li><a data-toggle="tab" href="#claim" aria-expanded="false">Claim<i class="fa fa-bell-o"></i> <span class="badge" style="background-color: red;"><?php echo $row['cl']; ?></span></a></li><?php }?>
+
          <li data-toggle="modal" data-target="#chpass"><a href="#">Change Password</a></li>
         <li><a href="../logout.php">Logout</a></li>
   </ul>
   </div>
   <div class="content">
   <div id="box">
-    <div class="box-top">ADMIN DASHBOARD</div>
+    <div class="box-top"><?php echo $role==1?'ADMIN':'HOD' ?> | DASHBOARD</div>
      <div class="box-panel">
      <div class="btn-group btn-group-justified" style="min-height: 100%;">
 
@@ -219,22 +236,8 @@ a.mobile{
     <li><a data-toggle="tab" href="#addanouc">ADD ANNOUNCEMENT</a></li>
     <li><a data-toggle="tab" href="#rgstlec">LECTURERS</a></li>
     <li><a data-toggle="tab" href="#lectreg">ADD LECTURER</a></li>
-
-     <?php
-          $sql = $con ->prepare("SELECT COUNT(claimid) as cl FROM claim where status='0'");
-              $sql -> execute();
-             $count = $sql->fetchAll();
-             foreach ($count as $row);
-              $num=$row['cl'];
-             if($num == "0"){?>
-          <li><a data-toggle="tab" href="#claim" aria-expanded="false">CLAIM<i class="fa fa-bell-o"></i> <span class="badge" style="background-color: green;"><?php echo $row['cl']; ?></span></a></li>
-            <?php }else{
-
-
-         ?>
-
-        <li><a data-toggle="tab" href="#claim" aria-expanded="false">CLAIM<i class="fa fa-bell-o"></i> <span class="badge" style="background-color: red;"><?php echo $row['cl']; ?></span></a></li><?php }?>
-
+    <?php echo $role==1?'<li><a data-toggle="tab" href="#hodreg">ADD NEW STAFF</a></li>':'' ?>
+     
   </ul>
   <div class="tab-content">
     <div id="home" class="tab-pane fade">
@@ -259,10 +262,9 @@ a.mobile{
           $sql=$con->prepare("INSERT INTO studentsesslevel(sid,seslevid,Ystatus)values((SELECT sid from student WHERE regnum='$regnum'),'$sessl','1')");
           $sql->execute();
             ?>
-           <div class="alert alert-success">
-            <strong>Good!</strong>Student was registered in 1st year!.
-           </div>
-
+           <script>
+              window.alert("Student was registered in 1st year!");
+             </script>
            <?php
          }else{
            $sql = $con ->prepare("SELECT MAX(seslevid) as deplevel FROM studentsesslevel WHERE sid=(SELECT sid from student WHERE regnum='$regnum') and Ystatus='1'");
@@ -276,10 +278,9 @@ a.mobile{
               $sql=$con->prepare("UPDATE studentsesslevel SET Ystatus='0' where sid=(SELECT sid from student WHERE regnum='$regnum') and seslevid!='2'");
               $sql->execute();
               ?>
-              <div class="alert alert-success">
-               <strong>Good!</strong>Student was registered in 2nd year Day Program!.
-              </div>
-
+              <script>
+              window.alert("Student was registered in 2nd year Day Program!");
+             </script>
               <?php
             }else if($lid == "2"){
               $sql=$con->prepare("INSERT INTO studentsesslevel(sid,seslevid,Ystatus)values((SELECT sid from student WHERE regnum='$regnum'),'3','1')");
@@ -287,10 +288,9 @@ a.mobile{
               $sql=$con->prepare("UPDATE studentsesslevel SET Ystatus='0' where sid=(SELECT sid from student WHERE regnum='$regnum') and seslevid!='3'");
               $sql->execute();
               ?>
-              <div class="alert alert-success">
-               <strong>Good!</strong>Student was registered in 3rd year Day Program!.
-              </div>
-
+              <script>
+              window.alert("Student was registered in 3rd year Day Program!");
+             </script>
               <?php
             }else if($lid == "4"){
               $sql=$con->prepare("INSERT INTO studentsesslevel(sid,seslevid,Ystatus)values((SELECT sid from student WHERE regnum='$regnum'),'5','1')");
@@ -298,10 +298,9 @@ a.mobile{
               $sql=$con->prepare("UPDATE studentsesslevel SET Ystatus='0' where sid=(SELECT sid from student WHERE regnum='$regnum') and seslevid!='5'");
               $sql->execute();
               ?>
-              <div class="alert alert-success">
-               <strong>Good!</strong>Student was registered in 2nd year Evening Program!.
-              </div>
-
+              <script>
+              window.alert("Student was registered in 2nd year Evening Program!");
+             </script>
               <?php
             }else if($lid == "5"){
               $sql=$con->prepare("INSERT INTO studentsesslevel(sid,seslevid,Ystatus)values((SELECT sid from student WHERE regnum='$regnum'),'6','1')");
@@ -309,10 +308,9 @@ a.mobile{
               $sql=$con->prepare("UPDATE studentsesslevel SET Ystatus='0' where sid=(SELECT sid from student WHERE regnum='$regnum') and seslevid!='6'");
               $sql->execute();
               ?>
-              <div class="alert alert-success">
-               <strong>Good!</strong>Student was registered in 3rd year Evening Program!.
-              </div>
-
+              <script>
+              window.alert("Student was registered in 3rd year Evening Program!");
+             </script>
               <?php
             }else if($lid == "7"){
               $sql=$con->prepare("INSERT INTO studentsesslevel(sid,seslevid,Ystatus)values((SELECT sid from student WHERE regnum='$regnum'),'8','1')");
@@ -320,28 +318,25 @@ a.mobile{
               $sql=$con->prepare("UPDATE studentsesslevel SET Ystatus='0' where sid=(SELECT sid from student WHERE regnum='$regnum') and seslevid!='8'");
               $sql->execute();
               ?>
-              <div class="alert alert-success">
-               <strong>Good!</strong>Student was registered in 2nd Weekend Program!.
-              </div>
-
-              <?php
+              <script>
+              window.alert("Student was registered in 2nd Weekend Program!");
+              </script>
+                <?php
             }else if($lid == "8"){
               $sql=$con->prepare("INSERT INTO studentsesslevel(sid,seslevid,Ystatus)values((SELECT sid from student WHERE regnum='$regnum'),'9','1')");
               $sql->execute();
               $sql=$con->prepare("UPDATE studentsesslevel SET Ystatus='0' where sid=(SELECT sid from student WHERE regnum='$regnum') and seslevid!='9'");
               $sql->execute();
               ?>
-              <div class="alert alert-success">
-               <strong>Good!</strong>Student was registered in 3rd year Weekend Programm!.
-              </div>
-
+              <script>
+        window.alert("Student was registered in 3rd year Weekend Programm!");
+        </script>
               <?php
             }else{
               ?>
-              <div class="alert alert-warning">
-               <strong>Student!</strong>Already registered in 3rd year!.
-              </div>
-
+              <script>
+        window.alert("Student Already registered in 3rd year!.");
+        </script>
               <?php
             }
         }
@@ -352,13 +347,59 @@ a.mobile{
           $sql=$con->prepare("UPDATE department SET password='$newpass' where password='$oldpass' and fname='$uname'");
           $sql->execute();
           ?>
-           <div class="alert alert-success">
-            <strong>Password was Changed!</strong>
-           </div>
-
+           <script>
+        window.alert("Password was Changed!");
+        </script>
            <?php
            echo "<meta http-equiv='refresh' content='3;url=index.php'>";
       }
+      if(isset($_POST['addhodreg'])){
+        $fname=$_POST['fname'];
+        $name=$_POST['lname'];
+        $gender=$_POST['gender'];
+        $phone=$_POST['phone'];
+        $email=$_POST['email'];
+        $role=$_POST['type'];
+        if($role==1){
+        $sql=$con->prepare("SELECT COUNT(hid) from department where (fname='$fname' or lname='$lname') and email='$email'");
+      $sql->execute();
+      $count=$sql->fetchColumn();
+      if($count=='0'){
+                 $sql=$con->prepare("INSERT INTO department(fname,lname,gender,email,phone,type,password) values('$fname','$lname','$gender','$email','$phone','1','pass')");
+                 $sql->execute();
+                ?>
+           <script>
+        window.alert("HOD Registered!");
+        </script>
+           <?php
+      }else{
+           ?>
+             <script>
+        window.alert("HOD Already Registered!");
+        </script>
+           <?php
+      }
+      }else{
+      $sql=$con->prepare("SELECT COUNT(rid) from registrar where (fname='$fname' or lname='$lname') and email='$email'");
+      $sql->execute();
+      $count=$sql->fetchColumn();
+      if($count=='0'){
+                 $sql=$con->prepare("INSERT INTO registrar(fname,lname,gender,email,phone,password) values('$fname','$lname','$gender','$email','$phone','pass')");
+                 $sql->execute();
+                ?>
+           <script>
+        window.alert("Registered!");
+        </script>
+           <?php
+      }else{
+           ?>
+             <script>
+        window.alert("This user Already Registered!");
+        </script>
+           <?php
+      }
+      }
+    }
       if(isset($_POST['addlec'])){
       $lfname=$_POST['lfname'];
       $llname=$_POST['llname'];
@@ -372,30 +413,35 @@ a.mobile{
       $sql->execute();
       $count=$sql->fetchColumn();
       if($count=='0'){
-          $sql=$con->prepare("INSERT INTO lecture(fname,lname,gender,email,phone,password) values('$lfname','$llname','$lgender','$lemail','$lphone','pass')");
-          $sql->execute();
-          $sql=$con->prepare("INSERT INTO lecturesesslevel(lid,slevid,ccode) values((SELECT lid from lecture where email='$lemail'),'$llevel','$lccode')");
-          $sql->execute();
               $sql=$con->prepare("SELECT COUNT(cid) from courses where cname='$lcname' or ccode='$lccode'");
               $sql->execute();
               $count=$sql->fetchColumn();
               if($count=='0'){
+                 $sql=$con->prepare("INSERT INTO lecture(fname,lname,gender,email,phone,password) values('$lfname','$llname','$lgender','$lemail','$lphone','pass')");
+                 $sql->execute();
+                 $sql=$con->prepare("INSERT INTO lecturesesslevel(lid,slevid,ccode) values((SELECT lid from lecture where email='$lemail'),'$llevel','$lccode')");
+                 $sql->execute();
                  $sql=$con->prepare("INSERT INTO courses(lid,ccode,cname,level) values((SELECT lid from lecture where email='$lemail'),'$lccode','$lcname',(SELECT level from level where levid='$llevel'))");
                  $sql->execute();
-
+                 $sql=$con->prepare("INSERT INTO courselevel(cid,levid) values((SELECT cid from courses where ccode='$lccode'),'$llevel')");
+                 $sql->execute();
+              }else{
+                ?>
+                <script>
+             window.alert("This Course already in database!");
+             </script>
+                <?php
               }
                 ?>
-           <div class="alert alert-success">
-            <strong>Lecture Was Inserted!</strong>
-           </div>
-
+           <script>
+        window.alert("Lecturer Was Inserted!");
+        </script>
            <?php
       }else{
            ?>
-           <div class="alert alert-success">
-            <strong>Lecture Already Registered!</strong>
-           </div>
-
+             <script>
+        window.alert("Lecturer Already Registered!");
+        </script>
            <?php
       }
   }
@@ -432,10 +478,9 @@ a.mobile{
              $sql->execute();
             
              ?>
-           <div class="alert alert-success">
-            <strong>Good!</strong>Announcement was sent to the 1st year Students!.
-           </div>
-
+           <script>
+        window.alert("Announcement was sent to the 1st year Students!");
+        </script>
            <?php
            echo "<meta http-equiv='refresh' content='3;url=index.php'>";
             }else if($slev=="level 2"){
@@ -445,10 +490,9 @@ a.mobile{
             $sql = $con->prepare("SELECT s.sid,s.phone,s.fname,l.levid FROM student as s,level as l,sesslevel as sl, Session as ss,studentsesslevel as stl where s.sid=stl.sid and (stl.seslevid='2' or stl.seslevid='5' or stl.seslevid='8') and sl.sID=ss.sID and l.level='level 2' and stl.Ystatus='1' GROUP BY s.sid");
              $sql->execute();
             ?>
-           <div class="alert alert-success">
-            <strong>Good!</strong>Announcement was sent to the 2nd year Students!.
-           </div>
-
+           <script>
+        window.alert("Announcement was sent to the 2nd year Students!");
+        </script>
            <?php
            echo "<meta http-equiv='refresh' content='3;url=index.php'>";
             }else if($slev=="level 3"){
@@ -459,10 +503,9 @@ a.mobile{
              $sql->execute();
              
            ?>
-           <div class="alert alert-success">
-            <strong>Good!</strong>Announcement was sent to the 3rd year Student!.
-           </div>
-
+           <script>
+        window.alert("Announcement was sent to the 3rd year Student!");
+        </script>
            <?php
             echo "<meta http-equiv='refresh' content='3;url=index.php'>";
             }
@@ -474,18 +517,16 @@ a.mobile{
              $sql->execute();
             
            ?>
-           <div class="alert alert-success">
-            <strong>Good!</strong>Announcement was sent to All Student!.
-           </div>
-
+           <script>
+        window.alert("Announcement was sent to All Student!");
+        </script>
            <?php
             echo "<meta http-equiv='refresh' content='3;url=index.php'>";
             }else{
                  ?>
-           <div class="alert alert-warning">
-            <strong>Warning!</strong>Please Select a Students level!.
-           </div>
-
+           <script>
+        window.alert("Please Select a Students level!");
+        </script>
            <?php
             echo "<meta http-equiv='refresh' content='3;url=index.php'>";
             }
@@ -497,10 +538,9 @@ a.mobile{
              $sq=$con->prepare("INSERT INTO annoucement(title,body,pdate) values('$tit','$ann',now())");
             $sq->execute();
             ?>
-           <div class="alert alert-success">
-            <strong>Good!</strong>Announcement was sent to the 1st year Lecture!.
-           </div>
-
+           <script>
+        window.alert("Announcement was sent to the 1st year Lecturers!");
+        </script>
            <?php
             $sql = $con->prepare("SELECT lec.phone,lec.fname,l.levid FROM lecture as lec,level as l where l.level='level 1' GROUP by l.levid");
              $sql->execute();
@@ -513,10 +553,9 @@ a.mobile{
            $sql->execute();
            $levid=2;
             ?>
-           <div class="alert alert-success">
-            <strong>Good!</strong>Announcement was sent to the 2nd year Lecture!.
-           </div>
-
+           <script>
+        window.alert("Announcement was sent to the 2nd year Lecturers!");
+        </script>
            <?php
             }else if($slev=="level 3"){
              
@@ -525,10 +564,9 @@ a.mobile{
           $sql = $con->prepare("SELECT lec.phone,lec.fname,l.levid FROM lecture as lec,level as l where l.level='level 3' GROUP by l.levid");
              $sql->execute();
            ?>
-           <div class="alert alert-success">
-            <strong>Good!</strong>Announcement was sent to the 3rd year Lecture!.
-           </div>
-
+           <script>
+        window.alert("Announcement was sent to the 3rd year Lecturers!");
+        </script>
            <?php
             }
             else if($slev=="all"){
@@ -539,19 +577,17 @@ a.mobile{
              $sql->execute();
           $levid=0;
            ?>
-           <div class="alert alert-success">
-            <strong>Good!</strong>Announcement was sent to All Lectures!.
-           </div>
-
+           <script>
+        window.alert("Announcement was sent to All Lecturers!");
+        </script>
            <?php
             }
             }else{
 
            ?>
-           <div class="alert alert-danger">
-            <strong>Please!</strong>Select a receiver!.
-           </div>
-
+           <script>
+        window.alert("Please, Select a receiver!");
+        </script>
            <?php
            echo "<meta http-equiv='refresh' content='1;url=index.php'>";
         }
@@ -564,7 +600,7 @@ a.mobile{
               $sql=$con->prepare("INSERT INTO lectureannouncement(lid,annid,status) values((SELECT lid from lecture where phone='$telephone'),(SELECT max(annid) from annoucement limit 1),'0')");
               $sql->execute();
               $data = array(
-              "sender"=>"0784603404",
+              "sender"=>"UOKUPDATE",
               "recipients"=>$telephone,
               "message"=>"Dear ".$fname.", ".$ann,
             );
@@ -1851,17 +1887,17 @@ a.mobile{
 
           <div class="box-top">REGISTER STUDENT</div>
          <div class="form-group">
-         <form method="POST" class="form-signin" name='stdform'  onsubmit="return validateForm();">
+         <form method="POST" class="form-signin" name='stdform'>
       <label for="title">REG NUM:</label>
-      <input type="text" class="form-control"  placeholder="ex: W/BIT/15/05/2017" name="regnum" required />
+      <input type="text" class="form-control" title="ex: W/BIT/15/05/2019"  placeholder="ex: W/BIT/15/05/2017" name="regnum" required />
     </div>
      <div class="form-group">
       <label for="title">FIRST NAME:</label>
-      <input type="text" class="form-control"  placeholder="Enter your first name" name="fname" required >
+      <input type="text" class="form-control" pattern="[a-zA-Z]{1,15}" title="First name should be letters"  placeholder="Enter your first name" name="fname" required >
     </div>
     <div class="form-group">
       <label for="title">LAST NAME:</label>
-      <input type="text" class="form-control" placeholder="Enter your last name" name="lname" required >
+      <input type="text" class="form-control" pattern="[a-zA-Z]{1,15}" title="Last name should be letters" placeholder="Enter your last name" name="lname" required >
     </div>
     <div class="form-group">
       <label for="title">GENDER:</label>
@@ -1879,29 +1915,16 @@ a.mobile{
     </div>
      <div class="form-group">
       <label for="title">Email:</label>
-      <input type="text" class="form-control"  placeholder="Type your Email" name="email" required >
+      <input type="email" class="form-control" title="Email should be contains `@`,`.`" placeholder="Type your Email" name="email" required >
     </div>
     <div class="form-group">
       <label for="title">Telephone:</label>
-      <input type="text" class="form-control" pattern="^\d{10}$"  placeholder="Ex: 078*******" name="phone" required >
+      <input type="text" class="form-control" pattern="[0-9]{1,10}" title="Phone number must start with 078 or 073,072 Ex: 0781234567" placeholder="Ex: 078*******" name="phone" required>
     </div>
    <input type="submit" name="ssave" class="btn btn-primary" value="SAVE" />
    </form>
 
     </div>
-    <script>
-function validateForm() {
-    var x = document.forms["stdform"]["email"].value;
-    var atpos = x.indexOf("@");
-    var dotpos = x.lastIndexOf(".");
-    if (atpos<1 || dotpos<atpos+2 || dotpos+2>=x.length) {
-        alert("Not a valid e-mail address");
-        return false;
-    }
-}
-
-</script>
-
     <div id="addanouc" class="tab-pane fade">
       <div class="box-top">ADD ANNOUNCEMENT</div>
 
@@ -1928,7 +1951,7 @@ function validateForm() {
               </div>
               <div class="form-group">
                 <label for="pwd">Title</label>
-                <input type="text" name="tit" class="form-control"/>
+                <input type="text" name="tit" pattern="[a-zA-Z]{1,15}" title="Title should be letters" class="form-control"/>
               </div>
               <div class="form-group">
                 <label for="pwd">Announcement</label>
@@ -1962,15 +1985,18 @@ function validateForm() {
                <th>PHONE</th>
                <th>COURSE</th>
                <th>LEVEL</th>
+               <th>EDIT</th>
+               <th>DELETE</th>
              </tr>
            </thead>
            <tbody>
            <?php
            $id=0;
          foreach ($rem as $row) {
-                  $id=$id+1;
+                   $id=$id+1;
+                   $lid=$row['lid'];
                    $fname=$row['fname'];
-                  $lname=$row['lname'];
+                   $lname=$row['lname'];
                    $gender=$row['gender'];
                    $email=$row['email'];
                    $tel=$row['phone'];
@@ -1986,6 +2012,127 @@ function validateForm() {
                <td><?php echo $tel; ?></td>
                <td><?php echo $cname; ?></td>
                <td><?php echo $lev; ?></td>
+               <td> <button type="button" class="btn btn-warning" data-toggle="modal" name="ledit" data-target="#myModal"><a href='lectureredit.php?lid=<?php echo $lid;?>'><span class="glyphicon glyphicon-edit"></span></a></button></td>
+               <td><button type="button" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete This Lecturer?');"><a href='deletestudent.php?lid=<?php echo $lid;?>'><span class="glyphicon glyphicon-trash"></span></a></button></td>
+            
+              </tr>
+            
+  </div>
+        </div>
+       
+      </div>
+             <?php } ?>
+           </tbody>
+         </table>
+           </div>
+
+         </div>
+
+         </div>
+         <div id="hod" class="tab-pane fade">
+           <div class="box-top">HOD</div>
+                <div class="row">
+         <?php
+          $sql = $con->prepare("SELECT * FROM department WHERE type=2");
+                 $sql->execute();
+                 $rem=$sql->fetchAll();
+
+                ?>
+           <div class="col-sm-12">
+         <table class="table table-striped">
+           <thead>
+             <tr>
+               <th>ID</th>
+               <th>FIRSTNAME</th>
+               <th>LASTNAME</th>
+               <th>GENDER</th>
+                <th>E-MAIL</th>
+               <th>PHONE</th>
+               <th>EDIT</th>
+               <th>DELETE</th>
+             </tr>
+           </thead>
+           <tbody>
+           <?php
+           $id=0;
+         foreach ($rem as $row) {
+                  $id=$id+1;
+                  $hid=$row['hid'];
+                   $fname=$row['fname'];
+                  $lname=$row['lname'];
+                   $gender=$row['gender'];
+                   $email=$row['email'];
+                   $tel=$row['phone'];
+            ?>
+             <tr>
+               <td><?php echo $id; ?></td>
+               <td><?php echo $fname; ?></td>
+               <td><?php echo $lname; ?></td>
+               <td><?php echo $gender; ?></td>
+               <td><?php echo $email; ?></td>
+               <td><?php echo $tel; ?></td>
+               <td> <button type="button" class="btn btn-warning" data-toggle="modal" name="hedit" data-target="#myModal"><a href='hodedit.php?hid=<?php echo $hid;?>'><span class="glyphicon glyphicon-edit"></span></a></button></td>
+               <td><button type="button" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete This HOD?');"><a href='deletestudent.php?hid=<?php echo $hid;?>'><span class="glyphicon glyphicon-trash"></span></a></button></td>
+            
+              </tr>
+            
+  </div>
+        </div>
+       
+      </div>
+             <?php } ?>
+           </tbody>
+         </table>
+           </div>
+
+         </div>
+
+         </div>
+         <div id="registrar" class="tab-pane fade">
+           <div class="box-top">REGISTRAR</div>
+                <div class="row">
+         <?php
+          $sql = $con->prepare("SELECT * FROM registrar");
+                 $sql->execute();
+                 $rem=$sql->fetchAll();
+
+                ?>
+           <div class="col-sm-12">
+         <table class="table table-striped">
+           <thead>
+             <tr>
+               <th>ID</th>
+               <th>FIRSTNAME</th>
+               <th>LASTNAME</th>
+               <th>GENDER</th>
+                <th>E-MAIL</th>
+               <th>PHONE</th>
+               <th>EDIT</th>
+               <th>DELETE</th>
+             </tr>
+           </thead>
+           <tbody>
+           <?php
+           $id=0;
+         foreach ($rem as $row) {
+                  $id=$id+1;
+                  $rid=$row['rid'];
+                   $fname=$row['fname'];
+                  $lname=$row['lname'];
+                   $gender=$row['gender'];
+                   $email=$row['email'];
+                   $tel=$row['phone'];
+            ?>
+             <tr>
+               <td><?php echo $id; ?></td>
+               <td><?php echo $fname; ?></td>
+               <td><?php echo $lname; ?></td>
+               <td><?php echo $gender; ?></td>
+               <td><?php echo $email; ?></td>
+               <td><?php echo $tel; ?></td>
+               <td> <button type="button" class="btn btn-warning" data-toggle="modal" name="sedit" data-target="#myModal"><a href='registraredit.php?rid=<?php echo $rid;?>'><span class="glyphicon glyphicon-edit"></span></a></button></td>
+               <td><button type="button" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete This Registrar?');"><a href='deletestudent.php?rid=<?php echo $rid;?>'><span class="glyphicon glyphicon-trash"></span></a></button></td>
+            
               </tr>
             
   </div>
@@ -2006,15 +2153,15 @@ function validateForm() {
           <form method="POST" class="form-signin">
      <div class="form-group">
       <label for="title">FIRST NAME:</label>
-      <input type="text" class="form-control" id="email" placeholder="Enter your first name" name="lfname">
+      <input type="text" class="form-control" pattern="[a-zA-Z]{1,15}" title="First Name should be letters" placeholder="Enter your first name" name="lfname" required>
     </div>
     <div class="form-group">
       <label for="title">LAST NAME:</label>
-      <input type="text" class="form-control" id="email" placeholder="Enter your last name" name="llname">
+      <input type="text" class="form-control" pattern="[a-zA-Z]{1,15}" title="Last Name should be letters" placeholder="Enter your last name" name="llname" required>
     </div>
      <div class="form-group">
       <label for="title">Course NAME:</label>
-      <input type="text" class="form-control" id="email" placeholder="Enter Course name" name="lcname">
+      <input type="text" class="form-control" pattern="[a-zA-Z]{1,15}" title="CourseName should be letters" placeholder="Enter Course name" name="lcname" required>
     </div>
      <div class="form-group">
       <label for="title">GENDER:</label>
@@ -2024,15 +2171,15 @@ function validateForm() {
   </select></div>
    <div class="form-group">
       <label for="title">Telephone:</label>
-      <input type="text" class="form-control" pattern="^\d{10}$" id="email" placeholder="Ex: 078*******" name="lphone">
+      <input type="text" class="form-control" pattern="[0-9]{1,10}" title="Phone number must start with 078 or 073,072 Ex: 0781234567" placeholder="Ex: 078*******" name="lphone" required>
     </div>
     <div class="form-group">
       <label for="title">Email:</label>
-      <input type="text" class="form-control"  id="email" placeholder="Ex: name@gmail.com" name="lemail">
+      <input type="email" class="form-control"  title="Email should contain `@`,`.`" placeholder="Ex: name@gmail.com" name="lemail">
     </div>
      <div class="form-group">
       <label for="title">Course CODE:</label>
-      <input type="text" class="form-control" pattern="^\d{3}$" id="email" placeholder="000" name="lccode">
+      <input type="text" class="form-control" id="email" pattern="[A-Z0-9]{1,5}" title="caurse code should only contain two capital letters and three numbers Ex: AB123" placeholder="AB123" name="lccode" required>
     </div>
 
     <div class="form-group">
@@ -2047,7 +2194,43 @@ function validateForm() {
     <input type="submit" name="addlec" class="btn btn-primary" class="glyphicon glyphicon-save" value="save" />
       </form>
     </div>
+    <div id="hodreg" class="tab-pane fade">
 
+<div class="box-top">ADD NEW STAFF</div>
+<form method="POST" class="form-signin">
+<div class="form-group">
+<label for="title">FIRST NAME:</label>
+<input type="text" class="form-control" pattern="[a-zA-Z]{1,15}" title="First Name should be letters" placeholder="Enter your first name" name="fname" required>
+</div>
+<div class="form-group">
+<label for="title">LAST NAME:</label>
+<input type="text" class="form-control" pattern="[a-zA-Z]{1,15}" title="Last name should be letters" placeholder="Enter your last name" name="lname" required>
+</div>
+<div class="form-group">
+<label for="title">GENDER:</label>
+<select class="form-control"  name="gender">
+<option value="Male">Male</option>
+<option value="Female">Female</option>
+</select></div>
+<div class="form-group">
+<label for="title">Telephone:</label>
+<input type="text" class="form-control" pattern="[0-9]{1,10}" title="Phone number must start with 078 or 073,072 Ex: 0781234567" placeholder="Ex: 078*******" name="phone" required>
+</div>
+<div class="form-group">
+<label for="title">Email:</label>
+<input type="email" class="form-control"  id="email" title="Email should contain `@`,`.`" placeholder="Ex: name@gmail.com" name="email" required>
+</div>
+
+<div class="form-group">
+<label for="title">ROLE:</label>
+<select class="form-control"  name="type">
+<option value="1">HOD</option>
+<option value="2">Registrar</option>
+</select>
+</div>
+<input type="submit" name="addhodreg" class="btn btn-primary" class="glyphicon glyphicon-save" value="save" />
+</form>
+</div>
   </div>
   </div>
     </div>
