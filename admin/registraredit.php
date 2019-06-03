@@ -203,11 +203,11 @@ a.mobile{
       <input type="text" class="form-control" id="email" value="<?php echo $rid; ?>" name="rid" style="display: none">
      </div>
      <div class="form-group">
-      <input type="text" class="form-control" id="email" value="<?php echo $fname; ?>" name="fname">
+      <input type="text" class="form-control" id="email" pattern="[a-zA-Z]{1,15}" title="First Name should be letters" value="<?php echo $fname; ?>" name="fname" required>
     </div>
     <div class="form-group">
       <label for="title">LAST NAME:</label>
-      <input type="text" class="form-control" id="email"  placeholder="Enter your last name" value="<?php echo $lname; ?>" name="lname">
+      <input type="text" class="form-control" id="email" pattern="[a-zA-Z]{1,15}" title="Last Name should be letters"  placeholder="Enter your last name" value="<?php echo $lname; ?>" name="lname" required>
     </div>
     <div class="form-group">
       <label for="title">GENDER:</label> 
@@ -217,11 +217,11 @@ a.mobile{
   </select></div>
      <div class="form-group">
       <label for="title">Email:</label>
-      <input type="text" class="form-control" id="email" placeholder="Type your Email" name="email" value="<?php echo $email; ?>">
+      <input type="email" class="form-control" id="email" title="Email should contain `@`" placeholder="Type your Email" name="email" value="<?php echo $email; ?>" required>
     </div>
     <div class="form-group">
       <label for="title">Telephone:</label>
-      <input type="text" class="form-control" id="email" placeholder="Ex: 078*******" name="phone" value="<?php echo $tel; ?>">
+      <input type="text" class="form-control" id="email" pattern="[0-9]{10}" title="Phone number must start with 078 or 073,072 Ex: 0781234567" placeholder="Ex: 078*******" name="phone" value="<?php echo $tel; ?>" required>
     </div>
    <input type="submit" name="rsavec" class="btn btn-primary" value="SAVE CHANGES" />
    </form>

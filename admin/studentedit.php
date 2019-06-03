@@ -203,30 +203,30 @@ a.mobile{
          <div class="form-group">
      
       <label for="title">REG NUM:</label>
-      <input type="text" class="form-control" id="email" value="<?php echo $sid; ?>" name="sid" style="display: none">
-      <input type="text" class="form-control" id="email" value="<?php echo $regnum; ?>" name="regnum">
+      <input type="text" class="form-control" id="email" value="<?php echo $sid; ?>" name="sid" style="display: none" required>
+      <input type="text" class="form-control" id="email" value="<?php echo $regnum; ?>" name="regnum" required>
     </div>
      <div class="form-group">
       <label for="title">FIRST NAME:</label>
-      <input type="text" class="form-control" id="email" value="<?php echo $fname; ?>" name="fname">
+      <input type="text" class="form-control" pattern="[a-zA-Z]{1,15}" title="First Name should be letters" value="<?php echo $fname; ?>" name="fname" required>
     </div>
     <div class="form-group">
       <label for="title">LAST NAME:</label>
-      <input type="text" class="form-control" id="email"  placeholder="Enter your last name" value="<?php echo $lname; ?>" name="lname">
+      <input type="text" class="form-control" pattern="[a-zA-Z]{1,15}" title="Last Name should be letters"  placeholder="Enter your last name" value="<?php echo $lname; ?>" name="lname" required>
     </div>
     <div class="form-group">
       <label for="title">GENDER:</label> 
-      <select class="form-control" id="email" name="sgender" value="<?php echo $gender; ?>">
+      <select class="form-control"  name="sgender" value="<?php echo $gender; ?>">
       <option value="Male">Male</option>
       <option value="Female">Female</option>
   </select></div>
      <div class="form-group">
       <label for="title">Email:</label>
-      <input type="text" class="form-control" id="email" placeholder="Type your Email" name="email" value="<?php echo $email; ?>">
+      <input type="email" class="form-control" id="email" title="Email should contain `@`" placeholder="Type your Email" name="email" value="<?php echo $email; ?>" required>
     </div>
     <div class="form-group">
       <label for="title">Telephone:</label>
-      <input type="text" class="form-control" id="email" placeholder="Ex: 078*******" name="phone" value="<?php echo $tel; ?>">
+      <input type="text" class="form-control" pattern="[0-9]{10}" title="Phone number must start with 078 or 073,072 Ex: 0781234567" placeholder="Ex: 078*******" name="phone" value="<?php echo $tel; ?>" requied>
     </div>
    <input type="submit" name="ssavec" class="btn btn-primary" value="SAVE CHANGES" />
    </form>

@@ -1919,7 +1919,7 @@ a.mobile{
     </div>
     <div class="form-group">
       <label for="title">Telephone:</label>
-      <input type="text" class="form-control" pattern="[0-9]{1,10}" title="Phone number must start with 078 or 073,072 Ex: 0781234567" placeholder="Ex: 078*******" name="phone" required>
+      <input type="text" class="form-control" pattern="[0-9]{10}" title="Phone number must start with 078 or 073,072 Ex: 0781234567" placeholder="Ex: 078*******" name="phone" required>
     </div>
    <input type="submit" name="ssave" class="btn btn-primary" value="SAVE" />
    </form>
@@ -2171,11 +2171,11 @@ a.mobile{
   </select></div>
    <div class="form-group">
       <label for="title">Telephone:</label>
-      <input type="text" class="form-control" pattern="[0-9]{1,10}" title="Phone number must start with 078 or 073,072 Ex: 0781234567" placeholder="Ex: 078*******" name="lphone" required>
+      <input type="text" class="form-control" pattern="[0-9]{10}" title="Phone number must start with 078 or 073,072 Ex: 0781234567" placeholder="Ex: 078*******" name="lphone" required>
     </div>
     <div class="form-group">
       <label for="title">Email:</label>
-      <input type="email" class="form-control"  title="Email should contain `@`,`.`" placeholder="Ex: name@gmail.com" name="lemail">
+      <input type="email" class="form-control"  title="Email should contain `@`" placeholder="Ex: name@gmail.com" name="lemail">
     </div>
      <div class="form-group">
       <label for="title">Course CODE:</label>
@@ -2214,7 +2214,7 @@ a.mobile{
 </select></div>
 <div class="form-group">
 <label for="title">Telephone:</label>
-<input type="text" class="form-control" pattern="[0-9]{1,10}" title="Phone number must start with 078 or 073,072 Ex: 0781234567" placeholder="Ex: 078*******" name="phone" required>
+<input type="text" class="form-control" pattern="[0-9]{10}" title="Phone number must start with 078 or 073,072 Ex: 0781234567" placeholder="Ex: 078*******" name="phone" required>
 </div>
 <div class="form-group">
 <label for="title">Email:</label>
