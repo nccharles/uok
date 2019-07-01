@@ -310,11 +310,11 @@ a.mobile{
     </div>
      <div class="form-group">
       <label for="title">FIRST NAME:</label>
-      <input type="text" pattern="[a-zA-Z]{1,15}" title="First Name should be letters" class="form-control" id="email" value="<?php echo $fname; ?>" name="fname" required>
+      <input type="text" pattern="[a-zA-Z ]{1,50}" title="First Name should be letters" class="form-control" id="email" value="<?php echo $fname; ?>" name="fname" required>
     </div>
     <div class="form-group">
       <label for="title">LAST NAME:</label>
-      <input type="text" pattern="[a-zA-Z]{1,15}" title="Last Name should be letters" class="form-control" id="email"  placeholder="Enter your last name" value="<?php echo $lname; ?>" name="lname" required>
+      <input type="text" pattern="[a-zA-Z ]{1,50}" title="Last Name should be letters" class="form-control" id="email"  placeholder="Enter your last name" value="<?php echo $lname; ?>" name="lname" required>
     </div>
     <div class="form-group">
       <label for="title">GENDER:</label>
@@ -431,11 +431,11 @@ a.mobile{
     </div>
      <div class="form-group">
       <label for="title">FIRST NAME:</label>
-      <input type="text" pattern="[a-zA-Z]{1,15}" title="First Name should be letters" class="form-control" id="email" value="<?php echo $fname; ?>" name="fname" required>
+      <input type="text" pattern="[a-zA-Z ]{1,50}" title="First Name should be letters" class="form-control" id="email" value="<?php echo $fname; ?>" name="fname" required>
     </div>
     <div class="form-group">
       <label for="title">LAST NAME:</label>
-      <input type="text" pattern="[a-zA-Z]{1,15}" title="Last Name should be letters" class="form-control" id="email"  placeholder="Enter your last name" value="<?php echo $lname; ?>" name="lname" required>
+      <input type="text" pattern="[a-zA-Z ]{1,50}" title="Last Name should be letters" class="form-control" id="email"  placeholder="Enter your last name" value="<?php echo $lname; ?>" name="lname" required>
     </div>
     <div class="form-group">
       <label for="title">GENDER:</label>
@@ -552,11 +552,11 @@ a.mobile{
     </div>
      <div class="form-group">
       <label for="title">FIRST NAME:</label>
-      <input type="text" pattern="[a-zA-Z]{1,15}" title="First Name should be letters" class="form-control" id="email" value="<?php echo $fname; ?>" name="fname" required>
+      <input type="text" pattern="[a-zA-Z ]{1,50}" title="First Name should be letters" class="form-control" id="email" value="<?php echo $fname; ?>" name="fname" required>
     </div>
     <div class="form-group">
       <label for="title">LAST NAME:</label>
-      <input type="text" pattern="[a-zA-Z]{1,15}" title="Last Name should be letters" class="form-control" id="email"  placeholder="Enter your last name" value="<?php echo $lname; ?>" name="lname" required>
+      <input type="text" pattern="[a-zA-Z ]{1,50}" title="Last Name should be letters" class="form-control" id="email"  placeholder="Enter your last name" value="<?php echo $lname; ?>" name="lname" required>
     </div>
     <div class="form-group">
       <label for="title">GENDER:</label>
@@ -692,11 +692,11 @@ a.mobile{
     </div>
      <div class="form-group">
       <label for="title">FIRST NAME:</label>
-      <input type="text" pattern="[a-zA-Z]{1,15}" title="First Name should be letters" class="form-control" id="email" value="<?php echo $fname; ?>" name="fname" required>
+      <input type="text" pattern="[a-zA-Z ]{1,50}" title="First Name should be letters" class="form-control" id="email" value="<?php echo $fname; ?>" name="fname" required>
     </div>
     <div class="form-group">
       <label for="title">LAST NAME:</label>
-      <input type="text" pattern="[a-zA-Z]{1,15}" title="Last Name should be letters" class="form-control" id="email"  placeholder="Enter your last name" value="<?php echo $lname; ?>" name="lname" required>
+      <input type="text" pattern="[a-zA-Z ]{1,50}" title="Last Name should be letters" class="form-control" id="email"  placeholder="Enter your last name" value="<?php echo $lname; ?>" name="lname" required>
     </div>
     <div class="form-group">
       <label for="title">GENDER:</label>
@@ -813,11 +813,11 @@ a.mobile{
     </div>
      <div class="form-group">
       <label for="title">FIRST NAME:</label>
-      <input type="text" pattern="[a-zA-Z]{1,15}" title="First Name should be letters" class="form-control" id="email" value="<?php echo $fname; ?>" name="fname" required>
+      <input type="text" pattern="[a-zA-Z ]{1,50}" title="First Name should be letters" class="form-control" id="email" value="<?php echo $fname; ?>" name="fname" required>
     </div>
     <div class="form-group">
       <label for="title">LAST NAME:</label>
-      <input type="text" pattern="[a-zA-Z]{1,15}" title="Last Name should be letters" class="form-control" id="email"  placeholder="Enter your last name" value="<?php echo $lname; ?>" name="lname" required>
+      <input type="text" pattern="[a-zA-Z ]{1,50}" title="Last Name should be letters" class="form-control" id="email"  placeholder="Enter your last name" value="<?php echo $lname; ?>" name="lname" required>
     </div>
     <div class="form-group">
       <label for="title">GENDER:</label>
@@ -934,11 +934,11 @@ a.mobile{
     </div>
      <div class="form-group">
       <label for="title">FIRST NAME:</label>
-      <input type="text" pattern="[a-zA-Z]{1,15}" title="First Name should be letters" class="form-control" id="email" value="<?php echo $fname; ?>" name="fname" required>
+      <input type="text" pattern="[a-zA-Z ]{1,50}" title="First Name should be letters" class="form-control" id="email" value="<?php echo $fname; ?>" name="fname" required>
     </div>
     <div class="form-group">
       <label for="title">LAST NAME:</label>
-      <input type="text" pattern="[a-zA-Z]{1,15}" title="Last Name should be letters" class="form-control" id="email"  placeholder="Enter your last name" value="<?php echo $lname; ?>" name="lname" required>
+      <input type="text" pattern="[a-zA-Z ]{1,50}" title="Last Name should be letters" class="form-control" id="email"  placeholder="Enter your last name" value="<?php echo $lname; ?>" name="lname" required>
     </div>
     <div class="form-group">
       <label for="title">GENDER:</label>
@@ -1074,11 +1074,11 @@ a.mobile{
     </div>
      <div class="form-group">
       <label for="title">FIRST NAME:</label>
-      <input type="text" pattern="[a-zA-Z]{1,15}" title="First Name should be letters" class="form-control" id="email" value="<?php echo $fname; ?>" name="fname" required>
+      <input type="text" pattern="[a-zA-Z ]{1,50}" title="First Name should be letters" class="form-control" id="email" value="<?php echo $fname; ?>" name="fname" required>
     </div>
     <div class="form-group">
       <label for="title">LAST NAME:</label>
-      <input type="text" pattern="[a-zA-Z]{1,15}" title="Last Name should be letters" class="form-control" id="email"  placeholder="Enter your last name" value="<?php echo $lname; ?>" name="lname" required>
+      <input type="text" pattern="[a-zA-Z ]{1,50}" title="Last Name should be letters" class="form-control" id="email"  placeholder="Enter your last name" value="<?php echo $lname; ?>" name="lname" required>
     </div>
     <div class="form-group">
       <label for="title">GENDER:</label>
@@ -1195,11 +1195,11 @@ a.mobile{
     </div>
      <div class="form-group">
       <label for="title">FIRST NAME:</label>
-      <input type="text" pattern="[a-zA-Z]{1,15}" title="First Name should be letters" class="form-control" id="email" value="<?php echo $fname; ?>" name="fname" required>
+      <input type="text" pattern="[a-zA-Z ]{1,50}" title="First Name should be letters" class="form-control" id="email" value="<?php echo $fname; ?>" name="fname" required>
     </div>
     <div class="form-group">
       <label for="title">LAST NAME:</label>
-      <input type="text" pattern="[a-zA-Z]{1,15}" title="Last Name should be letters" class="form-control" id="email"  placeholder="Enter your last name" value="<?php echo $lname; ?>" name="lname" required>
+      <input type="text" pattern="[a-zA-Z ]{1,50}" title="Last Name should be letters" class="form-control" id="email"  placeholder="Enter your last name" value="<?php echo $lname; ?>" name="lname" required>
     </div>
     <div class="form-group">
       <label for="title">GENDER:</label>
@@ -1317,11 +1317,11 @@ a.mobile{
     </div>
      <div class="form-group">
       <label for="title">FIRST NAME:</label>
-      <input type="text" pattern="[a-zA-Z]{1,15}" title="First Name should be letters" class="form-control" id="email" value="<?php echo $fname; ?>" name="fname" required>
+      <input type="text" pattern="[a-zA-Z ]{1,50}" title="First Name should be letters" class="form-control" id="email" value="<?php echo $fname; ?>" name="fname" required>
     </div>
     <div class="form-group">
       <label for="title">LAST NAME:</label>
-      <input type="text" pattern="[a-zA-Z]{1,15}" title="Last Name should be letters" class="form-control" id="email"  placeholder="Enter your last name" value="<?php echo $lname; ?>" name="lname" required>
+      <input type="text" pattern="[a-zA-Z ]{1,50}" title="Last Name should be letters" class="form-control" id="email"  placeholder="Enter your last name" value="<?php echo $lname; ?>" name="lname" required>
     </div>
     <div class="form-group">
       <label for="title">GENDER:</label>
@@ -1401,7 +1401,7 @@ a.mobile{
     </div>
   </div>
 
-    <div id="stdtreg" class="tab-pane fade  in active">
+    <div id="stdtreg" class="tab-pane fade">
     <?php
 
 if(isset($_POST['ssave'])){
@@ -1727,11 +1727,11 @@ $res = $sql-> fetchAll();
     </div>
      <div class="form-group">
       <label for="title">FIRST NAME:</label>
-      <input type="text" pattern="[a-zA-Z]{1,15}" title="First Name should be letters" class="form-control"  placeholder="Enter your first name" name="fname" required required >
+      <input type="text" pattern="[a-zA-Z ]{1,50}" title="First Name should be letters" class="form-control"  placeholder="Enter your first name" name="fname" required required >
     </div>
     <div class="form-group">
       <label for="title">LAST NAME:</label>
-      <input type="text" pattern="[a-zA-Z]{1,15}" title="Last Name should be letters" class="form-control" placeholder="Enter your last name" name="lname" required required >
+      <input type="text" pattern="[a-zA-Z ]{1,50}" title="Last Name should be letters" class="form-control" placeholder="Enter your last name" name="lname" required required >
     </div>
     <div class="form-group">
       <label for="title">GENDER:</label>

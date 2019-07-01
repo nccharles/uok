@@ -203,11 +203,11 @@ a.mobile{
       <input type="text" class="form-control" id="email" value="<?php echo $rid; ?>" name="rid" style="display: none">
      </div>
      <div class="form-group">
-      <input type="text" class="form-control" id="email" pattern="[a-zA-Z]{1,15}" title="First Name should be letters" value="<?php echo $fname; ?>" name="fname" required>
+      <input type="text" class="form-control" id="email" pattern="[a-zA-Z ]{1,50}" title="First Name should be letters" value="<?php echo $fname; ?>" name="fname" required>
     </div>
     <div class="form-group">
       <label for="title">LAST NAME:</label>
-      <input type="text" class="form-control" id="email" pattern="[a-zA-Z]{1,15}" title="Last Name should be letters"  placeholder="Enter your last name" value="<?php echo $lname; ?>" name="lname" required>
+      <input type="text" class="form-control" id="email" pattern="[a-zA-Z ]{1,50}" title="Last Name should be letters"  placeholder="Enter your last name" value="<?php echo $lname; ?>" name="lname" required>
     </div>
     <div class="form-group">
       <label for="title">GENDER:</label> 
@@ -218,6 +218,10 @@ a.mobile{
      <div class="form-group">
       <label for="title">Email:</label>
       <input type="email" class="form-control" id="email" title="Email should contain `@`" placeholder="Type your Email" name="email" value="<?php echo $email; ?>" required>
+    </div>
+    <div class="form-group">
+      <label for="title">Password:</label>
+      <input type="password" class="form-control" id="email" placeholder="set password for <?php echo $fname;?>" name="password" required>
     </div>
     <div class="form-group">
       <label for="title">Telephone:</label>

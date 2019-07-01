@@ -68,9 +68,10 @@
            $fname=$_POST['fname'];
            $lname=$_POST['lname'];
            $email=$_POST['email'];
+           $password=$_POST['password'];
            $phone=$_POST['phone'];
            $sgender=$_POST['sgender'];
-           $sql=$con->prepare("UPDATE student SET regnum='$regnum',fname='$fname',lname='$lname',gender='$sgender',email='$email',phone='$phone' where sid=$id");
+           $sql=$con->prepare("UPDATE student SET regnum='$regnum',fname='$fname',lname='$lname',gender='$sgender',email='$email',password='$password',phone='$phone' where sid=$id");
           try{
           $sql->execute();
           echo "<meta http-equiv='refresh' content='1;url=index.php'>";
@@ -84,9 +85,10 @@
            $fname=$_POST['fname'];
            $lname=$_POST['lname'];
            $email=$_POST['email'];
+           $password=$_POST['password'];
            $phone=$_POST['phone'];
            $gender=$_POST['sgender'];
-           $sql=$con->prepare("UPDATE lecture SET fname='$fname',lname='$lname',gender='$gender',email='$email',phone='$phone' where lid=$id");
+           $sql=$con->prepare("UPDATE lecture SET fname='$fname',lname='$lname',gender='$gender',email='$email',password='$password',phone='$phone' where lid=$id");
           try{
           $sql->execute();
           echo "<meta http-equiv='refresh' content='1;url=index.php'>";
@@ -100,9 +102,10 @@
            $fname=$_POST['fname'];
            $lname=$_POST['lname'];
            $email=$_POST['email'];
+           $password=$_POST['password'];
            $phone=$_POST['phone'];
            $gender=$_POST['sgender'];
-           $sql=$con->prepare("UPDATE registrar SET fname='$fname',lname='$lname',gender='$gender',email='$email',phone='$phone' where rid=$id");
+           $sql=$con->prepare("UPDATE registrar SET fname='$fname',lname='$lname',gender='$gender',email='$email',password='$password',phone='$phone' where rid=$id");
           try{
           $sql->execute();
           echo "<meta http-equiv='refresh' content='1;url=index.php'>";
@@ -116,9 +119,10 @@
            $fname=$_POST['fname'];
            $lname=$_POST['lname'];
            $email=$_POST['email'];
+           $password=$_POST['password'];
            $phone=$_POST['phone'];
            $sgender=$_POST['sgender'];
-           $sql=$con->prepare("UPDATE department SET fname='$fname',lname='$lname',gender='$sgender',email='$email',phone='$phone' where hid=$id");
+           $sql=$con->prepare("UPDATE department SET fname='$fname',lname='$lname',gender='$sgender',email='$email',password='$password',phone='$phone' where hid=$id");
           try{
           $sql->execute();
           echo "<meta http-equiv='refresh' content='1;url=index.php'>";

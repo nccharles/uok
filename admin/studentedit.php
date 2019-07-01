@@ -208,11 +208,11 @@ a.mobile{
     </div>
      <div class="form-group">
       <label for="title">FIRST NAME:</label>
-      <input type="text" class="form-control" pattern="[a-zA-Z]{1,15}" title="First Name should be letters" value="<?php echo $fname; ?>" name="fname" required>
+      <input type="text" class="form-control" pattern="[a-zA-Z ]{1,50}" title="First Name should be letters" value="<?php echo $fname; ?>" name="fname" required>
     </div>
     <div class="form-group">
       <label for="title">LAST NAME:</label>
-      <input type="text" class="form-control" pattern="[a-zA-Z]{1,15}" title="Last Name should be letters"  placeholder="Enter your last name" value="<?php echo $lname; ?>" name="lname" required>
+      <input type="text" class="form-control" pattern="[a-zA-Z ]{1,50}" title="Last Name should be letters"  placeholder="Enter your last name" value="<?php echo $lname; ?>" name="lname" required>
     </div>
     <div class="form-group">
       <label for="title">GENDER:</label> 

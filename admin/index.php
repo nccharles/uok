@@ -355,7 +355,7 @@ a.mobile{
       }
       if(isset($_POST['addhodreg'])){
         $fname=$_POST['fname'];
-        $name=$_POST['lname'];
+        $lname=$_POST['lname'];
         $gender=$_POST['gender'];
         $phone=$_POST['phone'];
         $email=$_POST['email'];
@@ -365,7 +365,7 @@ a.mobile{
       $sql->execute();
       $count=$sql->fetchColumn();
       if($count=='0'){
-                 $sql=$con->prepare("INSERT INTO department(fname,lname,gender,email,phone,type,password) values('$fname','$lname','$gender','$email','$phone','1','pass')");
+                 $sql=$con->prepare("INSERT INTO department(fname,lname,gender,email,phone,type,password) values('$fname','$lname','$gender','$email','$phone','2','pass')");
                  $sql->execute();
                 ?>
            <script>
@@ -670,18 +670,18 @@ a.mobile{
             $lname=$row['lname'];
             $course=$row['cname'];
             $marks=$row['TOT'];
-            $average=$row['TOT'];
+            $tot=$row['TOT'];
             $lev=$row['level'];
-            if($average>= 80){
+            if($tot>=80){
               $grade='A';
-            }else if($average>= 70){
+            }else if($tot>=70){
               $grade='B';
-            }else if($average>= 60){
+            }else if($tot>=60){
               $grade='C';
-            }else if($average>= 50){
+            }else if($tot>=50){
               $grade='D';
             }else{
-              $grade='Fail';
+              $grade='F';
             }
 
      ?>
@@ -805,16 +805,14 @@ a.mobile{
           foreach ($rem as $row){
             $tot=$row['tot'];
             if($tot){
-            if($tot>=90){
+             if($tot>=80){
               $grade='A';
-            }elseif($tot>=80){
+            }else if($tot>=70){
               $grade='B';
-            }elseif($tot>=70){
+            }else if($tot>=60){
               $grade='C';
-            }elseif($tot>=60){
+            }else if($tot>=50){
               $grade='D';
-            }elseif($tot>=50){
-              $grade='E';
             }else{
               $grade='F';
             }
@@ -917,16 +915,14 @@ a.mobile{
           foreach ($rem as $row){
             $tot=$row['tot'];
             if($tot){
-            if($tot>=90){
+             if($tot>=80){
               $grade='A';
-            }elseif($tot>=80){
+            }else if($tot>=70){
               $grade='B';
-            }elseif($tot>=70){
+            }else if($tot>=60){
               $grade='C';
-            }elseif($tot>=60){
+            }else if($tot>=50){
               $grade='D';
-            }elseif($tot>=50){
-              $grade='E';
             }else{
               $grade='F';
             }
@@ -1029,16 +1025,14 @@ a.mobile{
           foreach ($rem as $row){
             $tot=$row['tot'];
             if($tot){
-            if($tot>=90){
+             if($tot>=80){
               $grade='A';
-            }elseif($tot>=80){
+            }else if($tot>=70){
               $grade='B';
-            }elseif($tot>=70){
+            }else if($tot>=60){
               $grade='C';
-            }elseif($tot>=60){
+            }else if($tot>=50){
               $grade='D';
-            }elseif($tot>=50){
-              $grade='E';
             }else{
               $grade='F';
             }
@@ -1086,57 +1080,57 @@ a.mobile{
       <div class="panel panel-primary">
           <div class="panel-body">
         <ul class="nav nav-tabs">
-        <li class="active"><a data-toggle="tab" href="#m1">YEAR 1</a></li>
-        <li><a data-toggle="tab" href="#m2">YEAR 2</a></li>
-        <li><a data-toggle="tab" href="#m3">YEAR 3</a></li>
+        <li class="active"><a data-toggle="tab" href="#ev1">YEAR 1</a></li>
+        <li><a data-toggle="tab" href="#ev2">YEAR 2</a></li>
+        <li><a data-toggle="tab" href="#ev3">YEAR 3</a></li>
       </ul>
 
           </div>
 
 
       <div class="tab-content">
-        <div id="m1" class="tab-pane fade in active">
-             <div class="row">
-      <?php
-       $sql = $con->prepare("SELECT s.sid,s.regnum,s.fname,s.lname,s.gender,s.email,s.phone FROM student as s,level as l,studentsesslevel as sl where s.sid=sl.sid and sl.seslevid=4 and sl.Ystatus='1' Group by sl.sid");
-              $sql->execute();
-              $rem=$sql->fetchAll();
+      <div id="ev1" class="tab-pane fade in active">
+                <div class="row">
+         <?php
+          $sql = $con->prepare("SELECT s.sid,s.regnum,s.fname,s.lname,s.gender,s.email,s.phone FROM student as s,level as l,studentsesslevel as sl where s.sid=sl.sid and sl.seslevid=4 and sl.Ystatus='1' Group by sl.sid");
+                 $sql->execute();
+                 $rem=$sql->fetchAll();
 
-             ?>
-        <div class="col-sm-12">
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>REG No</th>
-            <th>FIRSTNAME</th>
-            <th>LASTNAME</th>
-            <th>GENDER</th>
-             <th>E-MAIL</th>
-            <th>PHONE</th>
-            <th>MARKS</th>
-             <th>EDIT</th>
-            <th>REMOVE</th>
-          </tr>
-        </thead>
-        <tbody>
-        <?php
-      foreach ($rem as $row) {
-               $sid=$row['sid'];
-                $regnum=$row['regnum'];
-                $fname=$row['fname'];
-               $lname=$row['lname'];
-                $gender=$row['gender'];
-                $email=$row['email'];
-                $tel=$row['phone'];
-         ?>
-          <tr>
-            <td><?php echo $regnum; ?></td>
-            <td><?php echo $fname; ?></td>
-            <td><?php echo $lname; ?></td>
-            <td><?php echo $gender; ?></td>
-            <td><?php echo $email; ?></td>
-            <td><?php echo $tel; ?></td>
-            <td> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#m<?php echo $sid;?>"><span class="glyphicon glyphicon-info-sign"></span></button></td>
+                ?>
+           <div class="col-sm-12">
+         <table class="table table-striped">
+           <thead>
+             <tr>
+               <th>REG No</th>
+               <th>FIRSTNAME</th>
+               <th>LASTNAME</th>
+               <th>GENDER</th>
+                <th>E-MAIL</th>
+               <th>PHONE</th>
+               <th>MARKS</th>
+                <th>EDIT</th>
+               <th>REMOVE</th>
+             </tr>
+           </thead>
+           <tbody>
+           <?php
+         foreach ($rem as $row) {
+                  $sid=$row['sid'];
+                   $regnum=$row['regnum'];
+                   $fname=$row['fname'];
+                  $lname=$row['lname'];
+                   $gender=$row['gender'];
+                   $email=$row['email'];
+                   $tel=$row['phone'];
+            ?>
+             <tr>
+               <td><?php echo $regnum; ?></td>
+               <td><?php echo $fname; ?></td>
+               <td><?php echo $lname; ?></td>
+               <td><?php echo $gender; ?></td>
+               <td><?php echo $email; ?></td>
+               <td><?php echo $tel; ?></td>
+               <td> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#m<?php echo $sid;?>"><span class="glyphicon glyphicon-info-sign"></span></button></td>
                <td> <button type="button" class="btn btn-warning" data-toggle="modal" name="sedit" data-target="#myModal"><a href='studentedit.php?eid=<?php echo $sid;?>'><span class="glyphicon glyphicon-edit"></span></a></button></td>
                <td><button type="button" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete This Student?');"><a href='deletestudent.php?eid=<?php echo $sid;?>'><span class="glyphicon glyphicon-trash"></span></a></button></td>
              </tr>
@@ -1160,16 +1154,14 @@ a.mobile{
           foreach ($rem as $row){
             $tot=$row['tot'];
             if($tot){
-            if($tot>=90){
+             if($tot>=80){
               $grade='A';
-            }elseif($tot>=80){
+            }else if($tot>=70){
               $grade='B';
-            }elseif($tot>=70){
+            }else if($tot>=60){
               $grade='C';
-            }elseif($tot>=60){
+            }else if($tot>=50){
               $grade='D';
-            }elseif($tot>=50){
-              $grade='E';
             }else{
               $grade='F';
             }
@@ -1197,58 +1189,58 @@ a.mobile{
         </div>
       </div>
              <?php } ?>
-          <tr>
-          <td colspan="8"><button type="button" class="btn btn-primary" data-toggle="tab" href="#stdtreg">ADD NEW STUDENT</span></button></td>
-          </tr>
-        </tbody>
-      </table>
-        </div>
+             <tr>
+             <td colspan="8"><button type="button" class="btn btn-primary" data-toggle="tab" href="#stdtreg">ADD NEW STUDENT</span></button></td>
+             </tr>
+           </tbody>
+         </table>
+           </div>
 
-      </div>
+         </div>
 
-      </div>
-        <div id="m2" class="tab-pane fade">
-          <div class="row">
-       <?php
-       $sql = $con->prepare("SELECT s.sid,s.regnum,s.fname,s.lname,s.gender,s.email,s.phone FROM student as s,level as l,studentsesslevel as sl where s.sid=sl.sid and sl.seslevid=5 and sl.Ystatus='1' Group by sl.sid");
-              $sql->execute();
-              $rem=$sql->fetchAll();
+         </div>
+           <div id="ev2" class="tab-pane fade">
+             <div class="row">
+          <?php
+          $sql = $con->prepare("SELECT s.sid,s.regnum,s.fname,s.lname,s.gender,s.email,s.phone FROM student as s,level as l,studentsesslevel as sl where s.sid=sl.sid and sl.seslevid=5 and sl.Ystatus='1' Group by sl.sid");
+                 $sql->execute();
+                 $rem=$sql->fetchAll();
 
-             ?>
-        <div class="col-sm-12">
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>REG No</th>
-            <th>FIRSTNAME</th>
-            <th>LASTNAME</th>
-            <th>GENDER</th>
-             <th>E-MAIL</th>
-            <th>PHONE</th>
-            <th>MARKS</th>
-             <th>EDIT</th>
-            <th>REMOVE</th>
-          </tr>
-        </thead>
-        <tbody>
-        <?php
-      foreach ($rem as $row) {
-               $sid=$row['sid'];
-                $regnum=$row['regnum'];
-                $fname=$row['fname'];
-               $lname=$row['lname'];
-                $gender=$row['gender'];
-                $email=$row['email'];
-                $tel=$row['phone'];
-         ?>
-          <tr>
-            <td><?php echo $regnum; ?></td>
-            <td><?php echo $fname; ?></td>
-            <td><?php echo $lname; ?></td>
-            <td><?php echo $gender; ?></td>
-            <td><?php echo $email; ?></td>
-            <td><?php echo $tel; ?></td>
-            <td> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#m<?php echo $sid;?>"><span class="glyphicon glyphicon-info-sign"></span></button></td>
+                ?>
+           <div class="col-sm-12">
+         <table class="table table-striped">
+           <thead>
+             <tr>
+               <th>REG No</th>
+               <th>FIRSTNAME</th>
+               <th>LASTNAME</th>
+               <th>GENDER</th>
+                <th>E-MAIL</th>
+               <th>PHONE</th>
+                <th>MARKS</th>
+                <th>EDIT</th>
+               <th>REMOVE</th>
+             </tr>
+           </thead>
+           <tbody>
+           <?php
+         foreach ($rem as $row) {
+                  $sid=$row['sid'];
+                   $regnum=$row['regnum'];
+                   $fname=$row['fname'];
+                  $lname=$row['lname'];
+                   $gender=$row['gender'];
+                   $email=$row['email'];
+                   $tel=$row['phone'];
+            ?>
+             <tr>
+               <td><?php echo $regnum; ?></td>
+               <td><?php echo $fname; ?></td>
+               <td><?php echo $lname; ?></td>
+               <td><?php echo $gender; ?></td>
+               <td><?php echo $email; ?></td>
+               <td><?php echo $tel; ?></td>
+               <td> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#m<?php echo $sid;?>"><span class="glyphicon glyphicon-info-sign"></span></button></td>
                <td> <button type="button" class="btn btn-warning" data-toggle="modal" name="sedit" data-target="#myModal"><a href='studentedit.php?eid=<?php echo $sid;?>'><span class="glyphicon glyphicon-edit"></span></a></button></td>
                <td><button type="button" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete This Student?');"><a href='deletestudent.php?eid=<?php echo $sid;?>'><span class="glyphicon glyphicon-trash"></span></a></button></td>
              </tr>
@@ -1263,7 +1255,7 @@ a.mobile{
         </div>
         <div class="modal-body">
         
-  <div id="mark1" class="collapse in active">
+  <div id="mark2" class="collapse in active">
  <div class="table">
  <?php
    $sql = $con->prepare("SELECT s.regnum,s.fname,s.lname,m.level,c.cname,c.ccode,m.ass1,m.ass2,m.cat1,m.cat2,m.exam,SUM(m.ass1+m.ass2+m.cat1+m.cat2+m.exam) as tot from student as s,courses as c,marks as m where s.sid=m.sid and c.cid=m.cid and m.status='1' and m.level='level 2' and s.regnum='$regnum' GROUP BY c.cid");
@@ -1272,16 +1264,14 @@ a.mobile{
           foreach ($rem as $row){
             $tot=$row['tot'];
             if($tot){
-            if($tot>=90){
+             if($tot>=80){
               $grade='A';
-            }elseif($tot>=80){
+            }else if($tot>=70){
               $grade='B';
-            }elseif($tot>=70){
+            }else if($tot>=60){
               $grade='C';
-            }elseif($tot>=60){
+            }else if($tot>=50){
               $grade='D';
-            }elseif($tot>=50){
-              $grade='E';
             }else{
               $grade='F';
             }
@@ -1309,17 +1299,17 @@ a.mobile{
         </div>
       </div>
              <?php } ?>
-          <tr>
-          <td colspan="8"><button type="button" class="btn btn-primary" data-toggle="tab" href="#stdtreg">ADD NEW STUDENT</span></button></td>
-          </tr>
-        </tbody>
-      </table>
-        </div>
+             <tr>
+             <td colspan="8"><button type="button" class="btn btn-primary" data-toggle="tab" href="#stdtreg">ADD NEW STUDENT</span></button></td>
+             </tr>
+           </tbody>
+         </table>
+           </div>
 
-      </div>
+         </div>
 
-        </div>
-        <div id="m3" class="tab-pane fade">
+           </div>
+        <div id="ev3" class="tab-pane fade">
           <div class="row">
         <?php
        $sql = $con->prepare("SELECT s.sid,s.regnum,s.fname,s.lname,s.gender,s.email,s.phone FROM student as s,level as l,studentsesslevel as sl where s.sid=sl.sid and sl.seslevid=6 and sl.Ystatus='1' Group by sl.sid");
@@ -1384,16 +1374,14 @@ a.mobile{
           foreach ($rem as $row){
             $tot=$row['tot'];
             if($tot){
-            if($tot>=90){
+             if($tot>=80){
               $grade='A';
-            }elseif($tot>=80){
+            }else if($tot>=70){
               $grade='B';
-            }elseif($tot>=70){
+            }else if($tot>=60){
               $grade='C';
-            }elseif($tot>=60){
+            }else if($tot>=50){
               $grade='D';
-            }elseif($tot>=50){
-              $grade='E';
             }else{
               $grade='F';
             }
@@ -1515,16 +1503,14 @@ a.mobile{
           foreach ($rem as $row){
             $tot=$row['tot'];
             if($tot){
-            if($tot>=90){
+             if($tot>=80){
               $grade='A';
-            }elseif($tot>=80){
+            }else if($tot>=70){
               $grade='B';
-            }elseif($tot>=70){
+            }else if($tot>=60){
               $grade='C';
-            }elseif($tot>=60){
+            }else if($tot>=50){
               $grade='D';
-            }elseif($tot>=50){
-              $grade='E';
             }else{
               $grade='F';
             }
@@ -1627,16 +1613,14 @@ a.mobile{
           foreach ($rem as $row){
             $tot=$row['tot'];
             if($tot){
-            if($tot>=90){
+             if($tot>=80){
               $grade='A';
-            }elseif($tot>=80){
+            }else if($tot>=70){
               $grade='B';
-            }elseif($tot>=70){
+            }else if($tot>=60){
               $grade='C';
-            }elseif($tot>=60){
+            }else if($tot>=50){
               $grade='D';
-            }elseif($tot>=50){
-              $grade='E';
             }else{
               $grade='F';
             }
@@ -1739,16 +1723,14 @@ a.mobile{
           foreach ($rem as $row){
             $tot=$row['tot'];
             if($tot){
-            if($tot>=90){
+             if($tot>=80){
               $grade='A';
-            }elseif($tot>=80){
+            }else if($tot>=70){
               $grade='B';
-            }elseif($tot>=70){
+            }else if($tot>=60){
               $grade='C';
-            }elseif($tot>=60){
+            }else if($tot>=50){
               $grade='D';
-            }elseif($tot>=50){
-              $grade='E';
             }else{
               $grade='F';
             }
@@ -1893,11 +1875,11 @@ a.mobile{
     </div>
      <div class="form-group">
       <label for="title">FIRST NAME:</label>
-      <input type="text" class="form-control" pattern="[a-zA-Z]{1,15}" title="First name should be letters"  placeholder="Enter your first name" name="fname" required >
+      <input type="text" class="form-control" pattern="[a-zA-Z ]{1,50}" title="First name should be letters"  placeholder="Enter your first name" name="fname" required >
     </div>
     <div class="form-group">
       <label for="title">LAST NAME:</label>
-      <input type="text" class="form-control" pattern="[a-zA-Z]{1,15}" title="Last name should be letters" placeholder="Enter your last name" name="lname" required >
+      <input type="text" class="form-control" pattern="[a-zA-Z ]{1,50}" title="Last name should be letters" placeholder="Enter your last name" name="lname" required >
     </div>
     <div class="form-group">
       <label for="title">GENDER:</label>
@@ -1923,7 +1905,6 @@ a.mobile{
     </div>
    <input type="submit" name="ssave" class="btn btn-primary" value="SAVE" />
    </form>
-
     </div>
     <div id="addanouc" class="tab-pane fade">
       <div class="box-top">ADD ANNOUNCEMENT</div>
@@ -1951,7 +1932,7 @@ a.mobile{
               </div>
               <div class="form-group">
                 <label for="pwd">Title</label>
-                <input type="text" name="tit" pattern="[a-zA-Z]{1,15}" title="Title should be letters" class="form-control"/>
+                <input type="text" name="tit" pattern="[a-zA-Z ]{1,50}" title="Title should be letters" class="form-control"/>
               </div>
               <div class="form-group">
                 <label for="pwd">Announcement</label>
@@ -2153,15 +2134,15 @@ a.mobile{
           <form method="POST" class="form-signin">
      <div class="form-group">
       <label for="title">FIRST NAME:</label>
-      <input type="text" class="form-control" pattern="[a-zA-Z]{1,15}" title="First Name should be letters" placeholder="Enter your first name" name="lfname" required>
+      <input type="text" class="form-control" pattern="[a-zA-Z ]{1,50}" title="First Name should be letters" placeholder="Enter your first name" name="lfname" required>
     </div>
     <div class="form-group">
       <label for="title">LAST NAME:</label>
-      <input type="text" class="form-control" pattern="[a-zA-Z]{1,15}" title="Last Name should be letters" placeholder="Enter your last name" name="llname" required>
+      <input type="text" class="form-control" pattern="[a-zA-Z ]{1,50}" title="Last Name should be letters" placeholder="Enter your last name" name="llname" required>
     </div>
      <div class="form-group">
       <label for="title">Course NAME:</label>
-      <input type="text" class="form-control" pattern="[a-zA-Z]{1,15}" title="CourseName should be letters" placeholder="Enter Course name" name="lcname" required>
+      <input type="text" class="form-control" pattern="[a-zA-Z ]{1,50}" title="CourseName should be letters" placeholder="Enter Course name" name="lcname" required>
     </div>
      <div class="form-group">
       <label for="title">GENDER:</label>
@@ -2200,11 +2181,11 @@ a.mobile{
 <form method="POST" class="form-signin">
 <div class="form-group">
 <label for="title">FIRST NAME:</label>
-<input type="text" class="form-control" pattern="[a-zA-Z]{1,15}" title="First Name should be letters" placeholder="Enter your first name" name="fname" required>
+<input type="text" class="form-control" pattern="[a-zA-Z ]{1,50}" title="First Name should be letters" placeholder="Enter your first name" name="fname" required>
 </div>
 <div class="form-group">
 <label for="title">LAST NAME:</label>
-<input type="text" class="form-control" pattern="[a-zA-Z]{1,15}" title="Last name should be letters" placeholder="Enter your last name" name="lname" required>
+<input type="text" class="form-control" pattern="[a-zA-Z ]{1,50}" title="Last name should be letters" placeholder="Enter your last name" name="lname" required>
 </div>
 <div class="form-group">
 <label for="title">GENDER:</label>

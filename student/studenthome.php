@@ -268,16 +268,14 @@ a.mobile{
             $av=$av+1;
             $AvTot=$AvTot+$tot;
             $grade='';
-            if($tot>=90){
+            if($tot>=80){
               $grade='A';
-            }else if($tot>=80){
-              $grade='B';
             }else if($tot>=70){
-              $grade='C';
+              $grade='B';
             }else if($tot>=60){
-              $grade='D';
+              $grade='C';
             }else if($tot>=50){
-              $grade='E';
+              $grade='D';
             }else{
               $grade='F';
             }
@@ -348,16 +346,14 @@ a.mobile{
             $av=$av+1;
             $AvTot=$AvTot+$tot;
             $grade='';
-            if($tot>=90){
+            if($tot>=80){
               $grade='A';
-            }else if($tot>=80){
-              $grade='B';
             }else if($tot>=70){
-              $grade='C';
+              $grade='B';
             }else if($tot>=60){
-              $grade='D';
+              $grade='C';
             }else if($tot>=50){
-              $grade='E';
+              $grade='D';
             }else{
               $grade='F';
             }
@@ -427,16 +423,14 @@ a.mobile{
             $av=$av+1;
             $AvTot=$AvTot+$tot;
             $grade='';
-            if($tot>=90){
+            if($tot>=80){
               $grade='A';
-            }else if($tot>=80){
-              $grade='B';
             }else if($tot>=70){
-              $grade='C';
+              $grade='B';
             }else if($tot>=60){
-              $grade='D';
+              $grade='C';
             }else if($tot>=50){
-              $grade='E';
+              $grade='D';
             }else{
               $grade='F';
             }
